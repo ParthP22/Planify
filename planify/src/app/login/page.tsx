@@ -15,10 +15,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <h1>Planify Login</h1>
+    <div className="container mt-5 text-center">
+      <h1 className="mb-4">Planify Login</h1>
 
-      <button onClick={signIn}>
+      <button className="btn btn-primary" onClick={signIn}>
         Sign in with Google
       </button>
     </div>
