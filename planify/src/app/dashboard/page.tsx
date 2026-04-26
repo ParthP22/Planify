@@ -57,6 +57,12 @@ export default function Dashboard() {
                 Create Group
             </button>
 
+            {result && (
+                <div className="alert alert-success mt-3">
+                <div>Group Created!</div>
+                <div><b>Invite Code:</b> {result.inviteCode}</div>
+                </div>
+            )}
         </div>
     );
 }
