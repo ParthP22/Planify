@@ -56,6 +56,16 @@ export default function Dashboard() {
         }
     }
 
+    const loadGroups = async () => {
+        const user = auth.currentUser;
+        if(!user){
+            return;
+        }
+
+        const data = await getUserGroups(user.uid);
+        setGroups(data);
+    }
+
     return (
         <div className="container mt-5">
             <h1>Dashboard</h1>
