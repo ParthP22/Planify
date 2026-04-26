@@ -22,7 +22,7 @@ export default function Dashboard() {
                     router.push("/login");
                 }
                 else{
-                    loadGroups();
+                    loadGroups(user.uid);
                 }
             });
             
@@ -43,7 +43,7 @@ export default function Dashboard() {
 
         const res = await createGroup(groupName, user.uid);
         setResult(res);
-        loadGroups();
+        loadGroups(user.uid);
     }
 
     const handleJoin = async () => {
@@ -60,16 +60,15 @@ export default function Dashboard() {
             alert(error.message);
         }
 
-        loadGroups();
+        loadGroups(user.uid);
     }
 
-    const loadGroups = async () => {
-        const user = auth.currentUser;
-        if(!user){
+    const loadGroups = async (userId: string) => {
+        if(!userId){
             return;
         }
 
-        const data = await getUserGroups(user.uid);
+        const data = await getUserGroups(userId);
         setGroups(data);
     }
 
