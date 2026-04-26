@@ -14,6 +14,7 @@ export default function Dashboard() {
     const router = useRouter();
 
     useEffect(() => {
+        
             // Listen for authentication state changes
             const unsub = auth.onAuthStateChanged((user) => {
                 // If the user is not logged in, redirect to the login page
@@ -21,9 +22,13 @@ export default function Dashboard() {
                     router.push("/login");
                 }
             });
-
+            
             // Clean up the listener on unmount
             return () => unsub();
+    }, []);
+
+    useEffect(() => {
+        loadGroups();
     }, []);
 
     const handleCreateGroup = async () => {
@@ -39,6 +44,7 @@ export default function Dashboard() {
 
         const res = await createGroup(groupName, user.uid);
         setResult(res);
+        loadGroups();
     }
 
     const handleJoin = async () => {
@@ -54,6 +60,8 @@ export default function Dashboard() {
         catch (error: any){
             alert(error.message);
         }
+
+        loadGroups();
     }
 
     const loadGroups = async () => {
@@ -105,6 +113,19 @@ export default function Dashboard() {
                 <button className="btn btn-success" onClick={handleJoin}>
                     Join Group
                 </button>
+            </div>
+
+            <h3>Your Groups</h3>
+
+            <div className="row">
+                {groups.map((group) => (
+                    <div className="col-md-4" key={group.id}>
+                        <div className="card p-3 mb-3">
+                            <h5>{group.name}</h5>
+                            <p className="text-muted">Code: {group.inviteCode}</p>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );
