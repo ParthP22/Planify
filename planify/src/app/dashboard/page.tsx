@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
-import { createGroup } from "@/lib/groups";
+import { createGroup, joinGroup } from "@/lib/groups";
 
 export default function Dashboard() {
     const [groupName, setGroupName] = useState("");
     const [result, setResult] = useState<any>(null);
+    const [inviteCode, setInviteCode] = useState("");
     
     const router = useRouter();
 
@@ -37,6 +38,21 @@ export default function Dashboard() {
 
         const res = await createGroup(groupName, user.uid);
         setResult(res);
+    }
+
+    const handleJoin = async () => {
+        const user = auth.currentUser;
+        if(!user){
+            return;
+        }
+
+        try{
+            await joinGroup(inviteCode, user.uid);
+            alert("Joined group!");
+        }
+        catch (error: any){
+            alert(error.message);
+        }
     }
 
     return (
