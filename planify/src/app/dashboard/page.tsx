@@ -79,6 +79,22 @@ export default function Dashboard() {
                 <div><b>Invite Code:</b> {result.inviteCode}</div>
                 </div>
             )}
+
+            <div className="mt-5">
+
+                <h2>Join Group</h2>
+
+                <input
+                    className="form-control my-2"
+                    placeholder="Enter invite code"
+                    value={inviteCode}
+                    onChange={(e) => setInviteCode(e.target.value)}
+                />
+
+                <button className="btn btn-success" onClick={handleJoin}>
+                    Join Group
+                </button>
+            </div>
         </div>
     );
 }
