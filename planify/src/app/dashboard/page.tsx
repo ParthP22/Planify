@@ -26,6 +26,11 @@ export default function Dashboard() {
 
     const handleCreateGroup = async () => {
         const user = auth.currentUser;
+
+        // If the user is not logged in, we return.
+        // Ideally, this should never happen, since this
+        // case is already handled in the useEffect 
+        // function above, but it's good to be safe.
         if(!user){
             return;
         }
