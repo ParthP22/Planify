@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
+    const [groupName, setGroupName] = useState("");
+    const [result, setResult] = useState<any>(null);
+    
     const router = useRouter();
 
     useEffect(() => {
