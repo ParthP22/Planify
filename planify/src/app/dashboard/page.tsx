@@ -21,14 +21,13 @@ export default function Dashboard() {
                 if (!user) {
                     router.push("/login");
                 }
+                else{
+                    loadGroups();
+                }
             });
             
             // Clean up the listener on unmount
             return () => unsub();
-    }, []);
-
-    useEffect(() => {
-        loadGroups();
     }, []);
 
     const handleCreateGroup = async () => {
