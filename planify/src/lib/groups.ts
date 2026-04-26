@@ -60,3 +60,26 @@ export async function joinGroup(inviteCode: string, userId: string){
         }
     );
 }
+
+export async function getUserGroups(userId: string){
+    const groupsSnapshot = await getDocs(collection(db,"groups"));
+
+    const userGroups: any[] = [];
+
+    for(const groupDoc of groupsSnapshot.docs){
+        const membersSnap = await getDocs(
+            collection(db, "groups", groupDoc.id, "members")
+        );
+
+        const isMember = membersSnap.docs.some((doc) => doc.id === userId);
+
+        if(isMember){
+            userGroups.push({
+                id: groupDoc.id,
+                ...groupDoc.data(),
+            })
+        }
+    }
+
+    return userGroups;
+}
