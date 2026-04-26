@@ -43,6 +43,16 @@ export default function Dashboard() {
         <div className="container mt-5">
             <h1>Dashboard</h1>
             <p>You are logged in!</p>
+
+            <h2>Create Group</h2>
+
+            <input
+                className="form-control my-2"
+                placeholder="Group name"
+                value={groupName}
+                onChange={(e) => setGroupName(e.target.value)}
+            />
+
         </div>
     );
 }
