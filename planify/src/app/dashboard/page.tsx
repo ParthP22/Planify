@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
-import { createGroup, joinGroup } from "@/lib/groups";
+import { createGroup, joinGroup, getUserGroups } from "@/lib/groups";
 
 export default function Dashboard() {
+    const [groups, setGroups] = useState<any[]>([]);
     const [groupName, setGroupName] = useState("");
     const [result, setResult] = useState<any>(null);
     const [inviteCode, setInviteCode] = useState("");
