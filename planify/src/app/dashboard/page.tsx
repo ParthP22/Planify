@@ -118,7 +118,11 @@ export default function Dashboard() {
             <div className="row">
                 {groups.map((group) => (
                     <div className="col-md-4" key={group.id}>
-                        <div className="card p-3 mb-3">
+                        <div
+                            className="card p-3 mb-3"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => router.push(`/group/${group.id}`)}
+                        >
                             <h5>{group.name}</h5>
                             <p className="text-muted">Code: {group.inviteCode}</p>
                         </div>
