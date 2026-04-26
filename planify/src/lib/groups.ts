@@ -53,6 +53,7 @@ export async function joinGroup(inviteCode: string, userId: string){
 
     // Add user to members subcollection in the group, which means
     // the member has joined the group.
+    // The name of the members doc is the userId of the member who is joining.
     await setDoc(doc(db,"groups", groupId, "members", userId), {
             role: "member",
             joinedAt: serverTimestamp(),
