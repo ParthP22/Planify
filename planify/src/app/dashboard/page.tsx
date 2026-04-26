@@ -53,6 +53,10 @@ export default function Dashboard() {
                 onChange={(e) => setGroupName(e.target.value)}
             />
 
+            <button className="btn btn-primary" onClick={handleCreateGroup}>
+                Create Group
+            </button>
+
         </div>
     );
 }
