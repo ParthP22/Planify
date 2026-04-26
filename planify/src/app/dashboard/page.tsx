@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
+import { createGroup } from "@/lib/groups";
 
 export default function Dashboard() {
     const [groupName, setGroupName] = useState("");
@@ -22,6 +23,16 @@ export default function Dashboard() {
             // Clean up the listener on unmount
             return () => unsub();
     }, []);
+
+    const handleCreateGroup = async () => {
+        const user = auth.currentUser;
+        if(!user){
+            return;
+        }
+
+        const res = await createGroup(groupName, user.uid);
+        setResult(res);
+    }
 
     return (
         <div className="container mt-5">
