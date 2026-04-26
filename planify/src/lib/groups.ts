@@ -1,7 +1,16 @@
 "use client";
 
 import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { 
+    collection,
+    addDoc,
+    serverTimestamp,
+    query,
+    where,
+    doc,
+    getDocs,
+    setDoc,
+} from "firebase/firestore";
 import { generateInviteCode } from "../utils/groups/inviteCode";
 
 export async function createGroup(name: string, userId: string) {
@@ -18,4 +27,35 @@ export async function createGroup(name: string, userId: string) {
     groupId: docRef.id,
     inviteCode,
   };
+}
+
+
+export async function joinGroup(inviteCode: string, userId: string){
+    // Fetch the reference to the group collection
+    const groupsRef = collection(db, "groups");
+    
+    // Query the document from the group collection with the given invite code.
+    const q = query(groupsRef, where("inviteCode", "==", inviteCode));
+    
+    // Retrieve the documents from the query
+    const snapshot = await getDocs(q);
+
+    // If the snapshot is empty, then the group does not exist
+    if(snapshot.empty){
+        throw new Error("Group not found");
+    }
+
+    // Get the actual document of the group itself
+    const groupDoc = snapshot.docs[0];
+
+    // Get the id of the group
+    const groupId = groupDoc.id;
+
+    // Add user to members subcollection in the group, which means
+    // the member has joined the group.
+    await setDoc(doc(db,"groups", groupId, "members", userId), {
+            role: "member",
+            joinedAt: serverTimestamp(),
+        }
+    );
 }
