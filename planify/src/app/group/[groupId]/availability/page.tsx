@@ -76,7 +76,9 @@ export default function AvailabilityPage() {
         // Create cells array for the current row
         const cells = [];
 
-        // Add time label as the first column in the grid
+        // Add time label as the first column in the grid for the currenet row.
+        // The rest of the columns in this row will be the availability grid itself,
+        // which are added in the for-loop below
         cells.push(
             <td key="time" style={{ fontWeight: "bold", width: "80px" }}>
                 {formatHour(row)}
