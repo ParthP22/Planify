@@ -12,6 +12,7 @@ export default function AvailabilityPage() {
     const params = useParams();
     const router = useRouter();
     const groupId = params.groupId as string;
+    const rows = [];
 
     const [availabilitySlots, setAvailabilitySlots] = useState<number[]>(Array(NUM_ROWS * NUM_COLS).fill(0)); // 7 * 12
     const [loading, setLoading] = useState(true);
@@ -46,10 +47,36 @@ export default function AvailabilityPage() {
         return <div className="container mt-5">Loading...</div>;
     }
 
+    for (let row = 0; row < NUM_ROWS; row++) {
+        const cells = [];
+
+        for (let col = 0; col < NUM_COLS; col++) {
+            const index = row * NUM_COLS + col;
+            const active = availabilitySlots[index];
+
+            cells.push(
+                <td
+                    key={col}
+                    style={{
+                    cursor: "pointer",
+                    backgroundColor: active ? "#00FF00" : "#FFFFFF",
+                    height: "40px"
+                    }}
+                >
+                    {active ? "✓" : ""}
+                </td>
+            );
+        }
+
+        rows.push(<tr key={row}>{cells}</tr>);
+    }
+
     return (
         <div className="container mt-5">
             <h2 className="mb-4">Edit Availability</h2>
-
+            <table className="table table-bordered text-center">
+                <tbody>{rows}</tbody>
+            </table>
         </div>
     );
 
