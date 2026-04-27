@@ -6,11 +6,14 @@ import { auth, db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 export default function AvailabilityPage() {
+    const NUM_ROWS = 12;
+    const NUM_COLS = 7;
+
     const params = useParams();
     const router = useRouter();
     const groupId = params.groupId as string;
 
-    const [availabilitySlots, setAvailabilitySlots] = useState<number[]>(Array(84).fill(0)); // 7 * 12
+    const [availabilitySlots, setAvailabilitySlots] = useState<number[]>(Array(NUM_ROWS * NUM_COLS).fill(0)); // 7 * 12
     const [loading, setLoading] = useState(true);
 
     // Load existing availability
@@ -42,6 +45,13 @@ export default function AvailabilityPage() {
     if (loading) {
         return <div className="container mt-5">Loading...</div>;
     }
+
+    return (
+        <div className="container mt-5">
+            <h2 className="mb-4">Edit Availability</h2>
+
+        </div>
+    );
 
     
 }
