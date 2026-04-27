@@ -15,6 +15,9 @@ export default function GroupPage() {
       <h1>Group</h1>
       <p>Group ID: {groupId}</p>
       
+      <button onClick={() => router.push(`/group/${groupId}/availability`)}>
+        Edit My Availability
+      </button>
     </div>
 
     
