@@ -58,6 +58,18 @@ export default function AvailabilityPage() {
         setAvailabilitySlots(newSlots);
     }  
 
+    function formatHour(hour: number){
+        const suffix = hour < 12 ? "AM" : "PM";
+        
+        // Since the hours go from 12 AM, 1 AM, ..., 12 PM, 1 PM, ..., 12 AM,
+        // we need to force 12 AM/PM to be 12, not zero, when doing modulus.
+        // The rest of the hours are fine though.
+        const adjustedHour = (hour % 12 === 0) ? 12 : hour % 12;
+        
+        // Return the hour and AM/PM
+        return `${adjustedHour} ${suffix}`;
+    }
+
     // Iterate over the grid's dimensions and create each of the
     // cells for the user.
     for (let row = 0; row < NUM_ROWS; row++) {
@@ -95,7 +107,7 @@ export default function AvailabilityPage() {
     return (
         <div className="container mt-5">
             <h2 className="mb-4">Edit Availability</h2>
-            
+
             {/* Availability Grid */}
             <table className="table table-bordered text-center">
                 <tbody>{rows}</tbody>
