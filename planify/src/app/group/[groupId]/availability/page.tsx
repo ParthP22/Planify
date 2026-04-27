@@ -39,5 +39,9 @@ export default function AvailabilityPage() {
         return () => unsub();
     }, [groupId]);
 
+    if (loading) {
+        return <div className="container mt-5">Loading...</div>;
+    }
+
     
 }
