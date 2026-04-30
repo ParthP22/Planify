@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
+import { getAvailability } from "@/lib/availability";
 
 export default function AvailabilityPage() {
     const NUM_ROWS = 24;
@@ -25,7 +26,13 @@ export default function AvailabilityPage() {
                 return;
             }
             else{
-
+                try {
+                    const slots = await getAvailability(groupId, user.uid);
+                    setAvailabilitySlots(slots);
+                } 
+                catch (error) {
+                    console.error("Error fetching availability:", error);
+                }
                 setLoading(false);
             }
         });
