@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 export async function getAvailability(groupId: string, userId: string){
     const ref = doc(db, "groups", groupId, "availability", userId);
@@ -15,6 +15,6 @@ export async function getAvailability(groupId: string, userId: string){
 export async function saveAvailability(groupId: string, userId: string, slots: number[]){
     const ref = doc(db, "groups", groupId, "availability", userId);
 
-    await setDoc(ref, { slots });
+    await setDoc(ref, { slots, updatedAt: serverTimestamp() });
 
 }
