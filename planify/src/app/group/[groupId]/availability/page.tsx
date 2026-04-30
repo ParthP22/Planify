@@ -68,8 +68,17 @@ export default function AvailabilityPage() {
         return `${adjustedHour} ${suffix}`;
     }
 
-    function confirmAvailability(){
-        saveAvailability(groupId, auth.currentUser!.uid, availabilitySlots);
+    async function handleSave(){
+        const user = auth.currentUser;
+
+        if(!user){
+            return;
+        }
+
+        await saveAvailability(groupId, auth.currentUser!.uid, availabilitySlots);
+
+        alert("Availability saved successfully!");
+        
         router.push(`/group/${groupId}`);
     }
 
@@ -137,7 +146,7 @@ export default function AvailabilityPage() {
                 <tbody>{rows}</tbody>
             </table>
 
-            <button className="btn btn-success" onClick={confirmAvailability}>
+            <button className="btn btn-success" onClick={handleSave}>
                 Save Availability
             </button>
 
