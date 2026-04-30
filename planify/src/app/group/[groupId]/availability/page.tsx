@@ -131,6 +131,10 @@ export default function AvailabilityPage() {
                 </thead>
                 <tbody>{rows}</tbody>
             </table>
+
+            <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}`)}>
+                Back to Group
+            </button>
         </div>
     );
 
