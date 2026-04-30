@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
-import { getAvailability } from "@/lib/availability";
+import { getAvailability, saveAvailability } from "@/lib/availability";
 
 export default function AvailabilityPage() {
     const NUM_ROWS = 24;
@@ -66,6 +66,11 @@ export default function AvailabilityPage() {
         
         // Return the hour and AM/PM
         return `${adjustedHour} ${suffix}`;
+    }
+
+    function confirmAvailability(){
+        saveAvailability(groupId, auth.currentUser!.uid, availabilitySlots);
+        router.push(`/group/${groupId}`);
     }
 
     // Iterate over the grid's dimensions and create each of the
@@ -131,6 +136,10 @@ export default function AvailabilityPage() {
                 </thead>
                 <tbody>{rows}</tbody>
             </table>
+
+            <button className="btn btn-success" onClick={confirmAvailability}>
+                Save Availability
+            </button>
 
             <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}`)}>
                 Back to Group
