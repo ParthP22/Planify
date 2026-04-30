@@ -16,6 +16,7 @@ export default function AvailabilityPage() {
 
     const [availabilitySlots, setAvailabilitySlots] = useState<number[]>(Array(NUM_ROWS * NUM_COLS).fill(0)); // 7 * 12
     const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
 
     // Load existing availability
     useEffect(() => {
@@ -75,6 +76,7 @@ export default function AvailabilityPage() {
             return;
         }
 
+        setSaving(true);
         await saveAvailability(groupId, auth.currentUser!.uid, availabilitySlots);
 
         alert("Availability saved successfully!");
@@ -146,8 +148,8 @@ export default function AvailabilityPage() {
                 <tbody>{rows}</tbody>
             </table>
 
-            <button className="btn btn-success" onClick={handleSave}>
-                Save Availability
+            <button className="btn btn-success" onClick={handleSave} disabled={saving}>
+                {saving ? "Saving..." : "Save Availability"}
             </button>
 
             <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}`)}>
