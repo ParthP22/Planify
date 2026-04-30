@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { auth, db } from "@/lib/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { auth } from "@/lib/firebase";
 
 export default function AvailabilityPage() {
     const NUM_ROWS = 24;
@@ -26,14 +25,6 @@ export default function AvailabilityPage() {
                 return;
             }
             else{
-                // Retrieve the availability grid from the its subcollection in the Firestore DB
-                const ref = doc(db, "groups", groupId, "availability", user.uid);
-                const snapshot = await getDoc(ref);
-                
-                // If the snapshot exists, then you can update the availability slots state variable with the data from the snapshot
-                if (snapshot.exists()) {
-                    setAvailabilitySlots(snapshot.data().slots);
-                }
 
                 setLoading(false);
             }
