@@ -33,4 +33,15 @@ export async function getGroupAvailability(groupId: string){
         return [];
     }
 
+    const allSlots: number[][] = [];
+
+    snapshot.forEach((doc) => {
+        const data = doc.data();
+
+        if(data.slots){
+            allSlots.push(data.slots);
+        }
+    });
+
+    return allSlots;
 }
