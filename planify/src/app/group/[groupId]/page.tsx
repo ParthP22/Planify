@@ -1,6 +1,6 @@
 "use client";
 
-import { computeStrictOverlap, getGroupAvailability } from "@/lib/availability";
+import { computeAvailabilityCounts, computeStrictOverlap, getGroupAvailability } from "@/lib/availability";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -19,7 +19,7 @@ export default function GroupPage() {
     useEffect(() => {
         const fetchOverlap = async () => {
             const allSlots = await getGroupAvailability(groupId);
-            const result = computeStrictOverlap(allSlots);
+            const result = computeAvailabilityCounts(allSlots);
             setOverlap(result);
             setLoading(false);
         };
@@ -71,7 +71,7 @@ export default function GroupPage() {
                     height: "40px"
                     }}
                 >
-                    {active ? "✓" : ""}
+                    {active > 0 ? active : ""}
                 </td>
             );
         }
