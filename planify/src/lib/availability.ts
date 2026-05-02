@@ -62,3 +62,20 @@ export function computeStrictOverlap(allSlots: number[][]){
 
     return result;
 }
+
+export function computeAvailabilityCounts(allSlots: number[][]){
+    if(allSlots.length === 0){
+        return [];
+    }
+
+    const TOTAL_SLOTS = allSlots[0].length;
+    const counts = Array(TOTAL_SLOTS).fill(0);
+
+    for(const userSlots of allSlots){
+        for(let i = 0; i < TOTAL_SLOTS; i++){
+            counts[i] += userSlots[i];
+        }
+    }
+
+    return counts;
+}
