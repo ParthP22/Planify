@@ -1,6 +1,7 @@
 "use client";
 
 import { computeAvailabilityCounts, computeStrictOverlap, getGroupAvailability } from "@/lib/availability";
+import { getGroupMembers } from "@/lib/groups";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -10,6 +11,7 @@ export default function GroupPage() {
     const groupId = params.groupId as string;
     const router = useRouter();
     const [overlap, setOverlap] = useState<number[]>([]);
+    const [members, setMembers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     const NUM_ROWS = 24;
@@ -24,7 +26,18 @@ export default function GroupPage() {
             setLoading(false);
         };
 
+        const fetchMembers = async () => {
+            const memberData = await getGroupMembers(groupId);
+            if(!memberData){
+                return;
+            }
+            else{
+                setMembers(memberData);
+            }
+        };
+
         fetchOverlap();
+        fetchMembers();
     }, [groupId]);
 
     function formatHour(hour: number){
@@ -115,6 +128,18 @@ export default function GroupPage() {
             <button className="btn btn-secondary" onClick={() => router.push(`/dashboard`)}>
                 Back to Dashboard
             </button>
+
+            <div className="mb-4">
+                <h4>Members</h4>
+
+                <ul className="list-group">
+                    {members.map((member) => (
+                        <li key={member.id} className="list-group-item">
+                          {member.name || member.email}
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
             <div className="mt-4 p-3 border rounded container d-flex justify-content-center gap-4">
                 <h5>Legend: </h5>
