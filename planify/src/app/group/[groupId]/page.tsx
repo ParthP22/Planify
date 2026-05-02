@@ -65,12 +65,18 @@ export default function GroupPage() {
             // Find the maximum number of users available
             const maxUsers = Math.max(...overlap);
 
+            const isBestTime = availableUsers === maxUsers && maxUsers > 0;
+
             // Compute the intensity that the heatmap will show for this time slot
             const heatIntensity = availableUsers / maxUsers;
             
             // This determines the heat color of the current cell. The heat intensity
             // is used in the "alpha" parameter of RGBA, which defines opacity.
-            const heatColor = `rgba(0, 123, 255, ${heatIntensity})`;
+            let heatColor = `rgba(0, 123, 255, ${heatIntensity})`;
+
+            if(isBestTime){
+                heatColor = `rgba(0, 255, 123, ${heatIntensity})`;
+            }
             
             // Create the cell for the column in this table
             cells.push(
