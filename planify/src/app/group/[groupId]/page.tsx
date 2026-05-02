@@ -60,18 +60,28 @@ export default function GroupPage() {
             const index = row * NUM_COLS + col;
 
             // Retrieve whether or not this cell has been toggled
-            const active = overlap[index];
+            const availableUsers = overlap[index];
+
+            // Find the maximum number of users available
+            const maxUsers = Math.max(...overlap);
+
+            // Compute the intensity that the heatmap will show for this time slot
+            const heatIntensity = availableUsers / maxUsers;
+            
+            // This determines the heat color of the current cell. The heat intensity
+            // is used in the "alpha" parameter of RGBA, which defines opacity.
+            const heatColor = `rgba(0, 123, 255, ${heatIntensity})`;
             
             // Create the cell for the column in this table
             cells.push(
                 <td
                     key={col}
                     style={{
-                    backgroundColor: active ? "#0000FF" : "#FFFFFF",
-                    height: "40px"
+                    backgroundColor: availableUsers > 0 ? heatColor : "#FFFFFF",
+                    height: "40px",
                     }}
                 >
-                    {active > 0 ? active : ""}
+                    {availableUsers > 0 ? availableUsers : ""}
                 </td>
             );
         }
