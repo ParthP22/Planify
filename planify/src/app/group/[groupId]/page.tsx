@@ -109,6 +109,10 @@ export default function GroupPage() {
                 Edit My Availability
             </button>
 
+            <button onClick={() => router.push(`/dashboard`)}>
+                Back to Dashboard
+            </button>
+
             {/* Availability Grid */}
               {overlap.length === 0 ? (
                   <p>No availability has been entered</p>
