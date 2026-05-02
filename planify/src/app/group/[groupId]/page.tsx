@@ -105,11 +105,13 @@ export default function GroupPage() {
             <h1>Group</h1>
             <p>Group ID: {groupId}</p>
             
-            <button onClick={() => router.push(`/group/${groupId}/availability`)}>
+            <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}/availability`)}>
                 Edit My Availability
             </button>
 
-            <button onClick={() => router.push(`/dashboard`)}>
+            <br></br>
+
+            <button className="btn btn-secondary" onClick={() => router.push(`/dashboard`)}>
                 Back to Dashboard
             </button>
 
