@@ -116,6 +116,51 @@ export default function GroupPage() {
                 Back to Dashboard
             </button>
 
+            <div className="mt-4 container d-flex justify-content-center gap-4">
+                <h5>Legend: </h5>
+
+                <div className="d-flex align-items-center gap-3 flex-wrap">
+
+                    <div className="d-flex align-items-center">
+                        <div
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            backgroundColor: "#EEEEEE",
+                            marginRight: "8px",
+                            border: "1px solid #ccc"
+                          }}
+                        />
+                        <span>No one available</span>
+                    </div>
+
+                    <div className="d-flex align-items-center">
+                        <div
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            backgroundColor: "rgba(0, 255, 123, 0.5)",
+                            marginRight: "8px"
+                          }}
+                        />
+                        <span>Some people available</span>
+                    </div>
+
+                    <div className="d-flex align-items-center">
+                        <div
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            backgroundColor: "rgba(0, 123, 255, 0.5)",
+                            marginRight: "8px"
+                          }}
+                        />
+                        <span>Best time (most people available)</span>
+                    </div>
+
+                </div>
+            </div>
+
             {/* Availability Grid */}
               {overlap.length === 0 ? (
                   <p>No availability has been entered</p>
