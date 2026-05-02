@@ -88,21 +88,25 @@ export default function GroupPage() {
             </button>
 
             {/* Availability Grid */}
-            <table className="table table-bordered text-center">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                    </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-            </table>
+              {overlap.length === 0 ? 
+                (<p>No availability has been entered</p>) 
+                :
+                (<table className="table table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                </table>)
+              }
         </div>
 
       
