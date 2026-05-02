@@ -13,7 +13,7 @@ export async function getAvailability(groupId: string, userId: string){
     const snapshot = await getDoc(ref);
 
     if(!snapshot.exists()){
-        throw new Error("Availability not found");
+        return null;
     }
 
     return snapshot.data().slots as number[];
