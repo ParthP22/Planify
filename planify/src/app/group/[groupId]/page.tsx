@@ -83,7 +83,7 @@ export default function GroupPage() {
                 <td
                     key={col}
                     style={{
-                    backgroundColor: availableUsers > 0 ? heatColor : "#FFFFFF",
+                    backgroundColor: availableUsers > 0 ? heatColor : "#EEEEEE",
                     height: "40px",
                     }}
                 >
