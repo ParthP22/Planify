@@ -49,7 +49,7 @@ export default function GroupPage() {
         // The rest of the columns in this row will be the availability grid itself,
         // which are added in the for-loop below
         cells.push(
-            <td key="time" style={{ fontWeight: "bold", width: "80px" }}>
+            <td key="time" style={{ fontWeight: "bold", width: "60px" }}>
                 {formatHour(row)}
             </td>
         );
@@ -84,7 +84,8 @@ export default function GroupPage() {
                     key={col}
                     style={{
                     backgroundColor: availableUsers > 0 ? heatColor : "#EEEEEE",
-                    height: "40px",
+                    height: "20px",
+                    width: "60px",
                     }}
                 >
                     {availableUsers > 0 ? availableUsers : ""}
