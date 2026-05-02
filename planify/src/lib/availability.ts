@@ -45,3 +45,20 @@ export async function getGroupAvailability(groupId: string){
 
     return allSlots;
 }
+
+export function computeStrictOverlap(allSlots: number[][]){
+    if(allSlots.length === 0){
+        return [];
+    }
+
+    const TOTAL_SLOTS = allSlots[0].length;
+    const result = Array(TOTAL_SLOTS).fill(1);
+
+    for(const userSlots of allSlots){
+        for(let i = 0; i < TOTAL_SLOTS; i++){
+            result[i] = result[i] & userSlots[i];
+        }
+    }
+
+    return result;
+}
