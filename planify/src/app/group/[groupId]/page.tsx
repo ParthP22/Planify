@@ -116,7 +116,7 @@ export default function GroupPage() {
                 Back to Dashboard
             </button>
 
-            <div className="mt-4 container d-flex justify-content-center gap-4">
+            <div className="mt-4 p-3 border rounded container d-flex justify-content-center gap-4">
                 <h5>Legend: </h5>
 
                 <div className="d-flex align-items-center gap-3 flex-wrap">
