@@ -10,6 +10,7 @@ import {
     doc,
     getDocs,
     setDoc,
+    getDoc,
 } from "firebase/firestore";
 import { generateInviteCode } from "../utils/groups/inviteCode";
 
@@ -82,4 +83,37 @@ export async function getUserGroups(userId: string){
     }
 
     return userGroups;
+}
+
+export async function getGroupMembers(groupId: string){
+    const membersRef = collection(db, "groups", groupId, "members");
+    const membersSnapshot = await getDocs(membersRef);
+
+    if(membersSnapshot.empty){
+        return [];
+    }
+
+    const members = [];
+
+    for(const memberDoc of membersSnapshot.docs){
+        const userId = memberDoc.id;
+
+        const userSnapshot = await getDoc(doc(db, "users", userId));
+        console.log(userSnapshot.data());
+
+        if(userSnapshot.exists()){
+            members.push({
+                id: userId,
+                ...userSnapshot.data(),
+            });
+        }
+        else{
+            members.push({
+                id: userId,
+                name: "Unknown User",
+            });
+        }
+    }
+
+    return members;
 }
