@@ -9,7 +9,8 @@ export default function LoginPage() {
 
   const signIn = async () => {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    const loginData = await signInWithPopup(auth, provider);
+    const user = loginData.user;
 
     router.push("/dashboard");
   };
