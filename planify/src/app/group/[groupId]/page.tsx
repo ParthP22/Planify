@@ -2,11 +2,13 @@
 
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function GroupPage() {
   const params = useParams();
   const groupId = params.groupId as string;
   const router = useRouter();
+  const [overlap, setOverlap] = useState<number[]>([]);
 
 
 
