@@ -135,6 +135,17 @@ export default function GroupPage() {
                 <ul className="list-group">
                     {members.map((member) => (
                         <li key={member.id} className="list-group-item">
+                          {/* Display the user's photo if they have one */ }
+                          {member.photoURL && (
+                            <img
+                              src={member.photoURL}
+                              alt={member.name}
+                              className="rounded-circle"
+                              style={{ width: "30px", height: "30px", marginRight: "10px" }}
+                            />
+                          )}
+
+                          {/* Display the user's name. If they don't have one saved, then display their email */}
                           {member.name || member.email}
                         </li>
                     ))}
