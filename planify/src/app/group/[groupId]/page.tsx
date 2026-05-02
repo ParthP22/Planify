@@ -10,6 +10,7 @@ export default function GroupPage() {
     const groupId = params.groupId as string;
     const router = useRouter();
     const [overlap, setOverlap] = useState<number[]>([]);
+    const [loading, setLoading] = useState(true);
 
     const NUM_ROWS = 24;
     const NUM_COLS = 7;
@@ -20,6 +21,7 @@ export default function GroupPage() {
             const allSlots = await getGroupAvailability(groupId);
             const result = computeStrictOverlap(allSlots);
             setOverlap(result);
+            setLoading(false);
         };
 
         fetchOverlap();
@@ -78,6 +80,10 @@ export default function GroupPage() {
         rows.push(<tr key={row}>{cells}</tr>);
     }
 
+    if(loading){
+      return <p>Loading... </p>;
+    }
+
     return (
         <div className="container mt-5">
             <h1>Group</h1>
@@ -88,24 +94,25 @@ export default function GroupPage() {
             </button>
 
             {/* Availability Grid */}
-              {overlap.length === 0 ? 
-                (<p>No availability has been entered</p>) 
-                :
-                (<table className="table table-bordered text-center">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Sun</th>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                        </tr>
-                    </thead>
-                    <tbody>{rows}</tbody>
-                </table>)
+              {overlap.length === 0 ? (
+                  <p>No availability has been entered</p>
+                ) : (
+                  <table className="table table-bordered text-center">
+                      <thead>
+                          <tr>
+                              <th>Time</th>
+                              <th>Sun</th>
+                              <th>Mon</th>
+                              <th>Tue</th>
+                              <th>Wed</th>
+                              <th>Thu</th>
+                              <th>Fri</th>
+                              <th>Sat</th>
+                          </tr>
+                      </thead>
+                      <tbody>{rows}</tbody>
+                  </table>
+                )
               }
         </div>
 
