@@ -14,6 +14,10 @@ export default function Navbar() {
                     <Link className="nav-link" href="/dashboard">
                         Dashboard
                     </Link>
+
+                    <button className="btn btn-outline-danger btn-sm">
+                        Logout
+                    </button>
                 </div>
             </div>
         </nav> 
