@@ -42,6 +42,16 @@ export default function Navbar() {
                         Dashboard
                     </Link>
                 <div className="d-flex align-items-center gap-3">
+                    
+
+                    {user && user.photoURL && (
+                        <img
+                            src={user.photoURL}
+                            alt="User"
+                            className="rounded-circle"
+                            style={{ width: "30px", height: "30px"}}
+                        />
+                    )}
 
                     {user && (
                         <span className="text-muted">
