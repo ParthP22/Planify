@@ -117,3 +117,17 @@ export async function getGroupMembers(groupId: string){
 
     return members;
 }
+
+export async function getGroupName(groupId: string){
+    const groupRef = doc(db, "groups", groupId);
+    const groupSnapshot = await getDoc(groupRef);
+
+    if(!groupSnapshot.exists()){
+        return null;
+    }
+    else{
+        const groupData = groupSnapshot.data();
+        const groupName = groupData.name;
+        return groupName;
+    }
+}
