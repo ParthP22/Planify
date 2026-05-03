@@ -1,7 +1,7 @@
 "use client";
 
 import { computeAvailabilityCounts, computeStrictOverlap, getGroupAvailability } from "@/lib/availability";
-import { getGroupMembers } from "@/lib/groups";
+import { getGroupMembers, getGroupName } from "@/lib/groups";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -11,6 +11,7 @@ export default function GroupPage() {
     const params = useParams();
     const groupId = params.groupId as string;
     const router = useRouter();
+    const [groupName, setGroupName] = useState("Group");
     const [overlap, setOverlap] = useState<number[]>([]);
     const [members, setMembers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -26,6 +27,11 @@ export default function GroupPage() {
                 return;
             }
             else{
+              const fetchGroupName = async () => {
+                  const retrievedGroupName = await getGroupName(groupId);
+                  setGroupName(retrievedGroupName);
+              };
+
               const fetchOverlap = async () => {
                   const allSlots = await getGroupAvailability(groupId);
                   const result = computeAvailabilityCounts(allSlots);
@@ -42,7 +48,8 @@ export default function GroupPage() {
                       setMembers(memberData);
                   }
               };
-
+              
+              fetchGroupName();
               fetchOverlap();
               fetchMembers();
             }
@@ -128,7 +135,7 @@ export default function GroupPage() {
 
     return (
         <div className="container mt-5">
-            <h1>Group</h1>
+            <h1>{groupName}</h1>
             <p>Group ID: {groupId}</p>
             
             <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}/availability`)}>
