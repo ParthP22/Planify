@@ -1,9 +1,21 @@
+"use client";
 
+import Link from "next/link";
 
-export async function Navbar(){
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-            <a className="navbar-brand" href="#">Planify</a>
-        </div>
-    </nav>
+export default function Navbar() {
+
+    return (
+        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <div className="container-fluid">
+                <Link className="navbar-brand" href="/dashboard">
+                    Planify
+                </Link>
+                <div className="d-flex align-items-center gap-3">
+                    <Link className="nav-link" href="/dashboard">
+                        Dashboard
+                    </Link>
+                </div>
+            </div>
+        </nav> 
+    );
 }
