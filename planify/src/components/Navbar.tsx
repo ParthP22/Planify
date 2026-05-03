@@ -32,41 +32,43 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="navbar bg-body-tertiary">
-            <div className="container-fluid">
-                <Link className="navbar-brand" href="/dashboard">
-                    Planify
-                </Link>
+        <nav className="navbar bg-body-tertiary px-3">
+            <Link className="navbar-brand" href="/dashboard">
+                Planify
+            </Link>
 
+            <div className="d-flex align-items-center gap-3">
                 <Link className="nav-link" href="/dashboard">
-                        Dashboard
-                    </Link>
-                <div className="d-flex align-items-center gap-3">
-                    
-
-                    {user && user.photoURL && (
-                        <img
-                            src={user.photoURL}
-                            alt="User"
-                            className="rounded-circle"
-                            style={{ width: "30px", height: "30px"}}
-                        />
-                    )}
-
-                    {user && (
-                        <span className="text-muted">
-                            {user.displayName}
-                        </span>
-                    )}
-
-
-                    {user && (
-                        <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
-                            Logout
-                        </button>
-                    )}
-                </div>
+                    Dashboard
+                </Link>
             </div>
-        </nav> 
+
+            <div className="d-flex align-items-center gap-3 ms-auto">
+
+                {user && user.photoURL && (
+                    <img
+                        src={user.photoURL}
+                        alt="User"
+                        className="rounded-circle"
+                        style={{ width: "30px", height: "30px" }}
+                    />
+                )}
+
+                {user && (
+                    <span className="text-muted">
+                        {user.displayName}
+                    </span>
+                )}
+
+                {user && (
+                    <button
+                        className="btn btn-outline-danger btn-sm"
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </button>
+                )}
+            </div>
+        </nav>
     );
 }
