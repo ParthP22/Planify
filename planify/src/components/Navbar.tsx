@@ -33,11 +33,11 @@ export default function Navbar() {
 
     return (
         <nav className="navbar bg-body-tertiary px-3">
-            <Link className="navbar-brand" href="/dashboard">
-                Planify
-            </Link>
 
             <div className="d-flex align-items-center gap-3">
+                <Link className="navbar-brand" href="/dashboard">
+                    Planify
+                </Link>
                 <Link className="nav-link" href="/dashboard">
                     Dashboard
                 </Link>
