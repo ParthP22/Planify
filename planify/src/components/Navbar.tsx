@@ -32,15 +32,23 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar bg-body-tertiary">
             <div className="container-fluid">
                 <Link className="navbar-brand" href="/dashboard">
                     Planify
                 </Link>
-                <div className="d-flex align-items-center gap-3">
-                    <Link className="nav-link" href="/dashboard">
+
+                <Link className="nav-link" href="/dashboard">
                         Dashboard
                     </Link>
+                <div className="d-flex align-items-center gap-3">
+
+                    {user && (
+                        <span className="text-muted">
+                            {user.displayName}
+                        </span>
+                    )}
+
 
                     {user && (
                         <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
