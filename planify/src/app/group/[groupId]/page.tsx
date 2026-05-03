@@ -2,7 +2,6 @@
 
 import { computeAvailabilityCounts, computeStrictOverlap, getGroupAvailability } from "@/lib/availability";
 import { getGroupMembers } from "@/lib/groups";
-import { onAuthStateChanged } from "firebase/auth";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
