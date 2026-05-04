@@ -11,6 +11,7 @@ import {
     getDocs,
     setDoc,
     getDoc,
+    deleteDoc,
 } from "firebase/firestore";
 import { generateInviteCode } from "../utils/groups/inviteCode";
 
@@ -129,5 +130,29 @@ export async function getGroupName(groupId: string){
         const groupData = groupSnapshot.data();
         const groupName = groupData.name;
         return groupName;
+    }
+}
+
+export async function leaveGroup(groupId: string, memberId: string){
+    // Fetch the member from the group.
+    const memberRef = doc(db, "groups", groupId, "members", memberId);
+    const memberSnapshot = await getDoc(memberRef);
+
+    if(!memberSnapshot.exists()){
+        return null;
+    }
+
+    // Remove the member from the group if they left.
+    await deleteDoc(memberRef);
+
+
+    // Check if the group is empty.
+    const membersRef = collection(db, "groups", groupId, "members");
+    const membersSnapshot = await getDocs(membersRef);
+
+    // If there are no more members in the group, then delete the group.
+    if(membersSnapshot.empty){
+        const groupRef = doc(db, "groups", groupId);
+        await deleteDoc(groupRef);
     }
 }
