@@ -135,18 +135,23 @@ export default function GroupPage() {
 
     return (
         <div className="container mt-5">
-            <h1>{groupName}</h1>
-            <p>Group ID: {groupId}</p>
+            <h1 className="display-4 text-center mb-4">{groupName}</h1>
             
-            <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}/availability`)}>
-                Edit My Availability
-            </button>
+            <div className="d-flex gap-2">
+              <button 
+                  className="btn btn-outline-secondary"
+                  onClick={() => router.push(`/dashboard`)}
+              >
+                  ← Dashboard
+              </button>
 
-            <br></br>
-
-            <button className="btn btn-secondary" onClick={() => router.push(`/dashboard`)}>
-                Back to Dashboard
-            </button>
+              <button 
+                  className="btn btn-primary"
+                  onClick={() => router.push(`/group/${groupId}/availability`)}
+              >
+                  Edit Availability
+              </button>
+          </div>
 
             <div className="mb-4">
                 <h4>Members</h4>
