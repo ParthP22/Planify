@@ -161,6 +161,10 @@ export default function GroupPage() {
                     Edit Availability
                 </button>
 
+                <button className="btn btn-danger" onClick={handleLeaveGroup}>
+                    Leave Group
+                </button>
+
           </div>
 
             <div className="mb-4">
