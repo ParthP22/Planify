@@ -1,7 +1,7 @@
 "use client";
 
 import { computeAvailabilityCounts, computeStrictOverlap, getGroupAvailability } from "@/lib/availability";
-import { getGroupMembers, getGroupName } from "@/lib/groups";
+import { getGroupMembers, getGroupName, leaveGroup } from "@/lib/groups";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -71,6 +71,15 @@ export default function GroupPage() {
         return `${adjustedHour} ${suffix}`;
     }
 
+    async function handleLeaveGroup(){
+        if(!auth.currentUser){
+            return;
+        }
+        else{
+            await leaveGroup(groupId, auth.currentUser.uid);
+        }
+    }
+
     // Iterate over the grid's dimensions and create each of the
     // cells for the user.
     for (let row = 0; row < NUM_ROWS; row++) {
@@ -138,19 +147,20 @@ export default function GroupPage() {
             <h1 className="display-4 text-center mb-4">{groupName}</h1>
             
             <div className="d-flex gap-2">
-              <button 
-                  className="btn btn-outline-secondary"
-                  onClick={() => router.push(`/dashboard`)}
-              >
-                  ← Dashboard
-              </button>
+                <button 
+                    className="btn btn-outline-secondary"
+                    onClick={() => router.push(`/dashboard`)}
+                >
+                    ← Dashboard
+                </button>
 
-              <button 
-                  className="btn btn-primary"
-                  onClick={() => router.push(`/group/${groupId}/availability`)}
-              >
-                  Edit Availability
-              </button>
+                <button 
+                    className="btn btn-primary"
+                    onClick={() => router.push(`/group/${groupId}/availability`)}
+                >
+                    Edit Availability
+                </button>
+
           </div>
 
             <div className="mb-4">
