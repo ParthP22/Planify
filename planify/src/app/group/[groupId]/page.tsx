@@ -1,12 +1,11 @@
 "use client";
 
-import { computeAvailabilityCounts, computeStrictOverlap, getGroupAvailability } from "@/lib/availability";
+import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
 import { getGroupMembers, getGroupName, leaveGroup, verifyMembership } from "@/lib/groups";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { auth } from "@/lib/firebase";
-import { group } from "console";
 
 export default function GroupPage() {
     const params = useParams();
