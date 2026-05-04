@@ -156,3 +156,15 @@ export async function leaveGroup(groupId: string, memberId: string){
         await deleteDoc(groupRef);
     }
 }
+
+export async function verifyMembership(groupId: string, memberId: string){
+    const memberRef = doc(db, "groups", groupId, "members", memberId);
+    const memberSnapshot = await getDoc(memberRef);
+
+    if(memberSnapshot.exists()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
