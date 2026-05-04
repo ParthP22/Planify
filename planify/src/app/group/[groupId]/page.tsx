@@ -5,6 +5,7 @@ import { getGroupMembers } from "@/lib/groups";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { auth } from "@/lib/firebase";
 
 export default function GroupPage() {
     const params = useParams();
@@ -19,25 +20,36 @@ export default function GroupPage() {
     const rows = [];
 
     useEffect(() => {
-        const fetchOverlap = async () => {
-            const allSlots = await getGroupAvailability(groupId);
-            const result = computeAvailabilityCounts(allSlots);
-            setOverlap(result);
-            setLoading(false);
-        };
-
-        const fetchMembers = async () => {
-            const memberData = await getGroupMembers(groupId);
-            if(!memberData){
+        const unsub = auth.onAuthStateChanged((user) => {
+            if(!user){
+                router.push("/login");
                 return;
             }
             else{
-                setMembers(memberData);
-            }
-        };
+              const fetchOverlap = async () => {
+                  const allSlots = await getGroupAvailability(groupId);
+                  const result = computeAvailabilityCounts(allSlots);
+                  setOverlap(result);
+                  setLoading(false);
+              };
 
-        fetchOverlap();
-        fetchMembers();
+              const fetchMembers = async () => {
+                  const memberData = await getGroupMembers(groupId);
+                  if(!memberData){
+                      return;
+                  }
+                  else{
+                      setMembers(memberData);
+                  }
+              };
+
+              fetchOverlap();
+              fetchMembers();
+            }
+        });
+
+        
+        return () => unsub();
     }, [groupId]);
 
     function formatHour(hour: number){
