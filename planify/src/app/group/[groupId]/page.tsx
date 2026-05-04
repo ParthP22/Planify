@@ -54,6 +54,7 @@ export default function GroupPage() {
                     console.log(user.uid);
                     const isMember = await verifyMembership(groupId, user.uid);
                     if(!isMember){
+                        alert("You are not a member of this group!");
                         router.push("/dashboard");
                     }
                 };
