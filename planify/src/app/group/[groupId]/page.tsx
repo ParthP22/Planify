@@ -1,11 +1,12 @@
 "use client";
 
 import { computeAvailabilityCounts, computeStrictOverlap, getGroupAvailability } from "@/lib/availability";
-import { getGroupMembers, getGroupName, leaveGroup } from "@/lib/groups";
+import { getGroupMembers, getGroupName, leaveGroup, verifyMembership } from "@/lib/groups";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { auth } from "@/lib/firebase";
+import { group } from "console";
 
 export default function GroupPage() {
     const params = useParams();
@@ -27,31 +28,40 @@ export default function GroupPage() {
                 return;
             }
             else{
-              const fetchGroupName = async () => {
-                  const retrievedGroupName = await getGroupName(groupId);
-                  setGroupName(retrievedGroupName);
-              };
+                const fetchGroupName = async () => {
+                    const retrievedGroupName = await getGroupName(groupId);
+                    setGroupName(retrievedGroupName);
+                };
 
-              const fetchOverlap = async () => {
-                  const allSlots = await getGroupAvailability(groupId);
-                  const result = computeAvailabilityCounts(allSlots);
-                  setOverlap(result);
-                  setLoading(false);
-              };
+                const fetchOverlap = async () => {
+                    const allSlots = await getGroupAvailability(groupId);
+                    const result = computeAvailabilityCounts(allSlots);
+                    setOverlap(result);
+                    setLoading(false);
+                };
 
-              const fetchMembers = async () => {
-                  const memberData = await getGroupMembers(groupId);
-                  if(!memberData){
-                      return;
-                  }
-                  else{
-                      setMembers(memberData);
-                  }
-              };
-              
-              fetchGroupName();
-              fetchOverlap();
-              fetchMembers();
+                const fetchMembers = async () => {
+                    const memberData = await getGroupMembers(groupId);
+                    if(!memberData){
+                        return;
+                    }
+                    else{
+                        setMembers(memberData);
+                    }
+                };
+
+                const verifyMember = async () => {
+                    console.log(user.uid);
+                    const isMember = await verifyMembership(groupId, user.uid);
+                    if(!isMember){
+                        router.push("/dashboard");
+                    }
+                };
+                
+                verifyMember();
+                fetchGroupName();
+                fetchOverlap();
+                fetchMembers();
             }
         });
 
