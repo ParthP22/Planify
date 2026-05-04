@@ -87,6 +87,7 @@ export default function GroupPage() {
             return;
         }
         else{
+            router.push("/dashboard");
             await leaveGroup(groupId, auth.currentUser.uid);
         }
     }
