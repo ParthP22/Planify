@@ -27,13 +27,14 @@ export default function AvailabilityPage() {
                 return;
             }
             else{
-                try {
-                    const slots = await getAvailability(groupId, user.uid);
+                const slots = await getAvailability(groupId, user.uid);
+                if(slots !== null){
                     setAvailabilitySlots(slots);
-                } 
-                catch (error) {
-                    console.error("Error fetching availability:", error);
                 }
+                else{
+                    setAvailabilitySlots(Array(NUM_ROWS * NUM_COLS).fill(0));
+                }
+            
                 setLoading(false);
             }
         });
