@@ -1,7 +1,7 @@
 "use client";
 
-import { computeAvailabilityCounts, computeStrictOverlap, getGroupAvailability } from "@/lib/availability";
-import { getGroupMembers, getGroupName } from "@/lib/groups";
+import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
+import { getGroupMembers, getGroupName, leaveGroup, verifyMembership } from "@/lib/groups";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -27,31 +27,41 @@ export default function GroupPage() {
                 return;
             }
             else{
-              const fetchGroupName = async () => {
-                  const retrievedGroupName = await getGroupName(groupId);
-                  setGroupName(retrievedGroupName);
-              };
+                const fetchGroupName = async () => {
+                    const retrievedGroupName = await getGroupName(groupId);
+                    setGroupName(retrievedGroupName);
+                };
 
-              const fetchOverlap = async () => {
-                  const allSlots = await getGroupAvailability(groupId);
-                  const result = computeAvailabilityCounts(allSlots);
-                  setOverlap(result);
-                  setLoading(false);
-              };
+                const fetchOverlap = async () => {
+                    const allSlots = await getGroupAvailability(groupId);
+                    const result = computeAvailabilityCounts(allSlots);
+                    setOverlap(result);
+                    setLoading(false);
+                };
 
-              const fetchMembers = async () => {
-                  const memberData = await getGroupMembers(groupId);
-                  if(!memberData){
-                      return;
-                  }
-                  else{
-                      setMembers(memberData);
-                  }
-              };
-              
-              fetchGroupName();
-              fetchOverlap();
-              fetchMembers();
+                const fetchMembers = async () => {
+                    const memberData = await getGroupMembers(groupId);
+                    if(!memberData){
+                        return;
+                    }
+                    else{
+                        setMembers(memberData);
+                    }
+                };
+
+                const verifyMember = async () => {
+                    console.log(user.uid);
+                    const isMember = await verifyMembership(groupId, user.uid);
+                    if(!isMember){
+                        alert("You are not a member of this group!");
+                        router.push("/dashboard");
+                    }
+                };
+                
+                verifyMember();
+                fetchGroupName();
+                fetchOverlap();
+                fetchMembers();
             }
         });
 
@@ -69,6 +79,16 @@ export default function GroupPage() {
         
         // Return the hour and AM/PM
         return `${adjustedHour} ${suffix}`;
+    }
+
+    async function handleLeaveGroup(){
+        if(!auth.currentUser){
+            return;
+        }
+        else{
+            router.push("/dashboard");
+            await leaveGroup(groupId, auth.currentUser.uid);
+        }
     }
 
     // Iterate over the grid's dimensions and create each of the
@@ -138,19 +158,24 @@ export default function GroupPage() {
             <h1 className="display-4 text-center mb-4">{groupName}</h1>
             
             <div className="d-flex gap-2">
-              <button 
-                  className="btn btn-outline-secondary"
-                  onClick={() => router.push(`/dashboard`)}
-              >
-                  ← Dashboard
-              </button>
+                <button 
+                    className="btn btn-outline-secondary"
+                    onClick={() => router.push(`/dashboard`)}
+                >
+                    ← Dashboard
+                </button>
 
-              <button 
-                  className="btn btn-primary"
-                  onClick={() => router.push(`/group/${groupId}/availability`)}
-              >
-                  Edit Availability
-              </button>
+                <button 
+                    className="btn btn-primary"
+                    onClick={() => router.push(`/group/${groupId}/availability`)}
+                >
+                    Edit Availability
+                </button>
+
+                <button className="btn btn-danger" onClick={handleLeaveGroup}>
+                    Leave Group
+                </button>
+
           </div>
 
             <div className="mb-4">
