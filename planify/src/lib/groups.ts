@@ -25,6 +25,8 @@ export async function createGroup(name: string, userId: string) {
     createdAt: serverTimestamp(),
   });
 
+  await joinGroup(inviteCode, userId);
+
   return {
     groupId: docRef.id,
     inviteCode,
