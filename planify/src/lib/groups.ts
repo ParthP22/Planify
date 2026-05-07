@@ -15,25 +15,31 @@ import {
 } from "firebase/firestore";
 import { generateInviteCode } from "../utils/groups/inviteCode";
 
+// Create a new group based on the name provided by the user who
+// is creating it.
 export async function createGroup(name: string, userId: string) {
-  const inviteCode = generateInviteCode();
+    // Generate a new 6-digit invite code
+    const inviteCode = generateInviteCode();
 
-  const docRef = await addDoc(collection(db, "groups"), {
-    name,
-    createdBy: userId,
-    inviteCode,
-    createdAt: serverTimestamp(),
-  });
+    // Retrieve the reference for the document from the Firestore database
+    const docRef = await addDoc(collection(db, "groups"), {
+        name,
+        createdBy: userId,
+        inviteCode,
+        createdAt: serverTimestamp(),
+    });
 
-  await joinGroup(inviteCode, userId);
+    // Call the joinGroup function (defined below) so that the creator
+    // of this group is also added in.
+    await joinGroup(inviteCode, userId);
 
-  return {
-    groupId: docRef.id,
-    inviteCode,
-  };
+    return {
+        groupId: docRef.id,
+        inviteCode,
+    };
 }
 
-
+// Given an invite code, add the current user to the group
 export async function joinGroup(inviteCode: string, userId: string){
     // Fetch the reference to the group collection
     const groupsRef = collection(db, "groups");
@@ -75,18 +81,28 @@ export async function joinGroup(inviteCode: string, userId: string){
     }
 }
 
+// Retrieve all the groups that the user is a part of
 export async function getUserGroups(userId: string){
-    const groupsSnapshot = await getDocs(collection(db,"groups"));
+    const groupsRef = collection(db, "groups");
+    const groupsSnapshot = await getDocs(groupsRef);
 
+    // We will store all groups that the user is a part of
+    // in this array.
     const userGroups: any[] = [];
-
+    
+    // Iterate over all the groups stored in the database
     for(const groupDoc of groupsSnapshot.docs){
+        // For each iteration, obtain all the members that are
+        // a part of the group.
         const membersSnap = await getDocs(
             collection(db, "groups", groupDoc.id, "members")
         );
 
+        // Find if the user's ID matches the ID of a member in the group.
         const isMember = membersSnap.docs.some((doc) => doc.id === userId);
 
+        // If the ID's match, then that implies the user is in this group,
+        // so we push this group into an array.
         if(isMember){
             userGroups.push({
                 id: groupDoc.id,
@@ -95,25 +111,34 @@ export async function getUserGroups(userId: string){
         }
     }
 
+    // Return all the groups that the user is in.
     return userGroups;
 }
 
+// Obtain all the members of a given group.
 export async function getGroupMembers(groupId: string){
     const membersRef = collection(db, "groups", groupId, "members");
     const membersSnapshot = await getDocs(membersRef);
 
     if(membersSnapshot.empty){
         return [];
-    }
+    }  
 
+    // We will store all the members of the group in this array.
     const members = [];
 
+    // Iterate over each member in this group
     for(const memberDoc of membersSnapshot.docs){
+        // Obtain the user's ID from the document in the members collection.
         const userId = memberDoc.id;
 
+        // Use the user's ID to access the users collection and get more
+        // information on the user.
         const userSnapshot = await getDoc(doc(db, "users", userId));
-        console.log(userSnapshot.data());
 
+        // We will store the userId, as well as the rest of the user data by
+        // using the spread operator, as an Object and push it into the members
+        // array to be processed later.
         if(userSnapshot.exists()){
             members.push({
                 id: userId,
@@ -121,6 +146,8 @@ export async function getGroupMembers(groupId: string){
             });
         }
         else{
+            // If no data on the user exists, then we simply push an object
+            // consisting of the user's ID and their name will be "Unknown User"
             members.push({
                 id: userId,
                 name: "Unknown User",
@@ -131,6 +158,7 @@ export async function getGroupMembers(groupId: string){
     return members;
 }
 
+// Obtain the name of the group
 export async function getGroupName(groupId: string){
     const groupRef = doc(db, "groups", groupId);
     const groupSnapshot = await getDoc(groupRef);
@@ -145,6 +173,7 @@ export async function getGroupName(groupId: string){
     }
 }
 
+// Remove the member from a group in the database
 export async function leaveGroup(groupId: string, memberId: string){
     // Fetch the member's availability schedule from the group
     const availabilityRef = doc(db, "groups", groupId, "availability", memberId);
@@ -180,10 +209,13 @@ export async function leaveGroup(groupId: string, memberId: string){
     }
 }
 
+// Check if the user is indeed a member of the group (in order to prevent
+// users from accessing groups that they are not apart of).
 export async function verifyMembership(groupId: string, memberId: string){
     const memberRef = doc(db, "groups", groupId, "members", memberId);
     const memberSnapshot = await getDoc(memberRef);
 
+    // If the user exists in the group, then they are a true member.
     if(memberSnapshot.exists()){
         return true;
     }
@@ -192,6 +224,7 @@ export async function verifyMembership(groupId: string, memberId: string){
     }
 }
 
+// Obtain the invite code of the given group from the database.
 export async function getInviteCode(groupId: string){
     const groupRef = doc(db, "groups", groupId);
     const groupSnapshot = await getDoc(groupRef);
@@ -202,5 +235,5 @@ export async function getInviteCode(groupId: string){
 
     const groupData = groupSnapshot.data();
 
-    return groupData.inviteCode;
+    return groupData.inviteCode as string;
 }
