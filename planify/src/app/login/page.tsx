@@ -29,6 +29,8 @@ export default function LoginPage() {
         Planify
       </h1>
 
+      <img src="/calendar.png"></img>
+
       <p className="fs-3 text-light mb-5">
         Coordinate schedules with your group.
       </p>
