@@ -135,8 +135,8 @@ export default function GroupPage() {
         else{
             // If the user leaves, then return them to the dashboard 
             // and then remove the user from the database.
-            router.push("/dashboard");
             await leaveGroup(groupId, user.uid);
+            router.push("/dashboard");
         }
     }
 
@@ -286,7 +286,7 @@ export default function GroupPage() {
                                     style={{
                                         width: "20px",
                                         height: "20px",
-                                        backgroundColor: "rgba(0, 255, 123, 0.5)",
+                                        backgroundColor: "rgba(0, 123, 255, 0.5)",
                                         marginRight: "8px"
                                     }}
                                     />
@@ -298,7 +298,7 @@ export default function GroupPage() {
                                     style={{
                                         width: "20px",
                                         height: "20px",
-                                        backgroundColor: "rgba(0, 123, 255, 0.5)",
+                                        backgroundColor: "rgba(0, 255, 123, 0.5)",
                                         marginRight: "8px"
                                     }}
                                     />

@@ -90,7 +90,7 @@ export default function Dashboard() {
             // Try joining the user into the group
             const joinStatus = await joinGroup(inviteCode, user.uid);
 
-            // If joinStatus is null, then the user is already in the group.
+            // If joinStatus is false, then the user is already in the group.
             if(!joinStatus){
                 alert("You are already in this group");
             }
