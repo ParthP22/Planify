@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import "./globals.css";
 import Navbar from "@/components/Navbar";
 
 
