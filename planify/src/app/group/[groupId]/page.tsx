@@ -150,11 +150,11 @@ export default function GroupPage() {
     }
 
     if(loading){
-      return (
-        <div className="page-bg text-light">
-            <h2 className="text-center">Loading... </h2>
-        </div>
-    );
+        return (
+            <div className="page-bg text-light">
+                <h2 className="text-center">Loading... </h2>
+            </div>
+        );
     }
 
     return (
