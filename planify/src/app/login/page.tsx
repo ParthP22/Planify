@@ -51,12 +51,7 @@ export default function LoginPage() {
           className="btn btn-light shadow-sm rounded-3 px-4 py-3 d-flex align-items-center"
           onClick={signIn}
         >
-          <Image
-            src="/google-logo.png"
-            alt="Google Logo"
-            width={20}
-            height={20}
-          />
+          <img src="google-logo.png" height="20px" width="20px"></img>
 
           <span className="ms-2 fw-semibold">
             Sign in with Google
