@@ -6,11 +6,22 @@ import { useRouter } from "next/navigation";
 import { createGroup, joinGroup, getUserGroups } from "@/lib/groups";
 
 export default function Dashboard() {
+    // Groups state to store all the groups that the user
+    // is apart of.
     const [groups, setGroups] = useState<any[]>([]);
+
+    // The name of the group that the user is typing when creating
+    // a new group. 
     const [groupName, setGroupName] = useState("");
+
+    // Store the result from a newly created group.
     const [result, setResult] = useState<any>(null);
+
+    // The name of the invite code that the user is typing when
+    // attempting to join a group.
     const [inviteCode, setInviteCode] = useState("");
     
+    // Initialize router to be able to perform redirects.
     const router = useRouter();
 
     useEffect(() => {
@@ -30,6 +41,7 @@ export default function Dashboard() {
             return () => unsub();
     }, []);
 
+    // Function for the button to create a new group for the user.
     const handleCreateGroup = async () => {
         const user = auth.currentUser;
 
@@ -41,29 +53,44 @@ export default function Dashboard() {
             return;
         }
 
+        // Remove all trailing and leading whitespace of the group's name.
+        // If the string is empty, then alert the user.
         if(!(groupName.trim())){
             alert("Please enter a group name.");
             return;
         }
 
+        // Store the contents of the Promise
         const res = await createGroup(groupName.trim(), user.uid);
+
+        // Update the results state with the content of the new group.
         setResult(res);
+
+        // Reload the groups section
         loadGroups(user.uid);
     }
 
+    // Function for the button to handle joining another group
     const handleJoin = async () => {
+
+        // Check to be sure that the user is indeed logged in.
         const user = auth.currentUser;
         if(!user){
             return;
         }
 
-        if(!inviteCode){
+        // Removing all leading and trailing whitespace from the
+        // invite code. If the string is empty, alert the user.
+        if(!(inviteCode.trim())){
             alert("Please enter the invite code.");
             return;
         }
 
         try{
+            // Try joining the user into the group
             const joinStatus = await joinGroup(inviteCode, user.uid);
+
+            // If joinStatus is null, then the user is already in the group.
             if(!joinStatus){
                 alert("You are already in this group");
             }
@@ -72,12 +99,16 @@ export default function Dashboard() {
             }
         }
         catch (error: any){
+            // Catch and display any error messages
             alert(error.message);
         }
 
+        // Reload the groups again
         loadGroups(user.uid);
     }
 
+    // This function that updates the groups state and reloads
+    // the groups section of the dashboard for the user.
     const loadGroups = async (userId: string) => {
         if(!userId){
             return;
@@ -134,6 +165,7 @@ export default function Dashboard() {
                     <h3 className="display-6 text-center mb-4">Your Groups</h3>
 
                     <div className="row">
+                        {/* Map each group object in the groups state to a clickable card to be displayed */}
                         {groups.map((group) => (
                             <div className="col-md-4" key={group.id}>
                                 <div
