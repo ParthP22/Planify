@@ -44,7 +44,11 @@ export default function AvailabilityPage() {
     }, [groupId]);
 
     if (loading) {
-        return <div className="container mt-5">Loading...</div>;
+        return (
+            <div className="page-bg text-light">
+                <h2 className="text-center">Loading... </h2>
+            </div>
+        );
     }
 
     function toggleSlot(index: number){
@@ -129,33 +133,38 @@ export default function AvailabilityPage() {
     }
 
     return (
-        <div className="container mt-5">
-            <h2 className="mb-4">Edit Availability</h2>
+        <div className="page-bg">
+            <div className="container pt-5 pb-1">
+                
+                <h2 className="mb-4 display-4 text-center text-light">Edit Availability</h2>
 
-            {/* Availability Grid */}
-            <table className="table table-bordered text-center">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                    </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-            </table>
+                <div className="d-flex justify-content-between">
+                    <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}`)}>
+                        Back to Group
+                    </button>
 
-            <button className="btn btn-success" onClick={handleSave} disabled={saving}>
-                {saving ? "Saving..." : "Save Availability"}
-            </button>
+                    <button className="btn btn-success" onClick={handleSave} disabled={saving}>
+                        {saving ? "Saving..." : "Save Availability"}
+                    </button>
+                </div>
 
-            <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}`)}>
-                Back to Group
-            </button>
+                {/* Availability Grid */}
+                <table className="table table-bordered text-center mt-4">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                </table>
+            </div>
         </div>
     );
 

@@ -41,7 +41,12 @@ export default function Dashboard() {
             return;
         }
 
-        const res = await createGroup(groupName, user.uid);
+        if(!(groupName.trim())){
+            alert("Please enter a group name.");
+            return;
+        }
+
+        const res = await createGroup(groupName.trim(), user.uid);
         setResult(res);
         loadGroups(user.uid);
     }
@@ -52,9 +57,19 @@ export default function Dashboard() {
             return;
         }
 
+        if(!inviteCode){
+            alert("Please enter the invite code.");
+            return;
+        }
+
         try{
-            await joinGroup(inviteCode, user.uid);
-            alert("Joined group!");
+            const joinStatus = await joinGroup(inviteCode, user.uid);
+            if(!joinStatus){
+                alert("You are already in this group");
+            }
+            else{
+                alert("Joined group!");
+            }
         }
         catch (error: any){
             alert(error.message);
@@ -73,61 +88,66 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="container mt-5">
-            <h1>Dashboard</h1>
-            <p>You are logged in!</p>
+        <div className="page-bg">
+            <div className="container pt-5 w-50 pb-5">
+                <div className="container white-card mt-5 mw-100 shadow p-4 rounded">
+                    <h1 className="display-2 text-center mb-4">Dashboard</h1>
 
-            <h2>Create Group</h2>
+                    <h2>Create Group</h2>
 
-            <input
-                className="form-control my-2"
-                placeholder="Group name"
-                value={groupName}
-                onChange={(e) => setGroupName(e.target.value)}
-            />
+                    <input
+                        className="form-control my-2"
+                        placeholder="Group Name"
+                        value={groupName}
+                        onChange={(e) => setGroupName(e.target.value)}
+                    />
 
-            <button className="btn btn-primary" onClick={handleCreateGroup}>
-                Create Group
-            </button>
+                    <button className="btn btn-bg-navy-blue w-100" onClick={handleCreateGroup}>
+                        Create Group
+                    </button>
 
-            {result && (
-                <div className="alert alert-success mt-3">
-                <div>Group Created!</div>
-                <div><b>Invite Code:</b> {result.inviteCode}</div>
-                </div>
-            )}
-
-            <div className="mt-5">
-
-                <h2>Join Group</h2>
-
-                <input
-                    className="form-control my-2"
-                    placeholder="Enter invite code"
-                    value={inviteCode}
-                    onChange={(e) => setInviteCode(e.target.value)}
-                />
-
-                <button className="btn btn-success" onClick={handleJoin}>
-                    Join Group
-                </button>
-            </div>
-
-            <h3>Your Groups</h3>
-
-            <div className="row">
-                {groups.map((group) => (
-                    <div className="col-md-4" key={group.id}>
-                        <div
-                            className="card p-3 mb-3"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => router.push(`/group/${group.id}`)}
-                        >
-                            <h5>{group.name}</h5>
-                            <p className="text-muted">Code: {group.inviteCode}</p>
+                    {result && (
+                        <div className="alert alert-success mt-3">
+                        <div>Group Created!</div>
+                        <div><b>Invite Code:</b> {result.inviteCode}</div>
                         </div>
+                    )}
+
+                    <div className="mt-5">
+
+                        <h2>Join Group</h2>
+
+                        <input
+                            className="form-control my-2"
+                            placeholder="Enter invite code"
+                            value={inviteCode}
+                            onChange={(e) => setInviteCode(e.target.value)}
+                        />
+
+                        <button className="btn btn-success w-100" onClick={handleJoin}>
+                            Join Group
+                        </button>
                     </div>
-                ))}
+                </div>
+
+                <div className="container white-card mt-5 mw-100 shadow p-4 rounded">
+                    <h3 className="display-6 text-center mb-4">Your Groups</h3>
+
+                    <div className="row">
+                        {groups.map((group) => (
+                            <div className="col-md-4" key={group.id}>
+                                <div
+                                    className="card group-card p-3 mb-3"
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() => router.push(`/group/${group.id}`)}
+                                >
+                                    <h5>{group.name}</h5>
+                                    <p className="text-muted">Code: {group.inviteCode}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );
