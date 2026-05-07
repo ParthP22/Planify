@@ -24,28 +24,34 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="page-bg mw-100 vh-100">
-      <div className="container text-center">
-        <h1 className="mb-4 display-3">Planify</h1>
+    <div className="page-bg d-flex flex-column justify-content-center align-items-center text-center vh-100">
+      <h1 className="display-1 text-white fw-bold mb-3">
+        Planify
+      </h1>
 
-        <h3 className="mt-3 mb-5">
-          Coordinate schedules with your group.
-        </h3>
+      <p className="fs-3 text-light mb-5">
+        Coordinate schedules with your group.
+      </p>
 
+      <p className="text-light mb-4">
+        Start by logging in with Google
+      </p>
 
-        <h4 className="mb-4">Start by logging in below with Google:</h4>
+      <button
+        className="btn btn-light shadow-sm rounded-3 px-4 py-3 d-flex align-items-center"
+        onClick={signIn}
+      >
+        <Image
+          src="/google-logo.png"
+          alt="Google Logo"
+          width={20}
+          height={20}
+        />
 
-        <button className="btn btn-light shadow-sm rounded-lg rounded-3 gap-3 px-6 py-2 border-dark" onClick={signIn}
-        >
-            <Image
-              src="/google-logo.png"
-              alt="Google Logo"
-              width={20}
-              height={20}
-            />
-            <span>    Sign in with Google</span>
-        </button>
-      </div>
+        <span className="ms-2 fw-semibold">
+          Sign in with Google
+        </span>
+      </button>
     </div>
   );
 }
