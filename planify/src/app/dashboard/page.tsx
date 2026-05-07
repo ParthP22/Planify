@@ -83,64 +83,66 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="container mt-5 w-50">
-            <div className="container mt-5 mw-100 shadow p-4 rounded">
-                <h1 className="display-4 text-center mb-4">Dashboard</h1>
-                <p>You are logged in!</p>
+        <div className="page-bg">
+            <div className="container pt-5 w-50 pb-5">
+                <div className="container white-card mt-5 mw-100 shadow p-4 rounded">
+                    <h1 className="display-4 text-center mb-4">Dashboard</h1>
+                    <p>You are logged in!</p>
 
-                <h2>Create Group</h2>
-
-                <input
-                    className="form-control my-2"
-                    placeholder="Group Name"
-                    value={groupName}
-                    onChange={(e) => setGroupName(e.target.value)}
-                />
-
-                <button className="btn btn-bg-indigo w-100" onClick={handleCreateGroup}>
-                    Create Group
-                </button>
-
-                {result && (
-                    <div className="alert alert-success mt-3">
-                    <div>Group Created!</div>
-                    <div><b>Invite Code:</b> {result.inviteCode}</div>
-                    </div>
-                )}
-
-                <div className="mt-5">
-
-                    <h2>Join Group</h2>
+                    <h2>Create Group</h2>
 
                     <input
                         className="form-control my-2"
-                        placeholder="Enter invite code"
-                        value={inviteCode}
-                        onChange={(e) => setInviteCode(e.target.value)}
+                        placeholder="Group Name"
+                        value={groupName}
+                        onChange={(e) => setGroupName(e.target.value)}
                     />
 
-                    <button className="btn btn-success w-100" onClick={handleJoin}>
-                        Join Group
+                    <button className="btn btn-bg-navy-blue w-100" onClick={handleCreateGroup}>
+                        Create Group
                     </button>
-                </div>
-            </div>
 
-            <div className="container mt-5 mb-5 mw-100 shadow p-4 rounded">
-                <h3 className="display-5 text-center mb-4">Your Groups</h3>
-
-                <div className="row">
-                    {groups.map((group) => (
-                        <div className="col-md-4" key={group.id}>
-                            <div
-                                className="card p-3 mb-3"
-                                style={{ cursor: "pointer" }}
-                                onClick={() => router.push(`/group/${group.id}`)}
-                            >
-                                <h5>{group.name}</h5>
-                                <p className="text-muted">Code: {group.inviteCode}</p>
-                            </div>
+                    {result && (
+                        <div className="alert alert-success mt-3">
+                        <div>Group Created!</div>
+                        <div><b>Invite Code:</b> {result.inviteCode}</div>
                         </div>
-                    ))}
+                    )}
+
+                    <div className="mt-5">
+
+                        <h2>Join Group</h2>
+
+                        <input
+                            className="form-control my-2"
+                            placeholder="Enter invite code"
+                            value={inviteCode}
+                            onChange={(e) => setInviteCode(e.target.value)}
+                        />
+
+                        <button className="btn btn-success w-100" onClick={handleJoin}>
+                            Join Group
+                        </button>
+                    </div>
+                </div>
+
+                <div className="container white-card mt-5 mw-100 shadow p-4 rounded">
+                    <h3 className="display-5 text-center mb-4">Your Groups</h3>
+
+                    <div className="row">
+                        {groups.map((group) => (
+                            <div className="col-md-4" key={group.id}>
+                                <div
+                                    className="card p-3 mb-3"
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() => router.push(`/group/${group.id}`)}
+                                >
+                                    <h5>{group.name}</h5>
+                                    <p className="text-muted">Code: {group.inviteCode}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
