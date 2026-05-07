@@ -131,7 +131,18 @@ export default function AvailabilityPage() {
     return (
         <div className="page-bg">
             <div className="container pt-5">
+                
                 <h2 className="mb-4">Edit Availability</h2>
+
+                <div className="d-flex justify-content-between">
+                    <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}`)}>
+                        Back to Group
+                    </button>
+
+                    <button className="btn btn-success" onClick={handleSave} disabled={saving}>
+                        {saving ? "Saving..." : "Save Availability"}
+                    </button>
+                </div>
 
                 {/* Availability Grid */}
                 <table className="table table-bordered text-center">
@@ -149,14 +160,6 @@ export default function AvailabilityPage() {
                     </thead>
                     <tbody>{rows}</tbody>
                 </table>
-
-                <button className="btn btn-success" onClick={handleSave} disabled={saving}>
-                    {saving ? "Saving..." : "Save Availability"}
-                </button>
-
-                <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}`)}>
-                    Back to Group
-                </button>
             </div>
         </div>
     );
