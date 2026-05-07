@@ -173,7 +173,7 @@ export default function GroupPage() {
         <div className="page-bg text-light pb-1">
             <div className="container pt-5">
                 <h1 className="display-4 text-center mb-4">{groupName}</h1>
-            
+                <h4 className="text-center mb-4">Invite Code: {inviteCode}</h4>
                 <div className="row">
                     <div className="mb-4 col-md-2">
                         <button 
