@@ -125,17 +125,21 @@ export default function Dashboard() {
                     <h1 className="display-2 text-center mb-4">Dashboard</h1>
 
                     <h2>Create Group</h2>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        handleCreateGroup();
+                    }}>
+                        <input
+                            className="form-control my-2"
+                            placeholder="Group Name"
+                            value={groupName}
+                            onChange={(e) => setGroupName(e.target.value)}
+                        />
 
-                    <input
-                        className="form-control my-2"
-                        placeholder="Group Name"
-                        value={groupName}
-                        onChange={(e) => setGroupName(e.target.value)}
-                    />
-
-                    <button className="btn btn-bg-navy-blue w-100" onClick={handleCreateGroup}>
-                        Create Group
-                    </button>
+                        <button className="btn btn-bg-navy-blue w-100" type="submit">
+                            Create Group
+                        </button>
+                    </form>
 
                     {result && (
                         <div className="alert alert-success mt-3">
@@ -147,17 +151,20 @@ export default function Dashboard() {
                     <div className="mt-5">
 
                         <h2>Join Group</h2>
-
-                        <input
-                            className="form-control my-2"
-                            placeholder="Enter invite code"
-                            value={inviteCode}
-                            onChange={(e) => setInviteCode(e.target.value)}
-                        />
-
-                        <button className="btn btn-success w-100" onClick={handleJoin}>
-                            Join Group
-                        </button>
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            handleJoin();
+                        }}>
+                            <input
+                                className="form-control my-2"
+                                placeholder="Enter invite code"
+                                value={inviteCode}
+                                onChange={(e) => setInviteCode(e.target.value)}
+                            />
+                            <button type="submit" className="btn btn-success w-100">
+                                Join Group
+                            </button>
+                        </form>
                     </div>
                 </div>
 
