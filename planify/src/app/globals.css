@@ -50,7 +50,7 @@ a {
 
 
 .btn-bg-navy-blue {
-  background-color: #1616b6;
+  background-color: #1e3aaa;
   color: white;
 }
 
@@ -60,11 +60,14 @@ a {
 }
 
 .nav-bg{
-  background-color: #000080;
+  background-color: #1e2055;
 }
 
 .page-bg{
-  background-color: #1e3a5f;
+  background-color: #1e3a7f;
   min-height: 100vh;
 }
 
+.white-card{
+  background-color: #EEEEFF;
+}
