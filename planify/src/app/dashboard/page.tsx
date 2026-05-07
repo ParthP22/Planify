@@ -84,7 +84,7 @@ export default function Dashboard() {
 
     return (
         <div className="container mt-5 w-50">
-            <div className="container mt-5 mw-100 shadow p-4">
+            <div className="container mt-5 mw-100 shadow p-4 rounded">
                 <h1 className="display-4 text-center mb-4">Dashboard</h1>
                 <p>You are logged in!</p>
 
@@ -125,7 +125,7 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            <div className="container mt-5 mw-100 shadow p-4">
+            <div className="container mt-5 mb-5 mw-100 shadow p-4 rounded">
                 <h3 className="display-5 text-center mb-4">Your Groups</h3>
 
                 <div className="row">
