@@ -71,3 +71,8 @@ a {
 .white-card{
   background-color: #EEEEFF;
 }
+
+.group-card:hover{
+  background-color: #EFEFEF;
+  color: black;
+}
