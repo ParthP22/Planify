@@ -24,7 +24,7 @@ export default function LoginPage() {
 
   return (
     <div className="container mt-5 text-center">
-      <h1 className="mb-4">Planify Login</h1>
+      <h1 className="mb-4 display-3">Planify</h1>
 
       <button className="btn btn-primary" onClick={signIn}>
         Sign in with Google
