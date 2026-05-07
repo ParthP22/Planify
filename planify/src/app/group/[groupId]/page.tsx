@@ -1,7 +1,7 @@
 "use client";
 
 import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
-import { getGroupMembers, getGroupName, leaveGroup, verifyMembership } from "@/lib/groups";
+import { getGroupMembers, getGroupName, getInviteCode, leaveGroup, verifyMembership } from "@/lib/groups";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -15,6 +15,7 @@ export default function GroupPage() {
     const [overlap, setOverlap] = useState<number[]>([]);
     const [members, setMembers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [inviteCode, setInviteCode] = useState("");
 
     const NUM_ROWS = 24;
     const NUM_COLS = 7;
