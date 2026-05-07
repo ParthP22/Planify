@@ -55,14 +55,24 @@ export async function joinGroup(inviteCode: string, userId: string){
     // Get the id of the group
     const groupId = groupDoc.id;
 
-    // Add user to members subcollection in the group, which means
-    // the member has joined the group.
-    // The name of the members doc is the userId of the member who is joining.
-    await setDoc(doc(db,"groups", groupId, "members", userId), {
-            role: "member",
-            joinedAt: serverTimestamp(),
-        }
-    );
+    // Retrieve the member from the group to see if they exist already.
+    const memberRef = doc(db, "groups", groupId, "members", userId);
+    const memberSnapshot = await getDoc(memberRef);
+
+    // Check if the member already exists in this group
+    if(memberSnapshot.exists()){
+        return null;
+    }
+    else{
+        // Add user to members subcollection in the group, which means
+        // the member has joined the group.
+        // The name of the members doc is the userId of the member who is joining.
+        await setDoc(doc(db,"groups", groupId, "members", userId), {
+                role: "member",
+                joinedAt: serverTimestamp(),
+            }
+        );
+    }
 }
 
 export async function getUserGroups(userId: string){
