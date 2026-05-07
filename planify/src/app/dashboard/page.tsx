@@ -125,8 +125,8 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            <div className="container mt-2 mw-100 shadow p-4">
-                <h3>Your Groups</h3>
+            <div className="container mt-5 mw-100 shadow p-4">
+                <h3 className="display-5 text-center mb-4">Your Groups</h3>
 
                 <div className="row">
                     {groups.map((group) => (
