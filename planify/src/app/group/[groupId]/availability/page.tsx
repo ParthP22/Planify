@@ -130,9 +130,9 @@ export default function AvailabilityPage() {
 
     return (
         <div className="page-bg">
-            <div className="container pt-5">
+            <div className="container pt-5 pb-1">
                 
-                <h2 className="mb-4">Edit Availability</h2>
+                <h2 className="mb-4 display-4 text-center text-light">Edit Availability</h2>
 
                 <div className="d-flex justify-content-between">
                     <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}`)}>
@@ -145,7 +145,7 @@ export default function AvailabilityPage() {
                 </div>
 
                 {/* Availability Grid */}
-                <table className="table table-bordered text-center">
+                <table className="table table-bordered text-center mt-4">
                     <thead>
                         <tr>
                             <th>Time</th>
