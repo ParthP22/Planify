@@ -26,7 +26,7 @@ export default function LoginPage() {
   return (
     
     <div className="page-bg d-flex flex-column justify-content-center align-items-center text-center vh-100">
-      <div className="shadow py-4 px-5 border border-0 rounded-3 d-flex flex-column justify-content center align-items-center text-center ">
+      <div className="shadow login-card-bg py-4 px-5 border border-0 rounded-3 d-flex flex-column justify-content center align-items-center text-center ">
         <h1 className="display-1 text-white fw-bold mb-3">
           Planify
         </h1>
