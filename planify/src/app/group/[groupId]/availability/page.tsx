@@ -44,7 +44,11 @@ export default function AvailabilityPage() {
     }, [groupId]);
 
     if (loading) {
-        return <div className="container mt-5">Loading...</div>;
+        return (
+            <div className="page-bg text-light">
+                <h2 className="text-center">Loading... </h2>
+            </div>
+        );
     }
 
     function toggleSlot(index: number){
