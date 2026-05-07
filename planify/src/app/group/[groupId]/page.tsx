@@ -135,8 +135,8 @@ export default function GroupPage() {
         else{
             // If the user leaves, then return them to the dashboard 
             // and then remove the user from the database.
-            router.push("/dashboard");
             await leaveGroup(groupId, user.uid);
+            router.push("/dashboard");
         }
     }
 
