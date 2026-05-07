@@ -63,8 +63,13 @@ export default function Dashboard() {
         }
 
         try{
-            await joinGroup(inviteCode, user.uid);
-            alert("Joined group!");
+            const joinStatus = await joinGroup(inviteCode, user.uid);
+            if(!joinStatus){
+                alert("You are already in this group");
+            }
+            else{
+                alert("Joined group!");
+            }
         }
         catch (error: any){
             alert(error.message);
