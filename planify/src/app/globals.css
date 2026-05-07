@@ -49,16 +49,22 @@ a {
 } */
 
 
-.btn-bg-indigo {
-  background-color: #4f46e5;
+.btn-bg-navy-blue {
+  background-color: #1616b6;
   color: white;
 }
 
-.btn-bg-indigo:hover {
-  background-color: #4338ca;
+.btn-bg-navy-blue:hover {
+  background-color: #070785;
   color: white;
 }
 
 .nav-bg{
-  background-color: #4f46e5;
+  background-color: #000080;
 }
+
+.page-bg{
+  background-color: #1e3a5f;
+  min-height: 100vh;
+}
+
