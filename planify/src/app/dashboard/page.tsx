@@ -87,7 +87,6 @@ export default function Dashboard() {
             <div className="container pt-5 w-50 pb-5">
                 <div className="container white-card mt-5 mw-100 shadow p-4 rounded">
                     <h1 className="display-2 text-center mb-4">Dashboard</h1>
-                    <p>You are logged in!</p>
 
                     <h2>Create Group</h2>
 
