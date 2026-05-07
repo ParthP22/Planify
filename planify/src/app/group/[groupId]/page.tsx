@@ -8,38 +8,67 @@ import { useState, useEffect } from "react";
 import { auth } from "@/lib/firebase";
 
 export default function GroupPage() {
+    // React hook to access the parameters in the URL.
+    // This page will be using the groupId parameter that is
+    // shown in the URL.
     const params = useParams();
+
+    // Obtain the groupId parameter from the URL
     const groupId = params.groupId as string;
+
+    // Create router to control sending the user to other pages.
     const router = useRouter();
+
+    // State for the current group's name.
     const [groupName, setGroupName] = useState("Group");
+
+    // Store the overlap between everyone's availability schedules in the group.
     const [overlap, setOverlap] = useState<number[]>([]);
+
+    // Store an array of all the members of the groups.
     const [members, setMembers] = useState<any[]>([]);
+
+    // Loading state to indicate if the page is loading.
     const [loading, setLoading] = useState(true);
+
+    // Invite code state to store the invite code of the state
     const [inviteCode, setInviteCode] = useState("");
 
+    // The availability grid will be 24 x 7,
+    // for 24 hours and 7 days.
     const NUM_ROWS = 24;
     const NUM_COLS = 7;
+
+    // Store the rows of the grid in this array and they will
+    // be displayed as a table.
     const rows = [];
 
+    // When the page loads or whenever the groupId changes, perform these calls
     useEffect(() => {
+        // Listen for authentication state changes
         const unsub = auth.onAuthStateChanged((user) => {
+            // If the user is not logged in, then redirect
+            // immediately to the login page
             if(!user){
                 router.push("/login");
                 return;
             }
             else{
+                // Retrieve the current group name based on groupId
                 const fetchGroupName = async () => {
                     const retrievedGroupName = await getGroupName(groupId);
                     setGroupName(retrievedGroupName);
                 };
-
+                
+                // Retrieve the current overlap in schedules based on groupId
                 const fetchOverlap = async () => {
                     const allSlots = await getGroupAvailability(groupId);
                     const result = computeAvailabilityCounts(allSlots);
                     setOverlap(result);
                     setLoading(false);
                 };
-
+                
+                // Retrieve the current members of the group
                 const fetchMembers = async () => {
                     const memberData = await getGroupMembers(groupId);
                     if(!memberData){
@@ -50,6 +79,7 @@ export default function GroupPage() {
                     }
                 };
 
+                // Retrieve the invite code based on the groupId
                 const fetchInviteCode = async () => {
                     const inviteCode = await getInviteCode(groupId);
                     if(!inviteCode){
@@ -60,6 +90,7 @@ export default function GroupPage() {
                     }
                 };
 
+                // Verify that the member is indeed a member of this group
                 const verifyMember = async () => {
                     console.log(user.uid);
                     const isMember = await verifyMembership(groupId, user.uid);
@@ -77,10 +108,11 @@ export default function GroupPage() {
             }
         });
 
-        
+        // Unmount the auth listener
         return () => unsub();
     }, [groupId]);
 
+    // Format the hour based on AM or PM
     function formatHour(hour: number){
         const suffix = hour < 12 ? "AM" : "PM";
         
@@ -93,13 +125,18 @@ export default function GroupPage() {
         return `${adjustedHour} ${suffix}`;
     }
 
+    // Function for the button to handle leaving a group
     async function handleLeaveGroup(){
-        if(!auth.currentUser){
+        const user = auth.currentUser;
+        // If the user is not logged in, then do not do anything.
+        if(!user){
             return;
         }
         else{
+            // If the user leaves, then return them to the dashboard 
+            // and then remove the user from the database.
             router.push("/dashboard");
-            await leaveGroup(groupId, auth.currentUser.uid);
+            await leaveGroup(groupId, user.uid);
         }
     }
 
@@ -161,6 +198,7 @@ export default function GroupPage() {
         rows.push(<tr key={row}>{cells}</tr>);
     }
 
+    // Show loading state if the page is still loading
     if(loading){
         return (
             <div className="page-bg text-light">
@@ -176,14 +214,17 @@ export default function GroupPage() {
                 <h4 className="text-center mb-4">Invite Code: {inviteCode}</h4>
                 <div className="row">
                     <div className="mb-4 col-md-2">
+
                         <button 
                             className="btn btn-secondary mb-3"
                             onClick={() => router.push(`/dashboard`)}
                         >
                             ← Dashboard
                         </button>
-                        <h4 className="text-center">Members</h4>
 
+
+                        {/* Members List */}
+                        <h4 className="text-center">Members</h4>
                         <ul className="list-group">
                             {members.map((member) => (
                                 <li key={member.id} className="list-group-item">
@@ -202,10 +243,12 @@ export default function GroupPage() {
                                 </li>
                             ))}
                         </ul>
+
                     </div>
                     
                     <div className="col-md-8">
                         <div className="d-flex justify-content-between">
+
                             <button 
                                 className="btn btn-primary"
                                 onClick={() => router.push(`/group/${groupId}/availability`)}
@@ -216,7 +259,10 @@ export default function GroupPage() {
                             <button className="btn btn-danger" onClick={handleLeaveGroup}>
                                 Leave Group
                             </button>
+
                         </div>
+
+                        {/* Legend section */}
                         <div className="mt-4 p-3 bg-light text-dark border rounded-top container d-flex justify-content-center gap-4">
                             <h5>Legend: </h5>
 

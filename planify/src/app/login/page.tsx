@@ -7,12 +7,16 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function LoginPage() {
+  // Create router to control sending the user to other pages.
   const router = useRouter();
 
+  // Asynchronous function to handle sign-in/sign-up via Google
   const signIn = async () => {
     const provider = new GoogleAuthProvider();
     const loginData = await signInWithPopup(auth, provider);
     const user = loginData.user;
+
+    // Listen for authentication state changes
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         addUser(user);
@@ -20,6 +24,8 @@ export default function LoginPage() {
     });
 
     router.push("/dashboard");
+
+    // Clean up the listener on unmount to prevent memory leaks
     return () => unsubscribe();
   };
 

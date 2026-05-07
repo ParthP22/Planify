@@ -6,32 +6,59 @@ import { auth } from "@/lib/firebase";
 import { getAvailability, saveAvailability } from "@/lib/availability";
 
 export default function AvailabilityPage() {
+    // The availability grid will be 24 x 7,
+    // for 24 hours and 7 days.
     const NUM_ROWS = 24;
     const NUM_COLS = 7;
 
+    // React hook to access the parameters in the URL.
+    // This page will be using the groupId parameter that is
+    // shown in the URL.
     const params = useParams();
-    const router = useRouter();
+
+    // Obtain the groupId parameter from the URL
     const groupId = params.groupId as string;
+
+    // Create router to control sending the user to other pages.
+    const router = useRouter();
+
+    // Store the rows of the grid in this array and they will
+    // be displayed as a table.
     const rows = [];
 
+    // Store the entire availability schedule in a 24 x 7 array as a state, so that
+    // it tracks the latest changes as the user makes changes.
     const [availabilitySlots, setAvailabilitySlots] = useState<number[]>(Array(NUM_ROWS * NUM_COLS).fill(0)); // 7 * 12
+
+    // Loading state to indicate if the page is loading.
     const [loading, setLoading] = useState(true);
+
+    // Saving state to indicate if the availability schedule is saving
     const [saving, setSaving] = useState(false);
 
     // Load existing availability
     useEffect(() => {
         // Listen for authentication state changes
         const unsub = auth.onAuthStateChanged(async (user) => {
+            // If the user is not logged in, then redirect
+            // immediately to the login page
             if (!user) {
                 router.push("/login");
                 return;
             }
             else{
+                // Obtain the availability schedule for the current user
+                // from the database.
                 const slots = await getAvailability(groupId, user.uid);
                 if(slots !== null){
+                    // If not null, we set the availability slots to this
                     setAvailabilitySlots(slots);
                 }
                 else{
+                    // If null, it means the user hasn't ever saved their availability
+                    // schedule before, so we start with a blank schedule.
+                    // Ideally though, this step shouldn't be necessary, because
+                    // this is what the state is initialized as.
                     setAvailabilitySlots(Array(NUM_ROWS * NUM_COLS).fill(0));
                 }
             
@@ -43,6 +70,7 @@ export default function AvailabilityPage() {
         return () => unsub();
     }, [groupId]);
 
+    // Show loading state if the page is still loading
     if (loading) {
         return (
             <div className="page-bg text-light">
@@ -51,6 +79,7 @@ export default function AvailabilityPage() {
         );
     }
 
+    // Function to toggle the cell selected on the availability schedule
     function toggleSlot(index: number){
         // Fill newSlots with all the old values of availabilitySlots
         const newSlots = [...availabilitySlots];
@@ -62,6 +91,7 @@ export default function AvailabilityPage() {
         setAvailabilitySlots(newSlots);
     }  
 
+    // Format the hour based on AM or PM
     function formatHour(hour: number){
         const suffix = hour < 12 ? "AM" : "PM";
         
@@ -74,19 +104,34 @@ export default function AvailabilityPage() {
         return `${adjustedHour} ${suffix}`;
     }
 
+    // Asynchronous function to handle saving the 
+    // updated schedule to the database.
     async function handleSave(){
         const user = auth.currentUser;
-
+        
+        // If the current user is not authenticated,
+        // then cancel this operation.
         if(!user){
             return;
         }
 
+        // Set the saving state to true
         setSaving(true);
-        await saveAvailability(groupId, auth.currentUser!.uid, availabilitySlots);
 
-        alert("Availability saved successfully!");
+        try{
+            // Run the function to save the availability schedule to
+            // the database
+            await saveAvailability(groupId, user.uid, availabilitySlots);
+
+            // Alert the user that it was saved
+            alert("Availability saved successfully!");
+            router.push(`/group/${groupId}`);
+        }
+        catch(error: any){
+            // Alert the user with an error if the save fails
+            alert("Save was unsuccessful: " + error.message);
+        }
         
-        router.push(`/group/${groupId}`);
     }
 
     // Iterate over the grid's dimensions and create each of the
@@ -148,7 +193,7 @@ export default function AvailabilityPage() {
                     </button>
                 </div>
 
-                {/* Availability Grid */}
+                {/* Availability Schedule */}
                 <table className="table table-bordered text-center mt-4">
                     <thead>
                         <tr>
