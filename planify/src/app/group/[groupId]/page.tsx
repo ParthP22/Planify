@@ -170,20 +170,10 @@ export default function GroupPage() {
                         ← Dashboard
                     </button>
 
-                    <button 
-                        className="btn btn-primary"
-                        onClick={() => router.push(`/group/${groupId}/availability`)}
-                    >
-                        Edit Availability
-                    </button>
-
-                    <button className="btn btn-danger" onClick={handleLeaveGroup}>
-                        Leave Group
-                    </button>
                 </div>
             
                 <div className="row">
-                    <div className="mb-4 col-md-4">
+                    <div className="mb-4 col-md-2">
                         <h4>Members</h4>
 
                         <ul className="list-group">
@@ -207,6 +197,18 @@ export default function GroupPage() {
                     </div>
                     
                     <div className="col-md-8">
+                        <div className="d-flex justify-content-between">
+                            <button 
+                                className="btn btn-primary"
+                                onClick={() => router.push(`/group/${groupId}/availability`)}
+                            >
+                                Edit Availability
+                            </button>
+
+                            <button className="btn btn-danger" onClick={handleLeaveGroup}>
+                                Leave Group
+                            </button>
+                        </div>
                         <div className="mt-4 p-3 bg-light text-dark border rounded-top container d-flex justify-content-center gap-4">
                             <h5>Legend: </h5>
 
