@@ -27,6 +27,11 @@ export default function LoginPage() {
     <div className="container mt-5 text-center">
       <h1 className="mb-4 display-3">Planify</h1>
 
+      <p className="mt-3 text-lg text-gray-600">
+        Coordinate schedules with your group.
+      </p>
+
+
       <button className="btn btn-light shadow-sm rounded-pill w-25 gap-3 px-6 py-3" onClick={signIn}
       >
           <Image
