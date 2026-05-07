@@ -161,19 +161,15 @@ export default function GroupPage() {
         <div className="page-bg text-light pb-1">
             <div className="container pt-5">
                 <h1 className="display-4 text-center mb-4">{groupName}</h1>
-                
-                <div className="d-flex gap-2">
-                    <button 
-                        className="btn btn-secondary"
-                        onClick={() => router.push(`/dashboard`)}
-                    >
-                        ← Dashboard
-                    </button>
-
-                </div>
             
                 <div className="row">
                     <div className="mb-4 col-md-2">
+                        <button 
+                            className="btn btn-secondary"
+                            onClick={() => router.push(`/dashboard`)}
+                        >
+                            ← Dashboard
+                        </button>
                         <h4>Members</h4>
 
                         <ul className="list-group">
