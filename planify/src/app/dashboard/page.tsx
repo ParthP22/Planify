@@ -41,6 +41,11 @@ export default function Dashboard() {
             return;
         }
 
+        if(!groupName){
+            alert("Please enter a group name.");
+            return;
+        }
+
         const res = await createGroup(groupName, user.uid);
         setResult(res);
         loadGroups(user.uid);
