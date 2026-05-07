@@ -97,7 +97,7 @@ export default function Dashboard() {
                     onChange={(e) => setGroupName(e.target.value)}
                 />
 
-                <button className="btn bg-indigo w-100" onClick={handleCreateGroup}>
+                <button className="btn btn-bg-indigo w-100" onClick={handleCreateGroup}>
                     Create Group
                 </button>
 
