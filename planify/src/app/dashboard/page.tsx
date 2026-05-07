@@ -92,12 +92,12 @@ export default function Dashboard() {
 
                 <input
                     className="form-control my-2"
-                    placeholder="Group name"
+                    placeholder="Group Name"
                     value={groupName}
                     onChange={(e) => setGroupName(e.target.value)}
                 />
 
-                <button className="btn btn-primary" onClick={handleCreateGroup}>
+                <button className="btn btn-primary w-100" onClick={handleCreateGroup}>
                     Create Group
                 </button>
 
@@ -119,7 +119,7 @@ export default function Dashboard() {
                         onChange={(e) => setInviteCode(e.target.value)}
                     />
 
-                    <button className="btn btn-success" onClick={handleJoin}>
+                    <button className="btn btn-success w-100" onClick={handleJoin}>
                         Join Group
                     </button>
                 </div>
