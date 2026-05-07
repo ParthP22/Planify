@@ -57,6 +57,11 @@ export default function Dashboard() {
             return;
         }
 
+        if(!inviteCode){
+            alert("Please enter the invite code.");
+            return;
+        }
+
         try{
             await joinGroup(inviteCode, user.uid);
             alert("Joined group!");
