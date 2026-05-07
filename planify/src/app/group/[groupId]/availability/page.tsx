@@ -129,33 +129,35 @@ export default function AvailabilityPage() {
     }
 
     return (
-        <div className="container mt-5">
-            <h2 className="mb-4">Edit Availability</h2>
+        <div className="page-bg">
+            <div className="container pt-5">
+                <h2 className="mb-4">Edit Availability</h2>
 
-            {/* Availability Grid */}
-            <table className="table table-bordered text-center">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                    </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-            </table>
+                {/* Availability Grid */}
+                <table className="table table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                </table>
 
-            <button className="btn btn-success" onClick={handleSave} disabled={saving}>
-                {saving ? "Saving..." : "Save Availability"}
-            </button>
+                <button className="btn btn-success" onClick={handleSave} disabled={saving}>
+                    {saving ? "Saving..." : "Save Availability"}
+                </button>
 
-            <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}`)}>
-                Back to Group
-            </button>
+                <button className="btn btn-primary" onClick={() => router.push(`/group/${groupId}`)}>
+                    Back to Group
+                </button>
+            </div>
         </div>
     );
 
