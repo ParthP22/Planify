@@ -74,7 +74,7 @@ export default function Dashboard() {
 
     return (
         <div className="container mt-5 w-50">
-            <h1>Dashboard</h1>
+            <h1 className="display-4 text-center mb-4">Dashboard</h1>
             <p>You are logged in!</p>
 
             <h2>Create Group</h2>
