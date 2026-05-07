@@ -33,9 +33,10 @@ export default function Navbar() {
 
     return (
         <nav className="navbar nav-bg px-3">
-
             <div className="d-flex align-items-center gap-3">
                 <Link className="navbar-brand text-light" href="/dashboard">
+                    <img src="/calendar.png" height="30px" width="30px"></img>
+                    
                     Planify
                 </Link>
                 <Link className="nav-link text-light" href="/dashboard">
