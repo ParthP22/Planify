@@ -206,7 +206,7 @@ export default function GroupPage() {
                     </ul>
                 </div>
 
-                <div className="mt-4 p-3 bg-light text-dark border rounded container d-flex justify-content-center gap-4">
+                <div className="mt-4 p-3 bg-light text-dark border rounded-top container d-flex justify-content-center gap-4">
                     <h5>Legend: </h5>
 
                     <div className="d-flex align-items-center gap-3 flex-wrap">
