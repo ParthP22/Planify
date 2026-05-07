@@ -50,6 +50,16 @@ export default function GroupPage() {
                     }
                 };
 
+                const fetchInviteCode = async () => {
+                    const inviteCode = await getInviteCode(groupId);
+                    if(!inviteCode){
+                        return;
+                    }
+                    else{
+
+                    }
+                };
+
                 const verifyMember = async () => {
                     console.log(user.uid);
                     const isMember = await verifyMembership(groupId, user.uid);
@@ -61,6 +71,7 @@ export default function GroupPage() {
                 
                 verifyMember();
                 fetchGroupName();
+                fetchInviteCode();
                 fetchOverlap();
                 fetchMembers();
             }
