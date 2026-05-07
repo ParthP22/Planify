@@ -136,6 +136,17 @@ export async function getGroupName(groupId: string){
 }
 
 export async function leaveGroup(groupId: string, memberId: string){
+    // Fetch the member's availability schedule from the group
+    const availabilityRef = doc(db, "groups", groupId, "availability", memberId);
+    const availabilitySnapshot = await getDoc(availabilityRef);
+
+    if(!availabilitySnapshot.exists()){
+        return null;
+    }
+
+    // Remove the member's availability schedule from the group
+    await deleteDoc(availabilityRef);
+
     // Fetch the member from the group.
     const memberRef = doc(db, "groups", groupId, "members", memberId);
     const memberSnapshot = await getDoc(memberRef);
