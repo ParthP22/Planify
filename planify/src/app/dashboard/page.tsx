@@ -73,7 +73,7 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-5 w-50">
             <h1>Dashboard</h1>
             <p>You are logged in!</p>
 
