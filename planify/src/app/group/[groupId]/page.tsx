@@ -198,6 +198,7 @@ export default function GroupPage() {
         rows.push(<tr key={row}>{cells}</tr>);
     }
 
+    // Show loading state if the page is still loading
     if(loading){
         return (
             <div className="page-bg text-light">
