@@ -49,12 +49,12 @@ a {
 } */
 
 
-.bg-indigo {
+.btn-bg-indigo {
   background-color: #4f46e5;
   color: white;
 }
 
-.bg-indigo:hover {
+.btn-bg-indigo:hover {
   background-color: #4338ca;
   color: white;
 }
