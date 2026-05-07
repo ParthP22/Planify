@@ -67,7 +67,7 @@ export async function joinGroup(inviteCode: string, userId: string){
 
     // Check if the member already exists in this group
     if(memberSnapshot.exists()){
-        return null;
+        return false;
     }
     else{
         // Add user to members subcollection in the group, which means
@@ -78,6 +78,7 @@ export async function joinGroup(inviteCode: string, userId: string){
                 joinedAt: serverTimestamp(),
             }
         );
+        return true;
     }
 }
 
