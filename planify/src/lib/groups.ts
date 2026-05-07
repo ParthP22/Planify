@@ -181,3 +181,16 @@ export async function verifyMembership(groupId: string, memberId: string){
         return false;
     }
 }
+
+export async function getInviteCode(groupId: string){
+    const groupRef = doc(db, "groups", groupId);
+    const groupSnapshot = await getDoc(groupRef);
+
+    if(!groupSnapshot.exists()){
+        return null;
+    }
+
+    const groupData = groupSnapshot.data();
+
+    return groupData.inviteCode;
+}
