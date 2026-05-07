@@ -165,12 +165,12 @@ export default function GroupPage() {
                 <div className="row">
                     <div className="mb-4 col-md-2">
                         <button 
-                            className="btn btn-secondary"
+                            className="btn btn-secondary mb-3"
                             onClick={() => router.push(`/dashboard`)}
                         >
                             ← Dashboard
                         </button>
-                        <h4>Members</h4>
+                        <h4 className="text-center">Members</h4>
 
                         <ul className="list-group">
                             {members.map((member) => (
