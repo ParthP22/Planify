@@ -133,7 +133,7 @@ export default function Dashboard() {
                         {groups.map((group) => (
                             <div className="col-md-4" key={group.id}>
                                 <div
-                                    className="card p-3 mb-3"
+                                    className="card group-card p-3 mb-3"
                                     style={{ cursor: "pointer" }}
                                     onClick={() => router.push(`/group/${group.id}`)}
                                 >
