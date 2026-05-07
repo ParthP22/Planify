@@ -86,7 +86,7 @@ export default function Dashboard() {
         <div className="page-bg">
             <div className="container pt-5 w-50 pb-5">
                 <div className="container white-card mt-5 mw-100 shadow p-4 rounded">
-                    <h1 className="display-4 text-center mb-4">Dashboard</h1>
+                    <h1 className="display-2 text-center mb-4">Dashboard</h1>
                     <p>You are logged in!</p>
 
                     <h2>Create Group</h2>
@@ -127,7 +127,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="container white-card mt-5 mw-100 shadow p-4 rounded">
-                    <h3 className="display-5 text-center mb-4">Your Groups</h3>
+                    <h3 className="display-6 text-center mb-4">Your Groups</h3>
 
                     <div className="row">
                         {groups.map((group) => (
