@@ -32,13 +32,13 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="navbar bg-body-tertiary px-3">
+        <nav className="navbar nav-bg px-3">
 
             <div className="d-flex align-items-center gap-3">
-                <Link className="navbar-brand" href="/dashboard">
+                <Link className="navbar-brand text-light" href="/dashboard">
                     Planify
                 </Link>
-                <Link className="nav-link" href="/dashboard">
+                <Link className="nav-link text-light" href="/dashboard">
                     Dashboard
                 </Link>
             </div>
@@ -55,14 +55,14 @@ export default function Navbar() {
                 )}
 
                 {user && (
-                    <span className="text-muted">
+                    <span className="text-light">
                         {user.displayName}
                     </span>
                 )}
 
                 {user && (
                     <button
-                        className="btn btn-outline-danger btn-sm"
+                        className="btn btn-danger btn-sm"
                         onClick={handleLogout}
                     >
                         Logout
