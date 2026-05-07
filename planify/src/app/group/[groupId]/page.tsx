@@ -150,125 +150,130 @@ export default function GroupPage() {
     }
 
     if(loading){
-      return <h2 className="text-center">Loading... </h2>;
+      return (
+        <div className="page-bg text-light">
+            <h2 className="text-center">Loading... </h2>
+        </div>
+    );
     }
 
     return (
-        <div className="container mt-5">
-            <h1 className="display-4 text-center mb-4">{groupName}</h1>
-            
-            <div className="d-flex gap-2">
-                <button 
-                    className="btn btn-outline-secondary"
-                    onClick={() => router.push(`/dashboard`)}
-                >
-                    ← Dashboard
-                </button>
+        <div className="page-bg text-light pb-1">
+            <div className="container pt-5">
+                <h1 className="display-4 text-center mb-4">{groupName}</h1>
+                
+                <div className="d-flex gap-2">
+                    <button 
+                        className="btn btn-secondary"
+                        onClick={() => router.push(`/dashboard`)}
+                    >
+                        ← Dashboard
+                    </button>
 
-                <button 
-                    className="btn btn-primary"
-                    onClick={() => router.push(`/group/${groupId}/availability`)}
-                >
-                    Edit Availability
-                </button>
+                    <button 
+                        className="btn btn-primary"
+                        onClick={() => router.push(`/group/${groupId}/availability`)}
+                    >
+                        Edit Availability
+                    </button>
 
-                <button className="btn btn-danger" onClick={handleLeaveGroup}>
-                    Leave Group
-                </button>
+                    <button className="btn btn-danger" onClick={handleLeaveGroup}>
+                        Leave Group
+                    </button>
 
-          </div>
-
-            <div className="mb-4">
-                <h4>Members</h4>
-
-                <ul className="list-group">
-                    {members.map((member) => (
-                        <li key={member.id} className="list-group-item">
-                          {/* Display the user's photo if they have one */ }
-                          {member.photoURL && (
-                            <img
-                              src={member.photoURL}
-                              alt={member.name}
-                              className="rounded-circle"
-                              style={{ width: "30px", height: "30px", marginRight: "10px" }}
-                            />
-                          )}
-
-                          {/* Display the user's name. If they don't have one saved, then display their email */}
-                          {member.name || member.email}
-                        </li>
-                    ))}
-                </ul>
             </div>
 
-            <div className="mt-4 p-3 border rounded container d-flex justify-content-center gap-4">
-                <h5>Legend: </h5>
+                <div className="mb-4">
+                    <h4>Members</h4>
 
-                <div className="d-flex align-items-center gap-3 flex-wrap">
+                    <ul className="list-group">
+                        {members.map((member) => (
+                            <li key={member.id} className="list-group-item">
+                            {/* Display the user's photo if they have one */ }
+                            {member.photoURL && (
+                                <img
+                                src={member.photoURL}
+                                alt={member.name}
+                                className="rounded-circle"
+                                style={{ width: "30px", height: "30px", marginRight: "10px" }}
+                                />
+                            )}
 
-                    <div className="d-flex align-items-center">
-                        <div
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "#EEEEEE",
-                            marginRight: "8px",
-                            border: "1px solid #ccc"
-                          }}
-                        />
-                        <span>No one available</span>
-                    </div>
-
-                    <div className="d-flex align-items-center">
-                        <div
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "rgba(0, 255, 123, 0.5)",
-                            marginRight: "8px"
-                          }}
-                        />
-                        <span>Some people available</span>
-                    </div>
-
-                    <div className="d-flex align-items-center">
-                        <div
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "rgba(0, 123, 255, 0.5)",
-                            marginRight: "8px"
-                          }}
-                        />
-                        <span>Best time (most people available)</span>
-                    </div>
-
+                            {/* Display the user's name. If they don't have one saved, then display their email */}
+                            {member.name || member.email}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
+
+                <div className="mt-4 p-3 bg-light text-dark border rounded container d-flex justify-content-center gap-4">
+                    <h5>Legend: </h5>
+
+                    <div className="d-flex align-items-center gap-3 flex-wrap">
+
+                        <div className="d-flex align-items-center">
+                            <div
+                            style={{
+                                width: "20px",
+                                height: "20px",
+                                backgroundColor: "#EEEEEE",
+                                marginRight: "8px",
+                                border: "1px solid #ccc"
+                            }}
+                            />
+                            <span>No one available</span>
+                        </div>
+
+                        <div className="d-flex align-items-center">
+                            <div
+                            style={{
+                                width: "20px",
+                                height: "20px",
+                                backgroundColor: "rgba(0, 255, 123, 0.5)",
+                                marginRight: "8px"
+                            }}
+                            />
+                            <span>Some people available</span>
+                        </div>
+
+                        <div className="d-flex align-items-center">
+                            <div
+                            style={{
+                                width: "20px",
+                                height: "20px",
+                                backgroundColor: "rgba(0, 123, 255, 0.5)",
+                                marginRight: "8px"
+                            }}
+                            />
+                            <span>Best time (most people available)</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* Availability Grid */}
+                {overlap.length === 0 ? (
+                    <p>No availability has been entered</p>
+                    ) : (
+                    <table className="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Sun</th>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                            </tr>
+                        </thead>
+                        <tbody>{rows}</tbody>
+                    </table>
+                    )
+                }
             </div>
-
-            {/* Availability Grid */}
-              {overlap.length === 0 ? (
-                  <p>No availability has been entered</p>
-                ) : (
-                  <table className="table table-bordered text-center">
-                      <thead>
-                          <tr>
-                              <th>Time</th>
-                              <th>Sun</th>
-                              <th>Mon</th>
-                              <th>Tue</th>
-                              <th>Wed</th>
-                              <th>Thu</th>
-                              <th>Fri</th>
-                              <th>Sat</th>
-                          </tr>
-                      </thead>
-                      <tbody>{rows}</tbody>
-                  </table>
-                )
-              }
         </div>
-
       
     );
 }
