@@ -4,7 +4,7 @@ Coordinate schedules with your group.
 
 Made with Next.js, TypeScript, Bootstrap, and Firebase.
 
-### How to use this program:
+### How to use this program locally:
 
 1. Download the code
 2. Go into the planify/ directory and run <code>npm install</code> to download all of the dependencies of this project
@@ -50,4 +50,4 @@ Made with Next.js, TypeScript, Bootstrap, and Firebase.
         }
       ```
      - Then, click "Publish"
-8. Now, you should be ready to run the app and log in! You do not need to create any of the collections or documents in the database manually. Firebase will handle it automatically. Simply go into the planify/ directory and run <code>npm run dev</code> and go to the URL it provides you.
+8. Now, you should be ready to run the app and log in! You do not need to create any of the collections or documents in the database manually. Firebase will handle it automatically. Simply go into the planify/ directory and do <code>npm run dev</code>, then go to the URL it provides you.
