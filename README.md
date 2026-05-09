@@ -7,7 +7,7 @@ Made with Next.js, TypeScript, Bootstrap, and Firebase.
 ### How to use this program:
 
 1. Download the code
-2. Go into the planify/ directory and run "npm install" to download all of the dependencies of this project
+2. Go into the planify/ directory and run <code>npm install</code> to download all of the dependencies of this project
 3. Set up Firebase project (if you have not already)
     - Sign into Firebase's <a href="https://firebase.google.com/">website</a> and click on "Go to console"
     - Click "Create a new Firebase project" (you don't need to enable Gemini or Google Analytics)
