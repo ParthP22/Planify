@@ -50,4 +50,4 @@ Made with Next.js, TypeScript, Bootstrap, and Firebase.
         }
       ```
      - Then, click "Publish"
-8. Now, you should be ready to run the app and log in! You do not need to create any of the collections or documents in the database manually. Firebase will handle it automatically.
+8. Now, you should be ready to run the app and log in! You do not need to create any of the collections or documents in the database manually. Firebase will handle it automatically. Simply go into the planify/ directory and run <code>npm run dev</code> and go to the URL it provides you.
