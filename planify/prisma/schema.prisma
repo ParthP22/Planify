@@ -39,3 +39,9 @@ model Membership{
   role GroupRole
   joinedAt DateTime @default(now())
 }
+
+model AvailabilitySlot{
+  id String @id @default(cuid())
+  dayOfWeek Int
+  slotIndex Int
+}
