@@ -20,3 +20,10 @@ model User {
   imageUrl String?
   createdAt DateTime @default(now())
 }
+
+model Group {
+  id String @id @default(cuid())
+  name String
+  createdById String
+  createdAt DateTime @default(now())
+}
