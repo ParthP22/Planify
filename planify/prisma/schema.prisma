@@ -69,5 +69,7 @@ model AvailabilitySlot{
 
   membership Membership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
 
+  @@unique([membershipId, dayOfWeek, slotIndex])
+
   @@index([membershipId])
 }
