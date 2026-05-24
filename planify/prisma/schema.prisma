@@ -27,3 +27,9 @@ model Group {
   createdById String
   createdAt DateTime @default(now())
 }
+
+enum GroupRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
