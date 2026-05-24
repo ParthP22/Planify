@@ -19,12 +19,17 @@ model User {
   name String?
   imageUrl String?
   createdAt DateTime @default(now())
+
+  createdGroups Group[] @relation("GroupCreator")
 }
 
 model Group {
   id String @id @default(cuid())
   name String
+  
   createdById String
+  createdBy User @relation("GroupCreator", fields: [createdById], references: [id])
+
   createdAt DateTime @default(now())
 }
 
