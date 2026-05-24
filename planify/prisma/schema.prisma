@@ -32,6 +32,8 @@ model Group {
   createdBy User @relation("GroupCreator", fields: [createdById], references: [id])
 
   createdAt DateTime @default(now())
+
+  memberships Membership[]
 }
 
 enum GroupRole {
@@ -44,11 +46,13 @@ model Membership{
   id String @id @default(cuid()) 
 
   userId String
+  groupId String
 
   role GroupRole
   joinedAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
 }
 
 model AvailabilitySlot{
