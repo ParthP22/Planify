@@ -33,3 +33,9 @@ enum GroupRole {
   ADMIN
   MEMBER
 }
+
+model Membership{
+  id String @id @default(cuid())
+  role GroupRole
+  joinedAt DateTime @default(now())
+}
