@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { auth } from "@/lib/firebase";
-import { signOut } from "firebase/auth";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { User } from "firebase/auth";
@@ -19,20 +17,12 @@ export default function Navbar() {
 
 
     useEffect(() => {
-        // Listen for authentication state changes
-        const unsub = auth.onAuthStateChanged((user) => {
-            // If the user who is logged in changes, then update the user state
-            setUser(user);
-        });
-
-        // Unmount the auth listener
-        return () => unsub();
+        
     }, []);
 
     // Function to handle the sign-out operation when
     // clicking the Log Out button
     const handleLogout = async () => {
-        await signOut(auth);
         router.push("/login");
     };
 
