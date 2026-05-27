@@ -1,5 +1,6 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 
@@ -8,9 +9,9 @@ export default function LoginPage() {
   const router = useRouter();
 
   // Asynchronous function to handle sign-in/sign-up via Google
-  const signIn = async () => {
+  const logIn = async () => {
     
-
+    await signIn("google");
     
 
     router.push("/dashboard");
@@ -38,7 +39,7 @@ export default function LoginPage() {
 
         <button
           className="btn btn-light shadow-sm rounded-3 px-4 py-3 d-flex align-items-center"
-          onClick={signIn}
+          onClick={logIn}
         >
           <img src="google-logo.png" height="20px" width="20px"></img>
 
