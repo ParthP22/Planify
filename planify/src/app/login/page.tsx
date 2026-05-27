@@ -1,5 +1,6 @@
 "use client";
 
+import { signInWithGoogle } from "@/actions/auth-actions";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -11,7 +12,7 @@ export default function LoginPage() {
   // Asynchronous function to handle sign-in/sign-up via Google
   const logIn = async () => {
     
-    await signIn("google");
+    await signInWithGoogle();
     
 
     router.push("/dashboard");
