@@ -3,7 +3,10 @@
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { User } from "firebase/auth";
+// import { signOut, User } from "firebase/auth";
+import { signOut } from "next-auth/react";
+import { User } from "next-auth";
+import { auth } from "@/auth";
 
 export default function Navbar() {
     // Create router to control sending the user to other pages.
@@ -17,12 +20,23 @@ export default function Navbar() {
 
 
     useEffect(() => {
+        // Listen for authentication state changes
+        // const unsub = auth.onAuthStateChanged((user) => {
+        //     setUser(user);
+        // });
         
+        // Clean up the listener on unmount to prevent memory leaks
+        // return () => unsub();
+        
+        setUser(auth.);
+
+
     }, []);
 
     // Function to handle the sign-out operation when
     // clicking the Log Out button
     const handleLogout = async () => {
+        await signOut();
         router.push("/login");
     };
 
@@ -47,9 +61,9 @@ export default function Navbar() {
             <div className="d-flex align-items-center gap-3 ms-auto">
 
                 {/* Display the user's profile picture from their Google account */}
-                {user && user.photoURL && (
+                {user && user.image && (
                     <img
-                        src={user.photoURL}
+                        src={user.image}
                         alt="User"
                         className="rounded-circle"
                         style={{ width: "30px", height: "30px" }}
@@ -59,7 +73,7 @@ export default function Navbar() {
                 {/* Display the user's name from their Google account */}
                 {user && (
                     <span className="text-light">
-                        {user.displayName}
+                        {user.name}
                     </span>
                 )}
 
