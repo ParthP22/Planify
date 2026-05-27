@@ -7,6 +7,7 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { User } from "next-auth";
 import { auth } from "@/auth";
+import { signOutUser } from "@/actions/auth-actions";
 
 export default function Navbar() {
     // Create router to control sending the user to other pages.
@@ -28,7 +29,7 @@ export default function Navbar() {
         // Clean up the listener on unmount to prevent memory leaks
         // return () => unsub();
         
-        setUser(auth.);
+        setUser();
 
 
     }, []);
@@ -36,7 +37,7 @@ export default function Navbar() {
     // Function to handle the sign-out operation when
     // clicking the Log Out button
     const handleLogout = async () => {
-        await signOut();
+        await signOutUser();
         router.push("/login");
     };
 
