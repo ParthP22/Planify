@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { auth } from "@/lib/firebase";
+// import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
-import { createGroup, joinGroup, getUserGroups } from "@/lib/groups";
+// import { createGroup, joinGroup, getUserGroups } from "@/lib/groups";
 
 export default function Dashboard() {
     // Groups state to store all the groups that the user
@@ -27,31 +27,31 @@ export default function Dashboard() {
     useEffect(() => {
         
             // Listen for authentication state changes
-            const unsub = auth.onAuthStateChanged((user) => {
-                // If the user is not logged in, redirect to the login page
-                if (!user) {
-                    router.push("/login");
-                }
-                else{
-                    loadGroups(user.uid);
-                }
-            });
+            // const unsub = auth.onAuthStateChanged((user) => {
+            //     // If the user is not logged in, redirect to the login page
+            //     if (!user) {
+            //         router.push("/login");
+            //     }
+            //     else{
+            //         loadGroups(user.uid);
+            //     }
+            // });
             
             // Clean up the listener on unmount
-            return () => unsub();
+            // return () => unsub();
     }, []);
 
     // Function for the button to create a new group for the user.
     const handleCreateGroup = async () => {
-        const user = auth.currentUser;
+        // const user = auth.currentUser;
 
         // If the user is not logged in, we return.
         // Ideally, this should never happen, since this
         // case is already handled in the useEffect 
         // function above, but it's good to be safe.
-        if(!user){
-            return;
-        }
+        // if(!user){
+        //     return;
+        // }
 
         // Remove all trailing and leading whitespace of the group's name.
         // If the string is empty, then alert the user.
@@ -61,23 +61,23 @@ export default function Dashboard() {
         }
 
         // Store the contents of the Promise
-        const res = await createGroup(groupName.trim(), user.uid);
+        // const res = await createGroup(groupName.trim(), user.uid);
 
         // Update the results state with the content of the new group.
-        setResult(res);
+        // setResult(res);
 
         // Reload the groups section
-        loadGroups(user.uid);
+        // loadGroups(user.uid);
     }
 
     // Function for the button to handle joining another group
     const handleJoin = async () => {
 
         // Check to be sure that the user is indeed logged in.
-        const user = auth.currentUser;
-        if(!user){
-            return;
-        }
+        // const user = auth.currentUser;
+        // if(!user){
+        //     return;
+        // }
 
         // Removing all leading and trailing whitespace from the
         // invite code. If the string is empty, alert the user.
@@ -88,15 +88,15 @@ export default function Dashboard() {
 
         try{
             // Try joining the user into the group
-            const joinStatus = await joinGroup(inviteCode, user.uid);
+            // const joinStatus = await joinGroup(inviteCode, user.uid);
 
             // If joinStatus is false, then the user is already in the group.
-            if(!joinStatus){
-                alert("You are already in this group");
-            }
-            else{
-                alert("Joined group!");
-            }
+            // if(!joinStatus){
+            //     alert("You are already in this group");
+            // }
+            // else{
+            //     alert("Joined group!");
+            // }
         }
         catch (error: any){
             // Catch and display any error messages
@@ -104,7 +104,7 @@ export default function Dashboard() {
         }
 
         // Reload the groups again
-        loadGroups(user.uid);
+        // loadGroups(user.uid);
     }
 
     // This function that updates the groups state and reloads
@@ -114,8 +114,8 @@ export default function Dashboard() {
             return;
         }
 
-        const data = await getUserGroups(userId);
-        setGroups(data);
+        // const data = await getUserGroups(userId);
+        // setGroups(data);
     }
 
     return (
