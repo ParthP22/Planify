@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 // import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
+import { createGroupAction } from "../actions/groups";
 // import { createGroup, joinGroup, getUserGroups } from "@/lib/groups";
 
 export default function Dashboard() {
@@ -62,6 +63,9 @@ export default function Dashboard() {
 
         // Store the contents of the Promise
         // const res = await createGroup(groupName.trim(), user.uid);
+
+        const ret = await createGroupAction(groupName.trim());
+        setResult(ret);
 
         // Update the results state with the content of the new group.
         // setResult(res);
