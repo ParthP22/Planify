@@ -1,11 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { auth } from "@/lib/firebase";
-import { signOut } from "firebase/auth";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { User } from "firebase/auth";
+// import { signOut, User } from "firebase/auth";
+import { signOut } from "next-auth/react";
+import { User } from "next-auth";
+import { auth } from "@/auth";
+import { useSession } from "next-auth/react";
+import { signOutUser } from "@/actions/auth-actions";
 
 export default function Navbar() {
     // Create router to control sending the user to other pages.
@@ -14,26 +17,14 @@ export default function Navbar() {
     // Use the URL that this component is on
     const pathname = usePathname();
 
-    // Store the current user in a state
-    const [user, setUser] = useState<User | null>(null);
+    const {data: session } = useSession();
 
-
-    useEffect(() => {
-        // Listen for authentication state changes
-        const unsub = auth.onAuthStateChanged((user) => {
-            // If the user who is logged in changes, then update the user state
-            setUser(user);
-        });
-
-        // Unmount the auth listener
-        return () => unsub();
-    }, []);
+    const user = session?.user;
 
     // Function to handle the sign-out operation when
     // clicking the Log Out button
     const handleLogout = async () => {
-        await signOut(auth);
-        router.push("/login");
+        await signOutUser();
     };
 
     // Don't render the Navbar on the login page
@@ -57,9 +48,9 @@ export default function Navbar() {
             <div className="d-flex align-items-center gap-3 ms-auto">
 
                 {/* Display the user's profile picture from their Google account */}
-                {user && user.photoURL && (
+                {user && user.image && (
                     <img
-                        src={user.photoURL}
+                        src={user.image}
                         alt="User"
                         className="rounded-circle"
                         style={{ width: "30px", height: "30px" }}
@@ -69,7 +60,7 @@ export default function Navbar() {
                 {/* Display the user's name from their Google account */}
                 {user && (
                     <span className="text-light">
-                        {user.displayName}
+                        {user.name}
                     </span>
                 )}
 
