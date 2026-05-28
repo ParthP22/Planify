@@ -2,11 +2,12 @@ import { prisma } from "../prisma";
 import { generateInviteCode } from "@/utils/groups/inviteCode";
 
 export async function createGroup(userId: string, name: string){
+    const code = generateInviteCode();
 
     return prisma.group.create({
         data: {
             name: name,
-            inviteCode: generateInviteCode(),
+            inviteCode: code,
             createdBy: {
                 connect: { id: userId },
             },
