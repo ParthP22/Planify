@@ -19,6 +19,8 @@ export default function Navbar() {
 
     const {data: session } = useSession();
 
+    const user = session?.user;
+
     // Function to handle the sign-out operation when
     // clicking the Log Out button
     const handleLogout = async () => {
