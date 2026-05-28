@@ -7,5 +7,7 @@ export async function signInWithGoogle() {
 }
 
 export async function signOutUser() {
-  await signOut();
+  await signOut({
+    redirectTo: "/login"
+  });
 }
