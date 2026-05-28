@@ -7,6 +7,7 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { User } from "next-auth";
 import { auth } from "@/auth";
+import { useSession } from "next-auth/react";
 import { signOutUser } from "@/actions/auth-actions";
 
 export default function Navbar() {
@@ -16,23 +17,7 @@ export default function Navbar() {
     // Use the URL that this component is on
     const pathname = usePathname();
 
-    // Store the current user in a state
-    const [user, setUser] = useState<User | null>(null);
-
-
-    useEffect(() => {
-        // Listen for authentication state changes
-        // const unsub = auth.onAuthStateChanged((user) => {
-        //     setUser(user);
-        // });
-        
-        // Clean up the listener on unmount to prevent memory leaks
-        // return () => unsub();
-        
-        setUser();
-
-
-    }, []);
+    const {data: session } = useSession();
 
     // Function to handle the sign-out operation when
     // clicking the Log Out button
