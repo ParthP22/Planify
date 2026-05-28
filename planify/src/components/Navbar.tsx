@@ -25,7 +25,6 @@ export default function Navbar() {
     // clicking the Log Out button
     const handleLogout = async () => {
         await signOutUser();
-        router.push("/login");
     };
 
     // Don't render the Navbar on the login page
