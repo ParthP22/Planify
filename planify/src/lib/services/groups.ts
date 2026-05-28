@@ -1,12 +1,14 @@
+"use server";
+
 import { prisma } from "../prisma";
 import { generateInviteCode } from "@/utils/groups/inviteCode";
 
-export async function createGroup(userId: string, name: string){
+export async function createGroupService(userId: string, groupName: string){
     const code = generateInviteCode();
 
     return prisma.group.create({
         data: {
-            name: name,
+            name: groupName,
             inviteCode: code,
             createdBy: {
                 connect: { id: userId },
