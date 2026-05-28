@@ -72,6 +72,8 @@ model Group {
   id String @id @default(cuid())
   name String
 
+  inviteCode String
+
   createdById String
   createdBy User @relation("GroupCreator", fields: [createdById], references: [id])
 
