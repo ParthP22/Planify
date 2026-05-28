@@ -14,10 +14,6 @@ export default function LoginPage() {
     
     await signInWithGoogle();
     
-
-    router.push("/dashboard");
-
-    // Clean up the listener on unmount to prevent memory leaks
   };
 
   return (
