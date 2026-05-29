@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { createGroupService, getUserGroupsService } from "@/lib/services/groups";
+import { createGroupService, getUserGroupsService, joinGroupService } from "@/lib/services/groups";
 
 export async function createGroupAction(name: string){
     const session = await auth();
@@ -21,4 +21,14 @@ export async function getUserGroupsAction(){
     }
 
     return getUserGroupsService(session.user.id);
+}
+
+export async function joinGroupAction(inviteCode: string){
+    const session = await auth();
+
+    if(!session?.user?.id){
+        throw new Error("User is not authenticated.");
+    }
+
+    return joinGroupService(session.user.id, inviteCode);
 }
