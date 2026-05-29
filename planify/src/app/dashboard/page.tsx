@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 // import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
-import { createGroupAction } from "../actions/groups";
+import { createGroupAction, getUserGroupsAction } from "../actions/groups";
 // import { createGroup, joinGroup, getUserGroups } from "@/lib/groups";
 
 export default function Dashboard() {
@@ -40,6 +40,8 @@ export default function Dashboard() {
             
             // Clean up the listener on unmount
             // return () => unsub();
+
+            loadGroups();
     }, []);
 
     // Function for the button to create a new group for the user.
@@ -113,11 +115,10 @@ export default function Dashboard() {
 
     // This function that updates the groups state and reloads
     // the groups section of the dashboard for the user.
-    const loadGroups = async (userId: string) => {
-        if(!userId){
-            return;
-        }
+    const loadGroups = async () => {
 
+        const data = await getUserGroupsAction();
+        setGroups(data);
         // const data = await getUserGroups(userId);
         // setGroups(data);
     }
