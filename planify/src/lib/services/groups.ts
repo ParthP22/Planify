@@ -29,3 +29,18 @@ export async function createGroupService(userId: string, groupName: string){
         },
     });
 }
+
+export async function getUserGroupsService(userId: string){
+    return prisma.group.findMany({
+        where: {
+            memberships: {
+                some: {
+                    userId,
+                },
+            },
+        },
+        orderBy: {
+            createdAt: "desc",
+        }
+    });
+}
