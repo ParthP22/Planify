@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 // import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
-import { createGroupAction, getUserGroupsAction } from "../actions/groups";
+import { createGroupAction, getUserGroupsAction, joinGroupAction } from "../actions/groups";
 // import { createGroup, joinGroup, getUserGroups } from "@/lib/groups";
 
 export default function Dashboard() {
@@ -103,6 +103,16 @@ export default function Dashboard() {
             // else{
             //     alert("Joined group!");
             // }
+
+            const joinStatus = await joinGroupAction(inviteCode.trim());
+
+            if(!joinStatus){
+                alert("You are already in this group.");
+            }
+            else{
+                alert("Joined group!");
+            }
+
         }
         catch (error: any){
             // Catch and display any error messages
@@ -111,6 +121,8 @@ export default function Dashboard() {
 
         // Reload the groups again
         // loadGroups(user.uid);
+
+        loadGroups();
     }
 
     // This function that updates the groups state and reloads
