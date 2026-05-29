@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { createGroupService } from "@/lib/services/groups";
+import { createGroupService, getUserGroupsService } from "@/lib/services/groups";
 
 export async function createGroupAction(name: string){
     const session = await auth();
@@ -11,4 +11,14 @@ export async function createGroupAction(name: string){
     }   
 
     return createGroupService(session.user.id, name);
+}
+
+export async function getUserGroupsAction(){
+    const session = await auth();
+
+    if(!session?.user?.id){
+        throw new Error("User is not authorized.");
+    }
+
+    return getUserGroupsService(session.user.id);
 }
