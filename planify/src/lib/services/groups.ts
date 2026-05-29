@@ -44,3 +44,34 @@ export async function getUserGroupsService(userId: string){
         }
     });
 }
+
+export async function joinGroupService(userId: string, inviteCode: string){
+    const group = await prisma.group.findUnique({
+        where: { inviteCode },
+    });
+
+    if(!group){
+        throw new Error("Invalid invite code.");
+    }
+
+    const existingMembership = await prisma.membership.findUnique({
+        where: { 
+            userId_groupId: {
+                userId: userId,
+                groupId: group.id,
+            },
+        },
+    });
+
+    if(existingMembership){
+        return null;
+    }
+
+    return prisma.membership.create({
+        data: {
+            userId: userId,
+            groupId: group.id,
+            role: "MEMBER",
+        }
+    });
+}
