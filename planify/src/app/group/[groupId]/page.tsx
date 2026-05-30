@@ -1,6 +1,6 @@
 "use client";
 
-import { getGroupAvailabilityAction } from "@/app/actions/groups";
+import { computeAvailabilityCountsAction, getGroupAvailabilityAction } from "@/app/actions/groups";
 // import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
 // import { getGroupMembers, getGroupName, getInviteCode, leaveGroup, verifyMembership } from "@/lib/groups";
 import { useParams } from "next/navigation";
@@ -110,7 +110,10 @@ export default function GroupPage() {
         // });
 
         const fetchOverlap = async () => {
-            const groupAvailabilitySlots = await getGroupAvailabilityAction(groupId);
+            const allSlots = await getGroupAvailabilityAction(groupId);
+            const result = await computeAvailabilityCountsAction(allSlots);
+            setOverlap(result);
+            setLoading(false);
         };
 
 
