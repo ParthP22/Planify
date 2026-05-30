@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { createGroupService, getUserGroupsService, joinGroupService } from "@/lib/services/groups";
+import { createGroupService, getGroupAvailabilityService, getUserGroupsService, joinGroupService } from "@/lib/services/groups";
 
 export async function createGroupAction(name: string){
     const session = await auth();
@@ -31,4 +31,8 @@ export async function joinGroupAction(inviteCode: string){
     }
 
     return joinGroupService(session.user.id, inviteCode);
+}
+
+export async function getGroupAvailabilityAction(groupId: string){
+    return getGroupAvailabilityService(groupId);
 }
