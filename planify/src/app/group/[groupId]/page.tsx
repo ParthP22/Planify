@@ -1,6 +1,6 @@
 "use client";
 
-import { computeAvailabilityCountsAction, getGroupAvailabilityAction, getGroupNameAction } from "@/app/actions/groups";
+import { computeAvailabilityCountsAction, getGroupAvailabilityAction, getGroupMembersAction, getGroupNameAction } from "@/app/actions/groups";
 // import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
 // import { getGroupMembers, getGroupName, getInviteCode, leaveGroup, verifyMembership } from "@/lib/groups";
 import { useParams } from "next/navigation";
@@ -124,8 +124,22 @@ export default function GroupPage() {
             setLoading(false);
         };
 
+        const fetchMembers = async () => {
+            const memberData = await getGroupMembersAction(groupId);
+            
+            console.log(memberData);
+            
+            if(!memberData){
+                return;
+            }
+            else{
+                setMembers(memberData);
+            }
+        };
+
         fetchGroupName();
         fetchOverlap();
+        fetchMembers();
 
         // // Unmount the auth listener
         // return () => unsub();
@@ -249,19 +263,19 @@ export default function GroupPage() {
                         <h4 className="text-center">Members</h4>
                         <ul className="list-group">
                             {members.map((member) => (
-                                <li key={member.id} className="list-group-item">
+                                <li key={member.user.id} className="list-group-item">
                                 {/* Display the user's photo if they have one */ }
-                                {member.photoURL && (
+                                {member.user.image && (
                                     <img
-                                    src={member.photoURL}
-                                    alt={member.name}
+                                    src={member.user.image}
+                                    alt={member.user.name}
                                     className="rounded-circle"
                                     style={{ width: "30px", height: "30px", marginRight: "10px" }}
                                     />
                                 )}
 
                                 {/* Display the user's name. If they don't have one saved, then display their email */}
-                                {member.name || member.email}
+                                {member.user.name || member.user.email}
                                 </li>
                             ))}
                         </ul>
