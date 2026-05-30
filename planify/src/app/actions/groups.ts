@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { createGroupService, getGroupAvailabilityService, getGroupMembersService, getGroupNameService, getUserGroupsService, joinGroupService } from "@/lib/services/groups";
+import { createGroupService, getGroupAvailabilityService, getGroupMembersService, getGroupNameService, getInviteCodeService, getUserGroupsService, joinGroupService } from "@/lib/services/groups";
 
 export async function createGroupAction(name: string){
     const session = await auth();
@@ -54,4 +54,14 @@ export async function getGroupNameAction(groupId: string){
 
 export async function getGroupMembersAction(groupId: string){
     return await getGroupMembersService(groupId);
+}
+
+export async function getInviteCodeAction(groupId: string){
+    const inviteCode = await getInviteCodeService(groupId);
+
+    if(!inviteCode){
+        return null;
+    }
+
+    return inviteCode.inviteCode;
 }
