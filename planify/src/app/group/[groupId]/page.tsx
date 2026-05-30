@@ -1,6 +1,6 @@
 "use client";
 
-import { computeAvailabilityCountsAction, getGroupAvailabilityAction } from "@/app/actions/groups";
+import { computeAvailabilityCountsAction, getGroupAvailabilityAction, getGroupNameAction } from "@/app/actions/groups";
 // import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
 // import { getGroupMembers, getGroupName, getInviteCode, leaveGroup, verifyMembership } from "@/lib/groups";
 import { useParams } from "next/navigation";
@@ -109,6 +109,14 @@ export default function GroupPage() {
         //     }
         // });
 
+        const fetchGroupName = async () => {
+            const retrievedGroupName = await getGroupNameAction(groupId);
+            if(!retrievedGroupName){
+                return;
+            }
+            setGroupName(retrievedGroupName.name);
+        };
+
         const fetchOverlap = async () => {
             const allSlots = await getGroupAvailabilityAction(groupId);
             const result = await computeAvailabilityCountsAction(allSlots);
@@ -116,7 +124,7 @@ export default function GroupPage() {
             setLoading(false);
         };
 
-
+        fetchGroupName();
         fetchOverlap();
 
         // // Unmount the auth listener
