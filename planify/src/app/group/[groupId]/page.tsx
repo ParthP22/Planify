@@ -1,11 +1,11 @@
 "use client";
 
-import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
-import { getGroupMembers, getGroupName, getInviteCode, leaveGroup, verifyMembership } from "@/lib/groups";
+// import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
+// import { getGroupMembers, getGroupName, getInviteCode, leaveGroup, verifyMembership } from "@/lib/groups";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { auth } from "@/lib/firebase";
+// import { auth } from "@/lib/firebase";
 
 export default function GroupPage() {
     // React hook to access the parameters in the URL.
@@ -45,71 +45,73 @@ export default function GroupPage() {
 
     // When the page loads or whenever the groupId changes, perform these calls
     useEffect(() => {
-        // Listen for authentication state changes
-        const unsub = auth.onAuthStateChanged((user) => {
-            // If the user is not logged in, then redirect
-            // immediately to the login page
-            if(!user){
-                router.push("/login");
-                return;
-            }
-            else{
-                // Retrieve the current group name based on groupId
-                const fetchGroupName = async () => {
-                    const retrievedGroupName = await getGroupName(groupId);
-                    setGroupName(retrievedGroupName);
-                };
+        // // Listen for authentication state changes
+        // const unsub = auth.onAuthStateChanged((user) => {
+        //     // If the user is not logged in, then redirect
+        //     // immediately to the login page
+        //     if(!user){
+        //         router.push("/login");
+        //         return;
+        //     }
+        //     else{
+        //         // Retrieve the current group name based on groupId
+        //         const fetchGroupName = async () => {
+        //             const retrievedGroupName = await getGroupName(groupId);
+        //             setGroupName(retrievedGroupName);
+        //         };
                 
-                // Retrieve the current overlap in schedules based on groupId
-                const fetchOverlap = async () => {
-                    const allSlots = await getGroupAvailability(groupId);
-                    const result = computeAvailabilityCounts(allSlots);
-                    setOverlap(result);
-                    setLoading(false);
-                };
+        //         // Retrieve the current overlap in schedules based on groupId
+        //         const fetchOverlap = async () => {
+        //             const allSlots = await getGroupAvailability(groupId);
+        //             const result = computeAvailabilityCounts(allSlots);
+        //             setOverlap(result);
+        //             setLoading(false);
+        //         };
                 
-                // Retrieve the current members of the group
-                const fetchMembers = async () => {
-                    const memberData = await getGroupMembers(groupId);
-                    if(!memberData){
-                        return;
-                    }
-                    else{
-                        setMembers(memberData);
-                    }
-                };
+        //         // Retrieve the current members of the group
+        //         const fetchMembers = async () => {
+        //             const memberData = await getGroupMembers(groupId);
+        //             if(!memberData){
+        //                 return;
+        //             }
+        //             else{
+        //                 setMembers(memberData);
+        //             }
+        //         };
 
-                // Retrieve the invite code based on the groupId
-                const fetchInviteCode = async () => {
-                    const inviteCode = await getInviteCode(groupId);
-                    if(!inviteCode){
-                        return;
-                    }
-                    else{
-                        setInviteCode(inviteCode);
-                    }
-                };
+        //         // Retrieve the invite code based on the groupId
+        //         const fetchInviteCode = async () => {
+        //             const inviteCode = await getInviteCode(groupId);
+        //             if(!inviteCode){
+        //                 return;
+        //             }
+        //             else{
+        //                 setInviteCode(inviteCode);
+        //             }
+        //         };
 
-                // Verify that the member is indeed a member of this group
-                const verifyMember = async () => {
-                    console.log(user.uid);
-                    const isMember = await verifyMembership(groupId, user.uid);
-                    if(!isMember){
-                        alert("You are not a member of this group!");
-                        router.push("/dashboard");
-                    }
-                };
+        //         // Verify that the member is indeed a member of this group
+        //         const verifyMember = async () => {
+        //             console.log(user.uid);
+        //             const isMember = await verifyMembership(groupId, user.uid);
+        //             if(!isMember){
+        //                 alert("You are not a member of this group!");
+        //                 router.push("/dashboard");
+        //             }
+        //         };
                 
-                verifyMember();
-                fetchGroupName();
-                fetchInviteCode();
-                fetchOverlap();
-                fetchMembers();
-            }
-        });
+        //         verifyMember();
+        //         fetchGroupName();
+        //         fetchInviteCode();
+        //         fetchOverlap();
+        //         fetchMembers();
+        //     }
+        // });
 
-        // Unmount the auth listener
-        return () => unsub();
+        // // Unmount the auth listener
+        // return () => unsub();
+
+
     }, [groupId]);
 
     // Format the hour based on AM or PM
@@ -127,17 +129,18 @@ export default function GroupPage() {
 
     // Function for the button to handle leaving a group
     async function handleLeaveGroup(){
-        const user = auth.currentUser;
-        // If the user is not logged in, then do not do anything.
-        if(!user){
-            return;
-        }
-        else{
-            // If the user leaves, then return them to the dashboard 
-            // and then remove the user from the database.
-            await leaveGroup(groupId, user.uid);
-            router.push("/dashboard");
-        }
+        // const user = auth.currentUser;
+        // // If the user is not logged in, then do not do anything.
+        // if(!user){
+        //     return;
+        // }
+        // else{
+        //     // If the user leaves, then return them to the dashboard 
+        //     // and then remove the user from the database.
+        //     await leaveGroup(groupId, user.uid);
+        //     router.push("/dashboard");
+        // }
+        
     }
 
     // Iterate over the grid's dimensions and create each of the
