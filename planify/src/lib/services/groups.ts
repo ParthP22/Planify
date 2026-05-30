@@ -92,3 +92,11 @@ export async function getGroupAvailabilityService(groupId: string){
         }
     });
 }
+
+export async function getGroupNameService(groupId: string){
+    return prisma.group.findUnique({
+        where: {
+            id: groupId,
+        },
+    });
+}
