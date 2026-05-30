@@ -1,6 +1,7 @@
 "use client";
 
 import { computeAvailabilityCountsAction, getGroupAvailabilityAction, getGroupMembersAction, getGroupNameAction } from "@/app/actions/groups";
+import { getInviteCodeAction } from "@/app/actions/groups";
 // import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
 // import { getGroupMembers, getGroupName, getInviteCode, leaveGroup, verifyMembership } from "@/lib/groups";
 import { useParams } from "next/navigation";
@@ -137,7 +138,18 @@ export default function GroupPage() {
             }
         };
 
+        const fetchInviteCode = async () => {
+            const inviteCode = await getInviteCodeAction(groupId);
+            if(!inviteCode){
+                return;
+            }
+            else{
+                setInviteCode(inviteCode);
+            }
+        };
+
         fetchGroupName();
+        fetchInviteCode();
         fetchOverlap();
         fetchMembers();
 
