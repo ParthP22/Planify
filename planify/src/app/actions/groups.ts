@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { createGroupService, getGroupAvailabilityService, getGroupMembersService, getGroupNameService, getInviteCodeService, getUserGroupsService, joinGroupService } from "@/lib/services/groups";
+import { createGroupService, getGroupAvailabilityService, getGroupMembersService, getGroupNameService, getInviteCodeService, getUserGroupsService, joinGroupService, verifyMembershipService } from "@/lib/services/groups";
 
 export async function createGroupAction(name: string){
     const session = await auth();
@@ -64,4 +64,14 @@ export async function getInviteCodeAction(groupId: string){
     }
 
     return inviteCode.inviteCode;
+}
+
+export async function verifyMembershipAction(groupId: string){
+    const session = await auth();
+
+    if(!session?.user?.id){
+        throw new Error("User is not authenticated.");
+    }
+
+    return await verifyMembershipService(session.user.id, groupId);
 }
