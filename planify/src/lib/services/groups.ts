@@ -130,3 +130,14 @@ export async function verifyMembershipService(userId: string, groupId: string){
         },
     });
 }
+
+export async function leaveGroupService(userId: string, groupId: string){
+    return prisma.membership.delete({
+        where: {
+            userId_groupId:{
+                userId: userId,
+                groupId: groupId,
+            },
+        },
+    });
+}
