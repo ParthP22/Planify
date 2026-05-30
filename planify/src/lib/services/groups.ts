@@ -100,3 +100,14 @@ export async function getGroupNameService(groupId: string){
         },
     });
 }
+
+export async function getGroupMembersService(groupId: string){
+    return prisma.membership.findMany({
+        where: {
+            groupId: groupId,
+        },
+        include: {
+            user: true,
+        }
+    });
+}
