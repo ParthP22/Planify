@@ -1,6 +1,6 @@
 "use client";
 
-import { computeAvailabilityCountsAction, getGroupAvailabilityAction, getGroupMembersAction, getGroupNameAction } from "@/app/actions/groups";
+import { computeAvailabilityCountsAction, getGroupAvailabilityAction, getGroupMembersAction, getGroupNameAction, verifyMembershipAction } from "@/app/actions/groups";
 import { getInviteCodeAction } from "@/app/actions/groups";
 // import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
 // import { getGroupMembers, getGroupName, getInviteCode, leaveGroup, verifyMembership } from "@/lib/groups";
@@ -148,6 +148,16 @@ export default function GroupPage() {
             }
         };
 
+        const verifyMember = async () => {
+            const isMember = await verifyMembershipAction(groupId);
+
+            if(!isMember){
+                alert("You are not a member of this group!");
+                router.push("/dashboard");
+            }
+        };
+        
+        verifyMember();
         fetchGroupName();
         fetchInviteCode();
         fetchOverlap();
