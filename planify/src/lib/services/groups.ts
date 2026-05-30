@@ -119,3 +119,14 @@ export async function getInviteCodeService(groupId: string){
         }
     });
 }
+
+export async function verifyMembershipService(userId: string, groupId: string){
+    return prisma.membership.findUnique({
+        where: {
+            userId_groupId: {
+                userId: userId,
+                groupId: groupId,
+            },
+        },
+    });
+}
