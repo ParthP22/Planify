@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { createGroupService, getGroupAvailabilityService, getUserGroupsService, joinGroupService } from "@/lib/services/groups";
+import { createGroupService, getGroupAvailabilityService, getGroupNameService, getUserGroupsService, joinGroupService } from "@/lib/services/groups";
 
 export async function createGroupAction(name: string){
     const session = await auth();
@@ -46,4 +46,8 @@ export async function computeAvailabilityCountsAction(allSlots: any){
     }
 
     return availabilityCounts;
+}
+
+export async function getGroupNameAction(groupId: string){
+    return await getGroupNameService(groupId);
 }
