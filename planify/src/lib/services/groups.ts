@@ -111,3 +111,11 @@ export async function getGroupMembersService(groupId: string){
         }
     });
 }
+
+export async function getInviteCodeService(groupId: string){
+    return prisma.group.findUnique({
+        where: {
+            id: groupId,
+        }
+    });
+}
