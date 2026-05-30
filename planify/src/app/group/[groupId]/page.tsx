@@ -1,6 +1,6 @@
 "use client";
 
-import { computeAvailabilityCountsAction, getGroupAvailabilityAction, getGroupMembersAction, getGroupNameAction, verifyMembershipAction } from "@/app/actions/groups";
+import { computeAvailabilityCountsAction, getGroupAvailabilityAction, getGroupMembersAction, getGroupNameAction, leaveGroupAction, verifyMembershipAction } from "@/app/actions/groups";
 import { getInviteCodeAction } from "@/app/actions/groups";
 // import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
 // import { getGroupMembers, getGroupName, getInviteCode, leaveGroup, verifyMembership } from "@/lib/groups";
@@ -195,7 +195,9 @@ export default function GroupPage() {
         //     await leaveGroup(groupId, user.uid);
         //     router.push("/dashboard");
         // }
-        
+
+        await leaveGroupAction(groupId);
+        router.push("/dashboard");
     }
 
     // Iterate over the grid's dimensions and create each of the
