@@ -75,3 +75,20 @@ export async function joinGroupService(userId: string, inviteCode: string){
         }
     });
 }
+
+export async function getGroupAvailabilityService(groupId: string){
+    return prisma.availabilitySlot.findMany({
+        where: {
+            membership: {
+                groupId,
+            },
+        },
+        include: {
+            membership: {
+                include: {
+                    user: true,
+                }
+            }
+        }
+    });
+}
