@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { auth } from "@/lib/firebase";
-import { getAvailability, saveAvailability } from "@/lib/availability";
+import { getAvailabilityAction } from "@/app/actions/availability";
+// import { auth } from "@/lib/firebase";
+// import { getAvailability, saveAvailability } from "@/lib/availability";
+
 
 export default function AvailabilityPage() {
     // The availability grid will be 24 x 7,
@@ -38,36 +40,37 @@ export default function AvailabilityPage() {
 
     // Load existing availability
     useEffect(() => {
-        // Listen for authentication state changes
-        const unsub = auth.onAuthStateChanged(async (user) => {
-            // If the user is not logged in, then redirect
-            // immediately to the login page
-            if (!user) {
-                router.push("/login");
-                return;
-            }
-            else{
-                // Obtain the availability schedule for the current user
-                // from the database.
-                const slots = await getAvailability(groupId, user.uid);
-                if(slots !== null){
-                    // If not null, we set the availability slots to this
-                    setAvailabilitySlots(slots);
-                }
-                else{
-                    // If null, it means the user hasn't ever saved their availability
-                    // schedule before, so we start with a blank schedule.
-                    // Ideally though, this step shouldn't be necessary, because
-                    // this is what the state is initialized as.
-                    setAvailabilitySlots(Array(NUM_ROWS * NUM_COLS).fill(0));
-                }
+        // // Listen for authentication state changes
+        // const unsub = auth.onAuthStateChanged(async (user) => {
+        //     // If the user is not logged in, then redirect
+        //     // immediately to the login page
+        //     if (!user) {
+        //         router.push("/login");
+        //         return;
+        //     }
+        //     else{
+        //         // Obtain the availability schedule for the current user
+        //         // from the database.
+        //         const slots = await getAvailability(groupId, user.uid);
+        //         if(slots !== null){
+        //             // If not null, we set the availability slots to this
+        //             setAvailabilitySlots(slots);
+        //         }
+        //         else{
+        //             // If null, it means the user hasn't ever saved their availability
+        //             // schedule before, so we start with a blank schedule.
+        //             // Ideally though, this step shouldn't be necessary, because
+        //             // this is what the state is initialized as.
+        //             setAvailabilitySlots(Array(NUM_ROWS * NUM_COLS).fill(0));
+        //         }
             
-                setLoading(false);
-            }
-        });
+        //         setLoading(false);
+        //     }
+        // });
         
-        // Clean up the listener on unmount to prevent memory leaks
-        return () => unsub();
+        // // Clean up the listener on unmount to prevent memory leaks
+        // return () => unsub();
+
     }, [groupId]);
 
     // Show loading state if the page is still loading
@@ -107,30 +110,30 @@ export default function AvailabilityPage() {
     // Asynchronous function to handle saving the 
     // updated schedule to the database.
     async function handleSave(){
-        const user = auth.currentUser;
+        // const user = auth.currentUser;
         
-        // If the current user is not authenticated,
-        // then cancel this operation.
-        if(!user){
-            return;
-        }
+        // // If the current user is not authenticated,
+        // // then cancel this operation.
+        // if(!user){
+        //     return;
+        // }
 
-        // Set the saving state to true
-        setSaving(true);
+        // // Set the saving state to true
+        // setSaving(true);
 
-        try{
-            // Run the function to save the availability schedule to
-            // the database
-            await saveAvailability(groupId, user.uid, availabilitySlots);
+        // try{
+        //     // Run the function to save the availability schedule to
+        //     // the database
+        //     await saveAvailability(groupId, user.uid, availabilitySlots);
 
-            // Alert the user that it was saved
-            alert("Availability saved successfully!");
-            router.push(`/group/${groupId}`);
-        }
-        catch(error: any){
-            // Alert the user with an error if the save fails
-            alert("Save was unsuccessful: " + error.message);
-        }
+        //     // Alert the user that it was saved
+        //     alert("Availability saved successfully!");
+        //     router.push(`/group/${groupId}`);
+        // }
+        // catch(error: any){
+        //     // Alert the user with an error if the save fails
+        //     alert("Save was unsuccessful: " + error.message);
+        // }
         
     }
 
