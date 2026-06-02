@@ -3,9 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getAvailabilityAction, saveAvailabilityAction } from "@/app/actions/availability";
-// import { auth } from "@/lib/firebase";
-// import { getAvailability, saveAvailability } from "@/lib/availability";
-
 
 export default function AvailabilityPage() {
     // The availability grid will be 24 x 7,
