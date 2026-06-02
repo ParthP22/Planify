@@ -71,6 +71,25 @@ export default function AvailabilityPage() {
         // // Clean up the listener on unmount to prevent memory leaks
         // return () => unsub();
 
+        const fetchUserAvailability = async () => {
+            const slots = await getAvailabilityAction(groupId);
+            if(!slots){
+                setAvailabilitySlots(Array(NUM_ROWS * NUM_COLS).fill(0))
+            }
+            else{
+                const newSlots = Array(NUM_ROWS * NUM_COLS).fill(0);
+                slots.forEach((slot) => {
+                    let index = (slot.slotIndex * NUM_COLS) + slot.dayOfWeek;
+                    newSlots[index] = 1;
+                });
+                setAvailabilitySlots(newSlots);
+            }
+
+            setLoading(false);
+        };
+
+        fetchUserAvailability();
+
     }, [groupId]);
 
     // Show loading state if the page is still loading
