@@ -51,68 +51,6 @@ export default function GroupClient() {
 
     // When the page loads or whenever the groupId changes, perform these calls
     useEffect(() => {
-        // // Listen for authentication state changes
-        // const unsub = auth.onAuthStateChanged((user) => {
-        //     // If the user is not logged in, then redirect
-        //     // immediately to the login page
-        //     if(!user){
-        //         router.push("/login");
-        //         return;
-        //     }
-        //     else{
-        //         // Retrieve the current group name based on groupId
-        //         const fetchGroupName = async () => {
-        //             const retrievedGroupName = await getGroupName(groupId);
-        //             setGroupName(retrievedGroupName);
-        //         };
-                
-        //         // Retrieve the current overlap in schedules based on groupId
-        //         const fetchOverlap = async () => {
-        //             const allSlots = await getGroupAvailability(groupId);
-        //             const result = computeAvailabilityCounts(allSlots);
-        //             setOverlap(result);
-        //             setLoading(false);
-        //         };
-                
-        //         // Retrieve the current members of the group
-        //         const fetchMembers = async () => {
-        //             const memberData = await getGroupMembers(groupId);
-        //             if(!memberData){
-        //                 return;
-        //             }
-        //             else{
-        //                 setMembers(memberData);
-        //             }
-        //         };
-
-        //         // Retrieve the invite code based on the groupId
-        //         const fetchInviteCode = async () => {
-        //             const inviteCode = await getInviteCode(groupId);
-        //             if(!inviteCode){
-        //                 return;
-        //             }
-        //             else{
-        //                 setInviteCode(inviteCode);
-        //             }
-        //         };
-
-        //         // Verify that the member is indeed a member of this group
-        //         const verifyMember = async () => {
-        //             console.log(user.uid);
-        //             const isMember = await verifyMembership(groupId, user.uid);
-        //             if(!isMember){
-        //                 alert("You are not a member of this group!");
-        //                 router.push("/dashboard");
-        //             }
-        //         };
-                
-        //         verifyMember();
-        //         fetchGroupName();
-        //         fetchInviteCode();
-        //         fetchOverlap();
-        //         fetchMembers();
-        //     }
-        // });
 
         const fetchGroupName = async () => {
             const retrievedGroupName = await getGroupNameAction(groupId);
@@ -166,10 +104,6 @@ export default function GroupClient() {
         fetchInviteCode();
         fetchOverlap();
         fetchMembers();
-
-        // // Unmount the auth listener
-        // return () => unsub();
-
 
     }, [groupId]);
 
