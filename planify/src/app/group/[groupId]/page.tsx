@@ -1,13 +1,17 @@
 "use client";
 
-import { computeAvailabilityCountsAction, getGroupAvailabilityAction, getGroupMembersAction, getGroupNameAction, leaveGroupAction, verifyMembershipAction } from "@/app/actions/groups";
+import { 
+    computeAvailabilityCountsAction, 
+    getGroupAvailabilityAction, 
+    getGroupMembersAction, 
+    getGroupNameAction, 
+    leaveGroupAction, 
+    verifyMembershipAction 
+} from "@/app/actions/groups";
 import { getInviteCodeAction } from "@/app/actions/groups";
-// import { computeAvailabilityCounts, getGroupAvailability } from "@/lib/availability";
-// import { getGroupMembers, getGroupName, getInviteCode, leaveGroup, verifyMembership } from "@/lib/groups";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-// import { auth } from "@/lib/firebase";
 
 export default function GroupPage() {
     // React hook to access the parameters in the URL.
@@ -184,17 +188,6 @@ export default function GroupPage() {
 
     // Function for the button to handle leaving a group
     async function handleLeaveGroup(){
-        // const user = auth.currentUser;
-        // // If the user is not logged in, then do not do anything.
-        // if(!user){
-        //     return;
-        // }
-        // else{
-        //     // If the user leaves, then return them to the dashboard 
-        //     // and then remove the user from the database.
-        //     await leaveGroup(groupId, user.uid);
-        //     router.push("/dashboard");
-        // }
 
         await leaveGroupAction(groupId);
         router.push("/dashboard");
