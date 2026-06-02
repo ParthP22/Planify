@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { getAvailabilityAction } from "@/app/actions/availability";
+import { getAvailabilityAction, saveAvailabilityAction } from "@/app/actions/availability";
 // import { auth } from "@/lib/firebase";
 // import { getAvailability, saveAvailability } from "@/lib/availability";
 
@@ -153,6 +153,25 @@ export default function AvailabilityPage() {
         //     // Alert the user with an error if the save fails
         //     alert("Save was unsuccessful: " + error.message);
         // }
+
+        const updatedSlots = [];
+
+        for(let i = 0; i < availabilitySlots.length; i++){
+            if(availabilitySlots[i] == 1){
+                const dayOfWeek = i % NUM_COLS;
+                const slotIndex = Math.floor(i / NUM_COLS);
+
+                updatedSlots.push({
+                    dayOfWeek,
+                    slotIndex
+                });
+            }
+        }
+
+        await saveAvailabilityAction(groupId, updatedSlots);
+
+        alert("Availability saved successfully!");
+        router.push(`/group/${groupId}`);
         
     }
 
