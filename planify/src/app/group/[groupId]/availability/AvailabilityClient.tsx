@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, redirect } from "next/navigation";
 import { getAvailabilityAction, saveAvailabilityAction } from "@/app/actions/availability";
+import { verifyMembershipAction } from "@/app/actions/groups";
 
 export default function AvailabilityClient() {
     // The availability grid will be 24 x 7,
@@ -55,6 +56,16 @@ export default function AvailabilityClient() {
             setLoading(false);
         };
 
+        const verifyMember = async () => {
+            const isMember = await verifyMembershipAction(groupId);
+
+            if(!isMember){
+                alert("You are not a member of this group!");
+                redirect("/dashboard");
+            }
+        };
+        
+        verifyMember();
         fetchUserAvailability();
 
     }, [groupId]);
