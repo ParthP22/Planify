@@ -37,36 +37,6 @@ export default function AvailabilityClient() {
 
     // Load existing availability
     useEffect(() => {
-        // // Listen for authentication state changes
-        // const unsub = auth.onAuthStateChanged(async (user) => {
-        //     // If the user is not logged in, then redirect
-        //     // immediately to the login page
-        //     if (!user) {
-        //         router.push("/login");
-        //         return;
-        //     }
-        //     else{
-        //         // Obtain the availability schedule for the current user
-        //         // from the database.
-        //         const slots = await getAvailability(groupId, user.uid);
-        //         if(slots !== null){
-        //             // If not null, we set the availability slots to this
-        //             setAvailabilitySlots(slots);
-        //         }
-        //         else{
-        //             // If null, it means the user hasn't ever saved their availability
-        //             // schedule before, so we start with a blank schedule.
-        //             // Ideally though, this step shouldn't be necessary, because
-        //             // this is what the state is initialized as.
-        //             setAvailabilitySlots(Array(NUM_ROWS * NUM_COLS).fill(0));
-        //         }
-            
-        //         setLoading(false);
-        //     }
-        // });
-        
-        // // Clean up the listener on unmount to prevent memory leaks
-        // return () => unsub();
 
         const fetchUserAvailability = async () => {
             const slots = await getAvailabilityAction(groupId);
