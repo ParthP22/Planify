@@ -156,24 +156,30 @@ export default function AvailabilityPage() {
 
         setSaving(true);
 
-        const updatedSlots = [];
+        try{
+            const updatedSlots = [];
 
-        for(let i = 0; i < availabilitySlots.length; i++){
-            if(availabilitySlots[i] == 1){
-                const dayOfWeek = i % NUM_COLS;
-                const slotIndex = Math.floor(i / NUM_COLS);
+            for(let i = 0; i < availabilitySlots.length; i++){
+                if(availabilitySlots[i] == 1){
+                    const dayOfWeek = i % NUM_COLS;
+                    const slotIndex = Math.floor(i / NUM_COLS);
 
-                updatedSlots.push({
-                    dayOfWeek,
-                    slotIndex
-                });
+                    updatedSlots.push({
+                        dayOfWeek,
+                        slotIndex
+                    });
+                }
             }
+
+            await saveAvailabilityAction(groupId, updatedSlots);
+
+            alert("Availability saved successfully!");
+            router.push(`/group/${groupId}`);
         }
-
-        await saveAvailabilityAction(groupId, updatedSlots);
-
-        alert("Availability saved successfully!");
-        router.push(`/group/${groupId}`);
+        catch(error){
+            console.error(error);
+            alert("Save was unsuccessful: " + error)
+        }
         
     }
 
