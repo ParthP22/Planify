@@ -41,7 +41,8 @@ export async function computeAvailabilityCountsAction(allSlots: any){
     const availabilityCounts = Array(168).fill(0);
 
     for(const slot of allSlots){
-        const index = slot.dayOfWeek * 24 + slot.slotIndex;
+        //const index = slot.dayOfWeek * 24 + slot.slotIndex;
+        const index = slot.slotIndex * 7 + slot.dayOfWeek;
         availabilityCounts[index]++;
     }
 
