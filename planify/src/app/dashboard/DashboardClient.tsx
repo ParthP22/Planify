@@ -24,20 +24,6 @@ export default function DashboardClient() {
     const router = useRouter();
 
     useEffect(() => {
-        
-            // Listen for authentication state changes
-            // const unsub = auth.onAuthStateChanged((user) => {
-            //     // If the user is not logged in, redirect to the login page
-            //     if (!user) {
-            //         router.push("/login");
-            //     }
-            //     else{
-            //         loadGroups(user.uid);
-            //     }
-            // });
-            
-            // Clean up the listener on unmount
-            // return () => unsub();
 
             loadGroups();
     }, []);
