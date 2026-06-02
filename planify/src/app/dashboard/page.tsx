@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-// import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { createGroupAction, getUserGroupsAction, joinGroupAction } from "../actions/groups";
-// import { createGroup, joinGroup, getUserGroups } from "@/lib/groups";
 
 export default function Dashboard() {
     // Groups state to store all the groups that the user
@@ -46,15 +44,6 @@ export default function Dashboard() {
 
     // Function for the button to create a new group for the user.
     const handleCreateGroup = async () => {
-        // const user = auth.currentUser;
-
-        // If the user is not logged in, we return.
-        // Ideally, this should never happen, since this
-        // case is already handled in the useEffect 
-        // function above, but it's good to be safe.
-        // if(!user){
-        //     return;
-        // }
 
         // Remove all trailing and leading whitespace of the group's name.
         // If the string is empty, then alert the user.
@@ -64,26 +53,14 @@ export default function Dashboard() {
         }
 
         // Store the contents of the Promise
-        // const res = await createGroup(groupName.trim(), user.uid);
 
         const ret = await createGroupAction(groupName.trim());
         setResult(ret);
-
-        // Update the results state with the content of the new group.
-        // setResult(res);
-
-        // Reload the groups section
-        // loadGroups(user.uid);
+        loadGroups();
     }
 
     // Function for the button to handle joining another group
     const handleJoin = async () => {
-
-        // Check to be sure that the user is indeed logged in.
-        // const user = auth.currentUser;
-        // if(!user){
-        //     return;
-        // }
 
         // Removing all leading and trailing whitespace from the
         // invite code. If the string is empty, alert the user.
@@ -93,16 +70,6 @@ export default function Dashboard() {
         }
 
         try{
-            // Try joining the user into the group
-            // const joinStatus = await joinGroup(inviteCode, user.uid);
-
-            // If joinStatus is false, then the user is already in the group.
-            // if(!joinStatus){
-            //     alert("You are already in this group");
-            // }
-            // else{
-            //     alert("Joined group!");
-            // }
 
             const joinStatus = await joinGroupAction(inviteCode.trim());
 
@@ -119,9 +86,6 @@ export default function Dashboard() {
             alert(error.message);
         }
 
-        // Reload the groups again
-        // loadGroups(user.uid);
-
         loadGroups();
     }
 
@@ -131,8 +95,7 @@ export default function Dashboard() {
 
         const data = await getUserGroupsAction();
         setGroups(data);
-        // const data = await getUserGroups(userId);
-        // setGroups(data);
+
     }
 
     return (
