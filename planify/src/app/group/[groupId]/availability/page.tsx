@@ -154,6 +154,8 @@ export default function AvailabilityPage() {
         //     alert("Save was unsuccessful: " + error.message);
         // }
 
+        setSaving(true);
+
         const updatedSlots = [];
 
         for(let i = 0; i < availabilitySlots.length; i++){
