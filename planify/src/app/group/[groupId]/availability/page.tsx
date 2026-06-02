@@ -129,30 +129,6 @@ export default function AvailabilityPage() {
     // Asynchronous function to handle saving the 
     // updated schedule to the database.
     async function handleSave(){
-        // const user = auth.currentUser;
-        
-        // // If the current user is not authenticated,
-        // // then cancel this operation.
-        // if(!user){
-        //     return;
-        // }
-
-        // // Set the saving state to true
-        // setSaving(true);
-
-        // try{
-        //     // Run the function to save the availability schedule to
-        //     // the database
-        //     await saveAvailability(groupId, user.uid, availabilitySlots);
-
-        //     // Alert the user that it was saved
-        //     alert("Availability saved successfully!");
-        //     router.push(`/group/${groupId}`);
-        // }
-        // catch(error: any){
-        //     // Alert the user with an error if the save fails
-        //     alert("Save was unsuccessful: " + error.message);
-        // }
 
         setSaving(true);
 
