@@ -8,7 +8,7 @@ export default async function AvailabilityPage() {
     const session = await auth();
 
     if(!session?.user){
-        redirect("/user");
+        redirect("/login");
     }
 
     return <AvailabilityClient />
