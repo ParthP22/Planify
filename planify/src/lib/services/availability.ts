@@ -12,3 +12,37 @@ export async function getAvailabilityService(userId: string, groupId: string){
         },
     });
 }
+
+export async function saveAvailabilityService(groupId: string, userId: string, updatedSlots: {dayOfWeek: number, slotIndex: number}[]){
+    const membership = await prisma.membership.findUnique({
+        where: {
+            userId_groupId: {
+                userId: userId,
+                groupId: groupId,
+            },
+        },
+    });
+
+    if(!membership){
+        return;
+    }
+
+    const membershipId = membership.id;
+    
+    await prisma.$transaction([
+        prisma.availabilitySlot.deleteMany({
+            where: {
+                membershipId: membershipId,
+            },
+        }),
+
+        prisma.availabilitySlot.createMany({
+            data: updatedSlots.map((slot) => ({
+                membershipId: membershipId,
+                dayOfWeek: slot.dayOfWeek,
+                slotIndex: slot.slotIndex
+            
+            })),
+        }),
+    ]);
+}
