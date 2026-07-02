@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOutUser } from "@/actions/auth-actions";
+import Image from "next/image";
 
 export default function Navbar() {
 
@@ -29,7 +30,13 @@ export default function Navbar() {
         <nav className="navbar nav-bg px-3">
             <div className="d-flex align-items-center gap-3">
                 <Link className="navbar-brand text-light" href="/dashboard">
-                    <img src="/calendar.png" height="30px" width="30px"></img>
+                    {/* <img src="/calendar.png" height="30px" width="30px"></img> */}
+                    <Image 
+                        src="/calendar.png"
+                        alt="calendar image"
+                        height="30"
+                        width="30"
+                    />
                     
                     Planify
                 </Link>
@@ -42,11 +49,18 @@ export default function Navbar() {
 
                 {/* Display the user's profile picture from their Google account */}
                 {user && user.image && (
-                    <img
+                    // <img
+                    //     src={user.image}
+                    //     alt="User"
+                    //     className="rounded-circle"
+                    //     style={{ width: "30px", height: "30px" }}
+                    // />
+                    <Image 
                         src={user.image}
                         alt="User"
                         className="rounded-circle"
-                        style={{ width: "30px", height: "30px" }}
+                        width="30"
+                        height="30"
                     />
                 )}
 
