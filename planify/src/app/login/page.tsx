@@ -20,7 +20,6 @@ export default function LoginPage() {
           Planify
         </h1>
 
-        {/* <img src="/calendar.png" height="300px" width="300px"></img> */}
         <Image 
           src="/calendar.png"
           alt="calendar image"
@@ -40,7 +39,6 @@ export default function LoginPage() {
           className="btn btn-light shadow-sm rounded-3 px-4 py-3 d-flex align-items-center"
           onClick={logIn}
         >
-          {/* <img src="google-logo.png" height="20px" width="20px"></img> */}
           <Image 
             src="/google-logo.png"
             alt="Google logo"
