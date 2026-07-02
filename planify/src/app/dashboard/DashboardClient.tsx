@@ -1,20 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createGroupAction, getUserGroupsAction, joinGroupAction } from "../actions/groups";
+import type { Group } from "@prisma/client";
 
-export default function DashboardClient() {
+interface DashboardClientProps {
+    initialGroups: Group[];
+}
+
+export default function DashboardClient({ initialGroups }: DashboardClientProps) {
     // Groups state to store all the groups that the user
     // is apart of.
-    const [groups, setGroups] = useState<any[]>([]);
+    const [groups, setGroups] = useState<Group[]>(initialGroups);
 
     // The name of the group that the user is typing when creating
     // a new group. 
     const [groupName, setGroupName] = useState("");
 
     // Store the result from a newly created group.
-    const [result, setResult] = useState<any>(null);
+    const [result, setResult] = useState<Group | null>(null);
 
     // The name of the invite code that the user is typing when
     // attempting to join a group.
@@ -23,10 +28,14 @@ export default function DashboardClient() {
     // Initialize router to be able to perform redirects.
     const router = useRouter();
 
-    useEffect(() => {
+    // This function that updates the groups state and reloads
+    // the groups section of the dashboard for the user.
+    const loadGroups = async () => {
 
-            loadGroups();
-    }, []);
+        const data = await getUserGroupsAction() as Group[];
+        setGroups(data);
+
+    }
 
     // Function for the button to create a new group for the user.
     const handleCreateGroup = async () => {
@@ -40,7 +49,7 @@ export default function DashboardClient() {
 
         // Store the contents of the Promise
 
-        const ret = await createGroupAction(groupName.trim());
+        const ret = await createGroupAction(groupName.trim()) as Group;
         setResult(ret);
         loadGroups();
     }
@@ -67,21 +76,12 @@ export default function DashboardClient() {
             }
 
         }
-        catch (error: any){
+        catch (error){
             // Catch and display any error messages
-            alert(error.message);
+            alert(error);
         }
 
         loadGroups();
-    }
-
-    // This function that updates the groups state and reloads
-    // the groups section of the dashboard for the user.
-    const loadGroups = async () => {
-
-        const data = await getUserGroupsAction();
-        setGroups(data);
-
     }
 
     return (
