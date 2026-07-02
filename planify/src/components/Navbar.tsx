@@ -1,18 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-// import { signOut, User } from "firebase/auth";
-import { signOut } from "next-auth/react";
-import { User } from "next-auth";
-import { auth } from "@/auth";
 import { useSession } from "next-auth/react";
 import { signOutUser } from "@/actions/auth-actions";
 
 export default function Navbar() {
-    // Create router to control sending the user to other pages.
-    const router = useRouter();
 
     // Use the URL that this component is on
     const pathname = usePathname();
