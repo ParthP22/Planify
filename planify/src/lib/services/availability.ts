@@ -1,6 +1,6 @@
 "use server";
 
-import { AvailabilitySlot } from "@prisma/client";
+import type { AvailabilitySlot } from "@prisma/client";
 import { prisma } from "../prisma";
 
 export async function getAvailabilityService(userId: string, groupId: string){

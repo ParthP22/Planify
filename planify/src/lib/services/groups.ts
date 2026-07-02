@@ -2,7 +2,7 @@
 
 import { prisma } from "../prisma";
 import { generateInviteCode } from "@/utils/groups/inviteCode";
-import { Group, AvailabilitySlot, Membership } from "@prisma/client";
+import type { Group, AvailabilitySlot, Membership } from "@prisma/client";
 
 export async function createGroupService(userId: string, groupName: string){
     const code = generateInviteCode();

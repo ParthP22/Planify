@@ -12,7 +12,7 @@ import {
     leaveGroupService, 
     verifyMembershipService 
 } from "@/lib/services/groups";
-import { AvailabilitySlot, Group, Membership } from "@prisma/client";
+import type { AvailabilitySlot, Group, Membership } from "@prisma/client";
 
 export async function createGroupAction(name: string){
     const session = await auth();
