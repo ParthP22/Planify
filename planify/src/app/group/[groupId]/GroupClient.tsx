@@ -225,6 +225,7 @@ export default function GroupClient() {
                                         className="rounded-circle"
                                         height="30"
                                         width="30"
+                                        style={{ marginRight: "10px" }}
                                         
                                     />
                                     // <img
