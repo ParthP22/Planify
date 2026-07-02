@@ -12,6 +12,7 @@ import {
     leaveGroupService, 
     verifyMembershipService 
 } from "@/lib/services/groups";
+import { AvailabilitySlot, Group, Membership } from "@prisma/client";
 
 export async function createGroupAction(name: string){
     const session = await auth();
@@ -20,7 +21,7 @@ export async function createGroupAction(name: string){
         throw new Error("User is not authorized.");
     }   
 
-    return createGroupService(session.user.id, name);
+    return await createGroupService(session.user.id, name) as Group;
 }
 
 export async function getUserGroupsAction(){
@@ -30,7 +31,7 @@ export async function getUserGroupsAction(){
         throw new Error("User is not authorized.");
     }
 
-    return getUserGroupsService(session.user.id);
+    return await getUserGroupsService(session.user.id) as Group[];
 }
 
 export async function joinGroupAction(inviteCode: string){
@@ -40,15 +41,15 @@ export async function joinGroupAction(inviteCode: string){
         throw new Error("User is not authenticated.");
     }
 
-    return joinGroupService(session.user.id, inviteCode);
+    return await joinGroupService(session.user.id, inviteCode) as Membership;
 }
 
 export async function getGroupAvailabilityAction(groupId: string){
-    return getGroupAvailabilityService(groupId);
+    return await getGroupAvailabilityService(groupId) as AvailabilitySlot[];
 }
 
-export async function computeAvailabilityCountsAction(allSlots: any){
-    const availabilityCounts = Array(168).fill(0);
+export async function computeAvailabilityCountsAction(allSlots: AvailabilitySlot[]){
+    const availabilityCounts = Array(168).fill(0) as number[];
 
     for(const slot of allSlots){
         //const index = slot.dayOfWeek * 24 + slot.slotIndex;
@@ -60,11 +61,11 @@ export async function computeAvailabilityCountsAction(allSlots: any){
 }
 
 export async function getGroupNameAction(groupId: string){
-    return await getGroupNameService(groupId);
+    return await getGroupNameService(groupId) as Group;
 }
 
 export async function getGroupMembersAction(groupId: string){
-    return await getGroupMembersService(groupId);
+    return await getGroupMembersService(groupId) as Membership[];
 }
 
 export async function getInviteCodeAction(groupId: string){
@@ -74,7 +75,7 @@ export async function getInviteCodeAction(groupId: string){
         return null;
     }
 
-    return inviteCode.inviteCode;
+    return inviteCode.inviteCode as string;
 }
 
 export async function verifyMembershipAction(groupId: string){
@@ -84,7 +85,7 @@ export async function verifyMembershipAction(groupId: string){
         throw new Error("User is not authenticated.");
     }
 
-    return await verifyMembershipService(session.user.id, groupId);
+    return await verifyMembershipService(session.user.id, groupId) as Membership;
 }
 
 export async function leaveGroupAction(groupId: string){
@@ -94,5 +95,5 @@ export async function leaveGroupAction(groupId: string){
         throw new Error("User is not authenticated.");
     }
 
-    return await leaveGroupService(session.user.id, groupId);
+    return await leaveGroupService(session.user.id, groupId) as Membership;
 }
