@@ -2,6 +2,7 @@
 
 import { prisma } from "../prisma";
 import { generateInviteCode } from "@/utils/groups/inviteCode";
+import { Group, AvailabilitySlot, Membership } from "@prisma/client";
 
 export async function createGroupService(userId: string, groupName: string){
     const code = generateInviteCode();
@@ -27,7 +28,7 @@ export async function createGroupService(userId: string, groupName: string){
             memberships: true,
             createdBy: true,
         },
-    });
+    }) as Promise<Group>;
 }
 
 export async function getUserGroupsService(userId: string){
@@ -42,7 +43,7 @@ export async function getUserGroupsService(userId: string){
         orderBy: {
             createdAt: "desc",
         }
-    });
+    }) as Promise<Group[]>;
 }
 
 export async function joinGroupService(userId: string, inviteCode: string){
@@ -73,7 +74,7 @@ export async function joinGroupService(userId: string, inviteCode: string){
             groupId: group.id,
             role: "MEMBER",
         }
-    });
+    }) as Promise<Membership>;
 }
 
 export async function getGroupAvailabilityService(groupId: string){
@@ -90,7 +91,7 @@ export async function getGroupAvailabilityService(groupId: string){
                 }
             }
         }
-    });
+    }) as Promise<AvailabilitySlot[]>;
 }
 
 export async function getGroupNameService(groupId: string){
@@ -98,7 +99,7 @@ export async function getGroupNameService(groupId: string){
         where: {
             id: groupId,
         },
-    });
+    }) as Promise<Group>;
 }
 
 export async function getGroupMembersService(groupId: string){
@@ -109,7 +110,7 @@ export async function getGroupMembersService(groupId: string){
         include: {
             user: true,
         }
-    });
+    }) as Promise<Membership[]>;
 }
 
 export async function getInviteCodeService(groupId: string){
@@ -117,7 +118,7 @@ export async function getInviteCodeService(groupId: string){
         where: {
             id: groupId,
         }
-    });
+    }) as Promise<Group>;
 }
 
 export async function verifyMembershipService(userId: string, groupId: string){
@@ -128,7 +129,7 @@ export async function verifyMembershipService(userId: string, groupId: string){
                 groupId: groupId,
             },
         },
-    });
+    }) as Promise<Membership>;
 }
 
 export async function leaveGroupService(userId: string, groupId: string){
@@ -139,5 +140,5 @@ export async function leaveGroupService(userId: string, groupId: string){
                 groupId: groupId,
             },
         },
-    });
+    }) as Promise<Membership>;
 }
