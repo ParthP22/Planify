@@ -13,6 +13,7 @@ import { MembershipWithUser } from "@/lib/types/membership";
 import { useParams } from "next/navigation";
 import { useRouter, redirect } from "next/navigation";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function GroupClient() {
     // React hook to access the parameters in the URL.
@@ -218,12 +219,20 @@ export default function GroupClient() {
                                 <li key={member.user.id} className="list-group-item">
                                 {/* Display the user's photo if they have one */ }
                                 {member.user.image && (
-                                    <img
-                                    src={member.user.image}
-                                    alt={member.user.name}
-                                    className="rounded-circle"
-                                    style={{ width: "30px", height: "30px", marginRight: "10px" }}
+                                    <Image 
+                                        src={member.user.image}
+                                        alt={(!member.user.name) ? "" : member.user.name}
+                                        className="rounded-circle"
+                                        height="30"
+                                        width="30"
+                                        
                                     />
+                                    // <img
+                                    // src={member.user.image}
+                                    // alt={member.user.name}
+                                    // className="rounded-circle"
+                                    // style={{ width: "30px", height: "30px", marginRight: "10px" }}
+                                    // />
                                 )}
 
                                 {/* Display the user's name. If they don't have one saved, then display their email */}

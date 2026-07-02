@@ -1,14 +1,10 @@
 "use client";
 
 import { signInWithGoogle } from "@/actions/auth-actions";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 
 export default function LoginPage() {
-  // Create router to control sending the user to other pages.
-  const router = useRouter();
-
   // Asynchronous function to handle sign-in/sign-up via Google
   const logIn = async () => {
     
@@ -24,7 +20,13 @@ export default function LoginPage() {
           Planify
         </h1>
 
-        <img src="/calendar.png" height="300px" width="300px"></img>
+        {/* <img src="/calendar.png" height="300px" width="300px"></img> */}
+        <Image 
+          src="/calendar.png"
+          alt="calendar image"
+          height="300"
+          width="300"
+        />
 
         <p className="fs-3 text-light mb-5">
           Coordinate schedules with your group.
@@ -38,7 +40,13 @@ export default function LoginPage() {
           className="btn btn-light shadow-sm rounded-3 px-4 py-3 d-flex align-items-center"
           onClick={logIn}
         >
-          <img src="google-logo.png" height="20px" width="20px"></img>
+          {/* <img src="google-logo.png" height="20px" width="20px"></img> */}
+          <Image 
+            src="/google-logo.png"
+            alt="Google logo"
+            height="20"
+            width="20"
+          />
 
           <span className="ms-2 fw-semibold">
             Sign in with Google

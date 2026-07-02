@@ -47,7 +47,7 @@ export default function AvailabilityClient() {
             else{
                 const newSlots = Array(NUM_ROWS * NUM_COLS).fill(0);
                 slots.forEach((slot) => {
-                    let index = (slot.slotIndex * NUM_COLS) + slot.dayOfWeek;
+                    const index = (slot.slotIndex * NUM_COLS) + slot.dayOfWeek;
                     newSlots[index] = 1;
                 });
                 setAvailabilitySlots(newSlots);
