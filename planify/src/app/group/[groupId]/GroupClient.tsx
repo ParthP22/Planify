@@ -217,27 +217,21 @@ export default function GroupClient() {
                         <ul className="list-group">
                             {members.map((member) => (
                                 <li key={member.user.id} className="list-group-item">
-                                {/* Display the user's photo if they have one */ }
-                                {member.user.image && (
-                                    <Image 
-                                        src={member.user.image}
-                                        alt={(!member.user.name) ? "" : member.user.name}
-                                        className="rounded-circle"
-                                        height="30"
-                                        width="30"
-                                        style={{ marginRight: "10px" }}
-                                        
-                                    />
-                                    // <img
-                                    // src={member.user.image}
-                                    // alt={member.user.name}
-                                    // className="rounded-circle"
-                                    // style={{ width: "30px", height: "30px", marginRight: "10px" }}
-                                    // />
-                                )}
+                                    {/* Display the user's photo if they have one */ }
+                                    {member.user.image && (
+                                        <Image 
+                                            src={member.user.image}
+                                            alt={(!member.user.name) ? "" : member.user.name}
+                                            className="rounded-circle"
+                                            height="30"
+                                            width="30"
+                                            style={{ marginRight: "10px" }}
+                                            
+                                        />
+                                    )}
 
-                                {/* Display the user's name. If they don't have one saved, then display their email */}
-                                {member.user.name || member.user.email}
+                                    {/* Display the user's name. If they don't have one saved, then display their email */}
+                                    {member.user.name || member.user.email}
                                 </li>
                             ))}
                         </ul>
@@ -268,37 +262,37 @@ export default function GroupClient() {
 
                                 <div className="d-flex align-items-center">
                                     <div
-                                    style={{
-                                        width: "20px",
-                                        height: "20px",
-                                        backgroundColor: "#EEEEEE",
-                                        marginRight: "8px",
-                                        border: "1px solid #ccc"
-                                    }}
+                                        style={{
+                                            width: "20px",
+                                            height: "20px",
+                                            backgroundColor: "#EEEEEE",
+                                            marginRight: "8px",
+                                            border: "1px solid #ccc"
+                                        }}
                                     />
                                     <span>No one available</span>
                                 </div>
 
                                 <div className="d-flex align-items-center">
                                     <div
-                                    style={{
-                                        width: "20px",
-                                        height: "20px",
-                                        backgroundColor: "rgba(0, 123, 255, 0.5)",
-                                        marginRight: "8px"
-                                    }}
+                                        style={{
+                                            width: "20px",
+                                            height: "20px",
+                                            backgroundColor: "rgba(0, 123, 255, 0.5)",
+                                            marginRight: "8px"
+                                        }}
                                     />
                                     <span>Some people available</span>
                                 </div>
 
                                 <div className="d-flex align-items-center">
                                     <div
-                                    style={{
-                                        width: "20px",
-                                        height: "20px",
-                                        backgroundColor: "rgba(0, 255, 123, 0.5)",
-                                        marginRight: "8px"
-                                    }}
+                                        style={{
+                                            width: "20px",
+                                            height: "20px",
+                                            backgroundColor: "rgba(0, 255, 123, 0.5)",
+                                            marginRight: "8px"
+                                        }}
                                     />
                                     <span>Best time (most people available)</span>
                                 </div>
