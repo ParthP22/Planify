@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth";
 import { getAvailabilityService, saveAvailabilityService } from "@/lib/services/availability";
+import { AvailabilitySlot } from "@prisma/client";
 
 export async function getAvailabilityAction(groupId: string){
     const session = await auth();
@@ -10,7 +11,7 @@ export async function getAvailabilityAction(groupId: string){
         throw new Error("User is not authenticated.");
     }
 
-    return await getAvailabilityService(session.user.id, groupId);
+    return getAvailabilityService(session.user.id, groupId) as Promise<AvailabilitySlot[]>;
 }
 
 export async function saveAvailabilityAction(groupId: string, updatedSlots: {dayOfWeek: number, slotIndex: number}[]){
@@ -20,5 +21,5 @@ export async function saveAvailabilityAction(groupId: string, updatedSlots: {day
         throw new Error("User is not authenticated");
     }
 
-    return await saveAvailabilityService(groupId, session.user.id, updatedSlots);
+    return saveAvailabilityService(groupId, session.user.id, updatedSlots);
 }

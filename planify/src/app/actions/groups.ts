@@ -24,7 +24,7 @@ export async function createGroupAction(name: string){
         throw new Error("User is not authorized.");
     }   
 
-    return await createGroupService(session.user.id, name) as GroupWithCreatorAndMemberships;
+    return createGroupService(session.user.id, name) as Promise<GroupWithCreatorAndMemberships>;
 }
 
 export async function getUserGroupsAction(){
@@ -34,7 +34,7 @@ export async function getUserGroupsAction(){
         throw new Error("User is not authorized.");
     }
 
-    return await getUserGroupsService(session.user.id) as Group[];
+    return getUserGroupsService(session.user.id) as Promise<Group[]>;
 }
 
 export async function joinGroupAction(inviteCode: string){
@@ -44,11 +44,11 @@ export async function joinGroupAction(inviteCode: string){
         throw new Error("User is not authenticated.");
     }
 
-    return await joinGroupService(session.user.id, inviteCode) as Membership;
+    return joinGroupService(session.user.id, inviteCode) as Promise<Membership>;
 }
 
 export async function getGroupAvailabilityAction(groupId: string){
-    return await getGroupAvailabilityService(groupId) as AvailabilitySlotWithMembershipAndUser[];
+    return getGroupAvailabilityService(groupId) as Promise<AvailabilitySlotWithMembershipAndUser[]>;
 }
 
 export async function computeAvailabilityCountsAction(allSlots: AvailabilitySlot[]){
@@ -64,11 +64,11 @@ export async function computeAvailabilityCountsAction(allSlots: AvailabilitySlot
 }
 
 export async function getGroupNameAction(groupId: string){
-    return await getGroupNameService(groupId) as Group;
+    return getGroupNameService(groupId) as Promise<Group>;
 }
 
 export async function getGroupMembersAction(groupId: string){
-    return await getGroupMembersService(groupId) as MembershipWithUser[];
+    return getGroupMembersService(groupId) as Promise<MembershipWithUser[]>;
 }
 
 export async function getInviteCodeAction(groupId: string){
@@ -88,7 +88,7 @@ export async function verifyMembershipAction(groupId: string){
         throw new Error("User is not authenticated.");
     }
 
-    return await verifyMembershipService(session.user.id, groupId) as Membership;
+    return verifyMembershipService(session.user.id, groupId) as Promise<Membership>;
 }
 
 export async function leaveGroupAction(groupId: string){
@@ -98,5 +98,5 @@ export async function leaveGroupAction(groupId: string){
         throw new Error("User is not authenticated.");
     }
 
-    return await leaveGroupService(session.user.id, groupId) as Membership;
+    return leaveGroupService(session.user.id, groupId) as Promise<Membership>;
 }
