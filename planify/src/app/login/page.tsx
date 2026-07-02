@@ -1,32 +1,15 @@
 "use client";
 
-import { auth } from "@/lib/firebase";
-import { addUser } from "@/lib/users";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import { signInWithGoogle } from "@/actions/auth-actions";
 import Image from "next/image";
 
+
 export default function LoginPage() {
-  // Create router to control sending the user to other pages.
-  const router = useRouter();
-
   // Asynchronous function to handle sign-in/sign-up via Google
-  const signIn = async () => {
-    const provider = new GoogleAuthProvider();
-    const loginData = await signInWithPopup(auth, provider);
-    const user = loginData.user;
-
-    // Listen for authentication state changes
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      if (currentUser) {
-        addUser(user);
-      }
-    });
-
-    router.push("/dashboard");
-
-    // Clean up the listener on unmount to prevent memory leaks
-    return () => unsubscribe();
+  const logIn = async () => {
+    
+    await signInWithGoogle();
+    
   };
 
   return (
@@ -37,7 +20,12 @@ export default function LoginPage() {
           Planify
         </h1>
 
-        <img src="/calendar.png" height="300px" width="300px"></img>
+        <Image 
+          src="/calendar.png"
+          alt="calendar image"
+          height="300"
+          width="300"
+        />
 
         <p className="fs-3 text-light mb-5">
           Coordinate schedules with your group.
@@ -49,9 +37,14 @@ export default function LoginPage() {
 
         <button
           className="btn btn-light shadow-sm rounded-3 px-4 py-3 d-flex align-items-center"
-          onClick={signIn}
+          onClick={logIn}
         >
-          <img src="google-logo.png" height="20px" width="20px"></img>
+          <Image 
+            src="/google-logo.png"
+            alt="Google logo"
+            height="20"
+            width="20"
+          />
 
           <span className="ms-2 fw-semibold">
             Sign in with Google

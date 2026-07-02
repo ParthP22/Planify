@@ -1,39 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { auth } from "@/lib/firebase";
-import { signOut } from "firebase/auth";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { User } from "firebase/auth";
+import { useSession } from "next-auth/react";
+import { signOutUser } from "@/actions/auth-actions";
+import Image from "next/image";
 
 export default function Navbar() {
-    // Create router to control sending the user to other pages.
-    const router = useRouter();
 
     // Use the URL that this component is on
     const pathname = usePathname();
 
-    // Store the current user in a state
-    const [user, setUser] = useState<User | null>(null);
+    const {data: session } = useSession();
 
-
-    useEffect(() => {
-        // Listen for authentication state changes
-        const unsub = auth.onAuthStateChanged((user) => {
-            // If the user who is logged in changes, then update the user state
-            setUser(user);
-        });
-
-        // Unmount the auth listener
-        return () => unsub();
-    }, []);
+    const user = session?.user;
 
     // Function to handle the sign-out operation when
     // clicking the Log Out button
     const handleLogout = async () => {
-        await signOut(auth);
-        router.push("/login");
+        await signOutUser();
     };
 
     // Don't render the Navbar on the login page
@@ -45,7 +30,13 @@ export default function Navbar() {
         <nav className="navbar nav-bg px-3">
             <div className="d-flex align-items-center gap-3">
                 <Link className="navbar-brand text-light" href="/dashboard">
-                    <img src="/calendar.png" height="30px" width="30px"></img>
+                    {/* <img src="/calendar.png" height="30px" width="30px"></img> */}
+                    <Image 
+                        src="/calendar.png"
+                        alt="calendar image"
+                        height="30"
+                        width="30"
+                    />
                     
                     Planify
                 </Link>
@@ -57,19 +48,26 @@ export default function Navbar() {
             <div className="d-flex align-items-center gap-3 ms-auto">
 
                 {/* Display the user's profile picture from their Google account */}
-                {user && user.photoURL && (
-                    <img
-                        src={user.photoURL}
+                {user && user.image && (
+                    // <img
+                    //     src={user.image}
+                    //     alt="User"
+                    //     className="rounded-circle"
+                    //     style={{ width: "30px", height: "30px" }}
+                    // />
+                    <Image 
+                        src={user.image}
                         alt="User"
                         className="rounded-circle"
-                        style={{ width: "30px", height: "30px" }}
+                        width="30"
+                        height="30"
                     />
                 )}
 
                 {/* Display the user's name from their Google account */}
                 {user && (
                     <span className="text-light">
-                        {user.displayName}
+                        {user.name}
                     </span>
                 )}
 
