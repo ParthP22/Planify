@@ -1,5 +1,6 @@
 "use server";
 
+import { AvailabilitySlot } from "@prisma/client";
 import { prisma } from "../prisma";
 
 export async function getAvailabilityService(userId: string, groupId: string){
@@ -10,7 +11,7 @@ export async function getAvailabilityService(userId: string, groupId: string){
                 groupId: groupId,
             },
         },
-    });
+    }) as Promise<AvailabilitySlot[]>;
 }
 
 export async function saveAvailabilityService(groupId: string, userId: string, updatedSlots: {dayOfWeek: number, slotIndex: number}[]){
