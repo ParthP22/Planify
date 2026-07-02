@@ -12,6 +12,9 @@ import {
     leaveGroupService, 
     verifyMembershipService 
 } from "@/lib/services/groups";
+import { AvailabilitySlotWithMembershipAndUser } from "@/lib/types/availability";
+import { GroupWithCreatorAndMemberships } from "@/lib/types/group";
+import { MembershipWithUser } from "@/lib/types/membership";
 import type { AvailabilitySlot, Group, Membership } from "@prisma/client";
 
 export async function createGroupAction(name: string){
@@ -21,7 +24,7 @@ export async function createGroupAction(name: string){
         throw new Error("User is not authorized.");
     }   
 
-    return await createGroupService(session.user.id, name) as Group;
+    return await createGroupService(session.user.id, name) as GroupWithCreatorAndMemberships;
 }
 
 export async function getUserGroupsAction(){
@@ -45,7 +48,7 @@ export async function joinGroupAction(inviteCode: string){
 }
 
 export async function getGroupAvailabilityAction(groupId: string){
-    return await getGroupAvailabilityService(groupId) as AvailabilitySlot[];
+    return await getGroupAvailabilityService(groupId) as AvailabilitySlotWithMembershipAndUser[];
 }
 
 export async function computeAvailabilityCountsAction(allSlots: AvailabilitySlot[]){
@@ -65,7 +68,7 @@ export async function getGroupNameAction(groupId: string){
 }
 
 export async function getGroupMembersAction(groupId: string){
-    return await getGroupMembersService(groupId) as Membership[];
+    return await getGroupMembersService(groupId) as MembershipWithUser[];
 }
 
 export async function getInviteCodeAction(groupId: string){

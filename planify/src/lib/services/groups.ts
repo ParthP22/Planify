@@ -2,7 +2,10 @@
 
 import { prisma } from "../prisma";
 import { generateInviteCode } from "@/utils/groups/inviteCode";
-import type { Group, AvailabilitySlot, Membership } from "@prisma/client";
+import type { Group, Membership } from "@prisma/client";
+import { GroupWithCreatorAndMemberships } from "../types/group";
+import { AvailabilitySlotWithMembershipAndUser } from "../types/availability";
+import { MembershipWithUser } from "../types/membership";
 
 export async function createGroupService(userId: string, groupName: string){
     const code = generateInviteCode();
@@ -28,7 +31,7 @@ export async function createGroupService(userId: string, groupName: string){
             memberships: true,
             createdBy: true,
         },
-    }) as Promise<Group>;
+    }) as Promise<GroupWithCreatorAndMemberships>;
 }
 
 export async function getUserGroupsService(userId: string){
@@ -91,7 +94,7 @@ export async function getGroupAvailabilityService(groupId: string){
                 }
             }
         }
-    }) as Promise<AvailabilitySlot[]>;
+    }) as Promise<AvailabilitySlotWithMembershipAndUser[]>;
 }
 
 export async function getGroupNameService(groupId: string){
@@ -110,7 +113,7 @@ export async function getGroupMembersService(groupId: string){
         include: {
             user: true,
         }
-    }) as Promise<Membership[]>;
+    }) as Promise<MembershipWithUser[]>;
 }
 
 export async function getInviteCodeService(groupId: string){
