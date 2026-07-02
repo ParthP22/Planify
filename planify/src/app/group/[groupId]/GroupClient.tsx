@@ -9,7 +9,7 @@ import {
     verifyMembershipAction 
 } from "@/app/actions/groups";
 import { getInviteCodeAction } from "@/app/actions/groups";
-import { MembershipWithUser } from "@/lib/types/membership";
+import { MembershipWithUser } from "@/lib/types";
 import { useParams } from "next/navigation";
 import { useRouter, redirect } from "next/navigation";
 import { useState, useEffect } from "react";

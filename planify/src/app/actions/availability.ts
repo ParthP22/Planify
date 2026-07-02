@@ -1,7 +1,12 @@
 "use server";
 
 import { auth } from "@/auth";
-import { getAvailabilityService, saveAvailabilityService } from "@/lib/services/availability";
+
+import { 
+    getAvailabilityService, 
+    saveAvailabilityService 
+} from "@/lib/services/availability";
+
 import { AvailabilitySlot } from "@prisma/client";
 
 export async function getAvailabilityAction(groupId: string){

@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
+
 import { 
     createGroupService, 
     getGroupAvailabilityService, 
@@ -12,10 +13,17 @@ import {
     leaveGroupService, 
     verifyMembershipService 
 } from "@/lib/services/groups";
-import { AvailabilitySlotWithMembershipAndUser } from "@/lib/types/availability";
-import { GroupWithCreatorAndMemberships } from "@/lib/types/group";
-import { MembershipWithUser } from "@/lib/types/membership";
-import type { AvailabilitySlot, Group, Membership } from "@prisma/client";
+
+import type { 
+    AvailabilitySlotWithMembershipAndUser,
+    GroupWithCreatorAndMemberships,
+    MembershipWithUser
+} from "@/lib/types";
+import type { 
+    AvailabilitySlot, 
+    Group, 
+    Membership 
+} from "@prisma/client";
 
 export async function createGroupAction(name: string){
     const session = await auth();
