@@ -9,6 +9,7 @@ import {
     verifyMembershipAction 
 } from "@/app/actions/groups";
 import { getInviteCodeAction } from "@/app/actions/groups";
+import { MembershipWithUser } from "@/lib/types/membership";
 import { useParams } from "next/navigation";
 import { useRouter, redirect } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -32,7 +33,7 @@ export default function GroupClient() {
     const [overlap, setOverlap] = useState<number[]>([]);
 
     // Store an array of all the members of the groups.
-    const [members, setMembers] = useState<any[]>([]);
+    const [members, setMembers] = useState<MembershipWithUser[]>([]);
 
     // Loading state to indicate if the page is loading.
     const [loading, setLoading] = useState(true);
